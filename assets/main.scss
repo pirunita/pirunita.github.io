@@ -43,7 +43,10 @@ $on-laptop:        800px;
   }
 }
 
-
+.center {
+  display: block;
+  margin: auto;
+}
 
 // Import partials from the `whiteglass` theme.
 @import "whiteglass";

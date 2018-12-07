@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-07T13:59:35+00:00</updated>
+  <updated>2018-12-07T15:19:20+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -24,6 +24,80 @@
     </author>
   
 
+  
+  
+    <entry xml:lang="ko">
+      
+      <title type="html">StarGAN 정리</title>
+      
+      
+      <link href="http://localhost:4000/2018/12/07/StarGAN/" rel="alternate" type="text/html" title="StarGAN 정리" />
+      
+      <published>2018-12-07T14:07:17+00:00</published>
+      <updated>2018-12-07T14:07:17+00:00</updated>
+      <id>http://localhost:4000/2018/12/07/StarGAN</id>
+      <content type="html" xml:base="http://localhost:4000/2018/12/07/StarGAN/">&lt;h2&gt;StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation&lt;/h2&gt;
+
+&lt;h5&gt;Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image translation.” arXiv preprint 1711 (2017).&lt;/h5&gt;
+&lt;hr /&gt;
+
+&lt;h3&gt;1. Introduction&lt;/h3&gt;
+&lt;p&gt;  image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발젼시켰다.
+&lt;br /&gt;
+&lt;br /&gt;
+두 개의 서로 다른 &lt;strong&gt;domain&lt;/strong&gt;으로부터 training data가 주어졌을 때 model은 한 domain에서 다른 domain으로 image translation을 하도록 학습한다. 이 때의 term들을 다음과 같이 정의한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;attribute : meaningful feature(hair color, gender, age..)&lt;/li&gt;
+  &lt;li&gt;attribute value : a particular value of an attribute(brown, black, male, female..)&lt;/li&gt;
+  &lt;li&gt;domain : a set of images sharing the same attribute
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/01.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;특히 몇몇 image datasets은 수많은 labeled attributes와 관련이 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;CelebA dataset : facial attributes(머리색, 성별, 나이 등..)와 관련된 40개의 label들을 가지고 있다.&lt;/li&gt;
+  &lt;li&gt;RaFD dataset : facial expressions(happy, angry, sad)와 같은 8개의 label들을 가지고 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;StarGAN은 이러한 점에서 multiple domain으로부터 attribute에 따라 image를 바꾸는 multi-domain image-to-image translation을 생각해낸 것이다. Figure 1의 우측은 RaFD를 학습하면서 얻은 feature를 이용하여 CelebA와 RaFD jointly training으로 CelebA image의 표정을 바꾸는 학습을 진행한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/02.png&quot; alt=&quot;&quot; width=&quot;50%&quot; height=&quot;50%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;  그러나 기존의 모댈은 multi-domain image translation에 매우 비효율적이다. 그 이유는 k개의 domain 간 mapping을 학습할 때 (k-1)개의 generator를 학습해야 하기 때문이다.&lt;br /&gt;
+게다가&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="Deeplearning" />
+      
+        <category term="GAN" />
+      
+
+      
+        <summary type="html">StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image translation.” arXiv preprint 1711 (2017). 1. Introduction   image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발젼시켰다. 두 개의 서로 다른 domain으로부터 training data가 주어졌을 때 model은 한 domain에서 다른 domain으로 image translation을 하도록 학습한다. 이 때의 term들을 다음과 같이 정의한다. attribute : meaningful feature(hair color, gender, age..) attribute value : a particular value of an attribute(brown, black, male, female..) domain : a set of images sharing the same attribute 특히 몇몇 image datasets은 수많은 labeled attributes와 관련이 있다. CelebA dataset : facial attributes(머리색, 성별, 나이 등..)와 관련된 40개의 label들을 가지고 있다. RaFD dataset : facial expressions(happy, angry, sad)와 같은 8개의 label들을 가지고 있다. StarGAN은 이러한 점에서 multiple domain으로부터 attribute에 따라 image를 바꾸는 multi-domain image-to-image translation을 생각해낸 것이다. Figure 1의 우측은 RaFD를 학습하면서 얻은 feature를 이용하여 CelebA와 RaFD jointly training으로 CelebA image의 표정을 바꾸는 학습을 진행한다.   그러나 기존의 모댈은 multi-domain image translation에 매우 비효율적이다. 그 이유는 k개의 domain 간 mapping을 학습할 때 (k-1)개의 generator를 학습해야 하기 때문이다. 게다가</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry xml:lang="ko">
@@ -56,7 +130,7 @@
       
 
       
-        <category term="deeplearning" />
+        <category term="Deeplearning" />
       
 
       

@@ -1,3 +1,7 @@
+.center {
+  display: block;
+  margin: auto; }
+
 /**
  * Reset some basic elements
  */

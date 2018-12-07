@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
   <head>
   <meta charset="utf-8">
@@ -9,12 +9,12 @@
   
   
   
-  <title>pirunita</title>
-  <meta name="description" content="pirunita">
+  <title>StarGAN 정리</title>
+  <meta name="description" content="StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image translation.” arXiv preprint 1711 (2017). 1. Introduction   image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발젼시켰다. 두 개의 서로 다른 domain으로부터 training data가 주어졌을 때 model은 한 domain에서 다른 domain으로 image translation을 하도록 학습한다. 이 때의 term들을 다음과 같이 정의한다. attribute : meaningful feature(hair color, gender, age..) attribute value : a particular value of an attribute(brown, black, male, female..) domain : a set of images sharing the same attribute 특히 몇몇 image datasets은 수많은 labeled attributes와 관련이 있다. CelebA dataset : facial attributes(머리색, 성별, 나이 등..)와 관련된 40개의 label들을 가지고 있다. RaFD dataset : facial expressions(happy, angry, sad)와 같은 8개의 label들을 가지고 있다. StarGAN은 이러한 점에서 multiple domain으로부터 attribute에 따라 image를 바꾸는 multi-domain image-to-image translation을 생각해낸 것이다. Figure 1의 우측은 RaFD를 학습하면서 얻은 feature를 이용하여 CelebA와 RaFD jointly training으로 CelebA image의 표정을 바꾸는 학습을 진행한다.   그러나 기존의 모댈은 multi-domain image translation에 매우 비효율적이다. 그 이유는 k개의 domain 간 mapping을 학습할 때 (k-1)개의 generator를 학습해야 하기 때문이다. 게다가">
   
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/">
+  <link rel="canonical" href="http://localhost:4000/2018/12/07/StarGAN/">
   
   
   <link rel="alternate" type="application/rss+xml" title="pirunita" href="http://localhost:4000/feed.xml">
@@ -24,8 +24,8 @@
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="pirunita">
-  <meta name="twitter:description" content="pirunita">
+  <meta name="twitter:title" content="StarGAN 정리">
+  <meta name="twitter:description" content="StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image tr...">
   
   
   
@@ -72,42 +72,28 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  
-
-  
-
-  <ul class="post-list">
+  <header class="post-header">
     
-      
-      
-
-      <li lang="ko">
-        <header class="post-header">
-          <h1 class="post-title">
-            
-              <a class="post-link" href="/2018/12/07/StarGAN/">StarGAN 정리</a>
-            
-          </h1>
-
-          <p class="post-meta">
-            Dec 7, 2018
-            <span>[
-              
-                
-                <a href="/tag/Deeplearning"><code class="highligher-rouge"><nobr>Deeplearning</nobr></code>&nbsp;</a>
-              
-                
-                <a href="/tag/GAN"><code class="highligher-rouge"><nobr>GAN</nobr></code>&nbsp;</a>
-              
-            ]</span>
-            
-          </p>
-        </header>
-
-        <div class="post-content">
-          <h2>StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation</h2>
+    
+      <h1 class="post-title" itemprop="name headline">StarGAN 정리</h1>
+    
+    <p class="post-meta"><time datetime="2018-12-07T14:07:17+00:00" itemprop="datePublished">Dec 7, 2018</time>
+      <span>[
+        
+          
+          <a href="/tag/Deeplearning"><code class="highligher-rouge"><nobr>Deeplearning</nobr></code>&nbsp;</a>
+        
+          
+          <a href="/tag/GAN"><code class="highligher-rouge"><nobr>GAN</nobr></code>&nbsp;</a>
+        
+      ]</span>
+    </p>
+  </header>
+  
+  <div class="post-content" itemprop="articleBody">
+    <h2>StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation</h2>
 
 <h5>Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image translation.” arXiv preprint 1711 (2017).</h5>
 <hr />
@@ -140,47 +126,10 @@
 게다가</p>
 
 
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li lang="ko">
-        <header class="post-header">
-          <h1 class="post-title">
-            
-              <a class="post-link" href="/2018/12/06/category-test/">Category test</a>
-            
-          </h1>
-
-          <p class="post-meta">
-            Dec 6, 2018
-            <span>[
-              
-                
-                <a href="/tag/Deeplearning"><code class="highligher-rouge"><nobr>Deeplearning</nobr></code>&nbsp;</a>
-              
-            ]</span>
-            
-          </p>
-        </header>
-
-        <div class="post-content">
-          <p>category test
-카테고리 테스트입니다.</p>
-
-        </div>
-        
-      </li>
-    
-  </ul>
-
+  </div>
   
 
-
-</div>
+</article>
 
       </div>
     </main>
