@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-07T15:29:03+00:00</updated>
+  <updated>2018-12-07T16:27:37+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -36,12 +36,12 @@
       <published>2018-12-07T14:07:17+00:00</published>
       <updated>2018-12-07T14:07:17+00:00</updated>
       <id>http://localhost:4000/2018/12/07/StarGAN</id>
-      <content type="html" xml:base="http://localhost:4000/2018/12/07/StarGAN/">&lt;h2&gt;StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2018/12/07/StarGAN/">&lt;h1&gt;StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation&lt;/h1&gt;
 
 &lt;h5&gt;Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image translation.” arXiv preprint 1711 (2017).&lt;/h5&gt;
 &lt;hr /&gt;
 
-&lt;h3&gt;1. Introduction&lt;/h3&gt;
+&lt;h2&gt;1. Introduction&lt;/h2&gt;
 &lt;p&gt;  image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발젼시켰다.
 &lt;br /&gt;
 &lt;br /&gt;
@@ -65,8 +65,46 @@
 
 &lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/02.png&quot; alt=&quot;&quot; width=&quot;50%&quot; height=&quot;50%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;  그러나 기존의 모댈은 multi-domain image translation에 매우 비효율적이다. 그 이유는 k개의 domain 간 mapping을 학습할 때 (k-1)개의 generator를 학습해야 하기 때문이다.&lt;br /&gt;
-게다가&lt;/p&gt;</content>
+&lt;p&gt;  그러나 기존의 모델은 multi-domain image translation에 매우 비효율적이다. 그 이유는 다음 3가지와 같다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;k개의 domain 간 mapping을 학습할 때 (k-1)개의 generator를 학습해야 하기 때문이다.&lt;/li&gt;
+  &lt;li&gt;또한 각각의 generator들은 전체 training data를 완전히 사용하지 못하고 k개의 domain 중에 2개만 학습한다. 이는 생성되는 이미지의 &lt;strong&gt;품질 저하&lt;/strong&gt;를 일으킨다.&lt;/li&gt;
+  &lt;li&gt;게다가 기존의 모델에서는 서로 다른 dataset으로부터 jointly training domain이 불가능하다. 왜냐하면 각각의 dataset은 &lt;em&gt;partially labeled&lt;/em&gt;이기 때문에..&lt;a href=&quot;#sec3_2&quot;&gt;Section 3.2&lt;/a&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/03.png&quot; alt=&quot;&quot; width=&quot;50%&quot; height=&quot;50%&quot; class=&quot;center&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;  StarGAN은 위의 그림처럼 하나의 generator로 여러 multiple domain 사이의 mapping을 학습시키는 모델 구조를 제안한다.
+&lt;br /&gt;
+또한 input으로는 &lt;strong&gt;image&lt;/strong&gt;와 &lt;strong&gt;domain information&lt;/strong&gt;을 넣는다. 이 때 domain information은 label(binary나 one-hot vector)을 사용한다.&lt;br /&gt;&lt;br /&gt;
+그리고 서로 다른 dataset의 domain의 joint training을 위해 domain label에 &lt;strong&gt;mask vector&lt;/strong&gt;라는 정보를 추가한다. 이 방법은 알려지지 않는 label은 &lt;strong&gt;무시하고&lt;/strong&gt; 특정 dataset의 label에만 &lt;strong&gt;집중&lt;/strong&gt; 할 수 있게 된다.&lt;/p&gt;
+
+&lt;p&gt;따라서 요악하면 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;각각의 domain의 image로부터 효율적으로 image-to-image translation을 학습하기 위해 &lt;strong&gt;single generator와 discriminator&lt;/strong&gt;을 이용하여 multiple domains의 mapping을 학습하는 starGAN 제안&lt;/li&gt;
+  &lt;li&gt;domain labels를 control하기 위해 &lt;strong&gt;mask vector&lt;/strong&gt;를 사용하여 multi domain image translation 학습&lt;/li&gt;
+  &lt;li&gt;StarGAN을 이용하여 facial attribute transfer와 facial expression synthesis에서 좋은 성과를 얻음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;2. Related Work&lt;/h2&gt;
+&lt;h4&gt;Generative Adversarial Networks&lt;/h4&gt;
+&lt;p&gt;생성되는 이미지가 더욱 실감나도록 adversarial loss를 leverage&lt;/p&gt;
+
+&lt;h4&gt;Conditional GANs&lt;/h4&gt;
+&lt;p&gt;본 논문에서는 conditional domain information을 넣기 위해 &lt;strong&gt;scalabe GAN framework&lt;/strong&gt;를 사용한다. 이는 다양한 domain에서 image translation을 유연하게 control할 수 있도록 한다.&lt;/p&gt;
+
+&lt;h4&gt;Image-to-Image Translation&lt;/h4&gt;
+&lt;p&gt;CycleGAN과 DiscoGAN은 &lt;strong&gt;cycle consistency loss&lt;/strong&gt;를 활용하여 input과 translated image 사이의 key attributes를 보존하므로 즉, 복원된 이미지가 입력 이미지와 비슷하게 학습시키기 위해 starGAN에서도 cycle consistency loss를 추가한다.&lt;/p&gt;
+
+&lt;p id=&quot;sec3_2&quot;&gt;
+&lt;/p&gt;
+
+&lt;h2&gt;3. Star Generative Adversarial Networks&lt;/h2&gt;
+
+&lt;h3&gt;3.1. Multi-Domain Image-to-Image Translation&lt;/h3&gt;
+
+&lt;h3&gt;3.2. Training with Multiple Datasets&lt;/h3&gt;</content>
 
       
       
@@ -91,7 +129,7 @@
       
 
       
-        <summary type="html">StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image translation.” arXiv preprint 1711 (2017). 1. Introduction   image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발젼시켰다. 두 개의 서로 다른 domain으로부터 training data가 주어졌을 때 model은 한 domain에서 다른 domain으로 image translation을 하도록 학습한다. 이 때의 term들을 다음과 같이 정의한다. attribute : meaningful feature(hair color, gender, age..) attribute value : a particular value of an attribute(brown, black, male, female..) domain : a set of images sharing the same attribute 특히 몇몇 image datasets은 수많은 labeled attributes와 관련이 있다. CelebA dataset : facial attributes(머리색, 성별, 나이 등..)와 관련된 40개의 label들을 가지고 있다. RaFD dataset : facial expressions(happy, angry, sad)와 같은 8개의 label들을 가지고 있다. StarGAN은 이러한 점에서 multiple domain으로부터 attribute에 따라 image를 바꾸는 multi-domain image-to-image translation을 생각해낸 것이다. Figure 1의 우측은 RaFD를 학습하면서 얻은 feature를 이용하여 CelebA와 RaFD jointly training으로 CelebA image의 표정을 바꾸는 학습을 진행한다.   그러나 기존의 모댈은 multi-domain image translation에 매우 비효율적이다. 그 이유는 k개의 domain 간 mapping을 학습할 때 (k-1)개의 generator를 학습해야 하기 때문이다. 게다가</summary>
+        <summary type="html">StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image translation.” arXiv preprint 1711 (2017). 1. Introduction   image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발젼시켰다. 두 개의 서로 다른 domain으로부터 training data가 주어졌을 때 model은 한 domain에서 다른 domain으로 image translation을 하도록 학습한다. 이 때의 term들을 다음과 같이 정의한다. attribute : meaningful feature(hair color, gender, age..) attribute value : a particular value of an attribute(brown, black, male, female..) domain : a set of images sharing the same attribute 특히 몇몇 image datasets은 수많은 labeled attributes와 관련이 있다. CelebA dataset : facial attributes(머리색, 성별, 나이 등..)와 관련된 40개의 label들을 가지고 있다. RaFD dataset : facial expressions(happy, angry, sad)와 같은 8개의 label들을 가지고 있다. StarGAN은 이러한 점에서 multiple domain으로부터 attribute에 따라 image를 바꾸는 multi-domain image-to-image translation을 생각해낸 것이다. Figure 1의 우측은 RaFD를 학습하면서 얻은 feature를 이용하여 CelebA와 RaFD jointly training으로 CelebA image의 표정을 바꾸는 학습을 진행한다.   그러나 기존의 모델은 multi-domain image translation에 매우 비효율적이다. 그 이유는 다음 3가지와 같다. k개의 domain 간 mapping을 학습할 때 (k-1)개의 generator를 학습해야 하기 때문이다. 또한 각각의 generator들은 전체 training data를 완전히 사용하지 못하고 k개의 domain 중에 2개만 학습한다. 이는 생성되는 이미지의 품질 저하를 일으킨다. 게다가 기존의 모델에서는 서로 다른 dataset으로부터 jointly training domain이 불가능하다. 왜냐하면 각각의 dataset은 partially labeled이기 때문에..Section 3.2   StarGAN은 위의 그림처럼 하나의 generator로 여러 multiple domain 사이의 mapping을 학습시키는 모델 구조를 제안한다. 또한 input으로는 image와 domain information을 넣는다. 이 때 domain information은 label(binary나 one-hot vector)을 사용한다. 그리고 서로 다른 dataset의 domain의 joint training을 위해 domain label에 mask vector라는 정보를 추가한다. 이 방법은 알려지지 않는 label은 무시하고 특정 dataset의 label에만 집중 할 수 있게 된다. 따라서 요악하면 다음과 같다. 각각의 domain의 image로부터 효율적으로 image-to-image translation을 학습하기 위해 single generator와 discriminator을 이용하여 multiple domains의 mapping을 학습하는 starGAN 제안 domain labels를 control하기 위해 mask vector를 사용하여 multi domain image translation 학습 StarGAN을 이용하여 facial attribute transfer와 facial expression synthesis에서 좋은 성과를 얻음 2. Related Work Generative Adversarial Networks 생성되는 이미지가 더욱 실감나도록 adversarial loss를 leverage Conditional GANs 본 논문에서는 conditional domain information을 넣기 위해 scalabe GAN framework를 사용한다. 이는 다양한 domain에서 image translation을 유연하게 control할 수 있도록 한다. Image-to-Image Translation CycleGAN과 DiscoGAN은 cycle consistency loss를 활용하여 input과 translated image 사이의 key attributes를 보존하므로 즉, 복원된 이미지가 입력 이미지와 비슷하게 학습시키기 위해 starGAN에서도 cycle consistency loss를 추가한다. 3. Star Generative Adversarial Networks 3.1. Multi-Domain Image-to-Image Translation 3.2. Training with Multiple Datasets</summary>
       
 
       
