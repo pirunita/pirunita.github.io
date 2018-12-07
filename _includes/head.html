@@ -65,7 +65,9 @@
   {% elsif site.twitter_image %}
     <meta name="twitter:image:src" content="{{ site.twitter_image }}">
   {% endif %}
-
+  {% if site.tags != "" %}
+    {% include collecttags.html %}
+  {% endif %}
   {% include fonts.html %}
   {% include google_analytics.html %}
 </head>

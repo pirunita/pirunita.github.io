@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-07T09:02:31+00:00</updated>
+  <updated>2018-12-07T13:59:35+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -24,52 +24,6 @@
     </author>
   
 
-  
-  
-    <entry xml:lang="ko">
-      
-      <title type="html">Category test</title>
-      
-      
-      <link href="http://localhost:4000/2018/12/07/testtest2/" rel="alternate" type="text/html" title="Category test" />
-      
-      <published>2018-12-07T00:00:00+00:00</published>
-      <updated>2018-12-07T00:00:00+00:00</updated>
-      <id>http://localhost:4000/2018/12/07/testtest2</id>
-      <content type="html" xml:base="http://localhost:4000/2018/12/07/testtest2/">&lt;p&gt;only english&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>pirunita</name>
-          
-          
-        </author>
-      
-
-      
-        <category term="category" />
-      
-        <category term="deeplearning" />
-      
-        <category term="algo" />
-      
-
-      
-
-      
-        <summary type="html">only english</summary>
-      
-
-      
-      
-    </entry>
-  
   
   
     <entry xml:lang="ko">
@@ -100,11 +54,9 @@
       
 
       
-        <category term="category" />
-      
-        <category term="algorithm" />
-      
 
+      
+        <category term="deeplearning" />
       
 
       

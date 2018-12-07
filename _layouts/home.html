@@ -25,9 +25,12 @@ layout: default
 
           <p class="post-meta">
             {{ post.date | date: "%b %-d, %Y" }}
-            {% if post.categories != empty or post.tags != empty %}
-              {% include category_links.html categories=post.categories tags=post.tags %}
-            {% endif %}
+            <span>[
+              {% for tag in post.tags %}
+                {% capture tag_name %}{{ tag }}{% endcapture %}
+                <a href="/tag/{{ tag_name }}"><code class="highligher-rouge"><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+              {% endfor %}
+            ]</span>
             {% if post.external-url %}
               • <a href="{{ post.url | relative_url }}">Permalink</a>
             {% endif %}
