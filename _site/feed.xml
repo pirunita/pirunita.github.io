@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-07T16:27:37+00:00</updated>
+  <updated>2018-12-08T06:38:35+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -42,7 +42,7 @@
 &lt;hr /&gt;
 
 &lt;h2&gt;1. Introduction&lt;/h2&gt;
-&lt;p&gt;  image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발젼시켰다.
+&lt;p&gt;  image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발전시켰다.
 &lt;br /&gt;
 &lt;br /&gt;
 두 개의 서로 다른 &lt;strong&gt;domain&lt;/strong&gt;으로부터 training data가 주어졌을 때 model은 한 domain에서 다른 domain으로 image translation을 하도록 학습한다. 이 때의 term들을 다음과 같이 정의한다.&lt;/p&gt;
@@ -87,24 +87,100 @@
   &lt;li&gt;StarGAN을 이용하여 facial attribute transfer와 facial expression synthesis에서 좋은 성과를 얻음&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h2&gt;2. Related Work&lt;/h2&gt;
-&lt;h4&gt;Generative Adversarial Networks&lt;/h4&gt;
+&lt;h4&gt;&lt;b&gt;Generative Adversarial Networks&lt;/b&gt;&lt;/h4&gt;
 &lt;p&gt;생성되는 이미지가 더욱 실감나도록 adversarial loss를 leverage&lt;/p&gt;
 
-&lt;h4&gt;Conditional GANs&lt;/h4&gt;
+&lt;h4&gt;&lt;b&gt;Conditional GANs&lt;/b&gt;&lt;/h4&gt;
 &lt;p&gt;본 논문에서는 conditional domain information을 넣기 위해 &lt;strong&gt;scalabe GAN framework&lt;/strong&gt;를 사용한다. 이는 다양한 domain에서 image translation을 유연하게 control할 수 있도록 한다.&lt;/p&gt;
 
-&lt;h4&gt;Image-to-Image Translation&lt;/h4&gt;
+&lt;h4&gt;&lt;b&gt;Image-to-Image Translation&lt;/b&gt;&lt;/h4&gt;
 &lt;p&gt;CycleGAN과 DiscoGAN은 &lt;strong&gt;cycle consistency loss&lt;/strong&gt;를 활용하여 input과 translated image 사이의 key attributes를 보존하므로 즉, 복원된 이미지가 입력 이미지와 비슷하게 학습시키기 위해 starGAN에서도 cycle consistency loss를 추가한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2&gt;3. Star Generative Adversarial Networks&lt;/h2&gt;
+&lt;p&gt;이번 섹션에서는 서로 다른 label을 갖는 multiple dataset을 가지고 StarGAN으로 label을 통해 image translation 시키는 지 알아본다.&lt;/p&gt;
+
+&lt;h3&gt;3.1. Multi-Domain Image-to-Image Translation&lt;/h3&gt;
+&lt;p&gt;  먼저 Generator를 학습시키기 위해서&lt;br /&gt;
+input: x, target domain label: c, output: y&lt;br /&gt;
+G(x, c) → y&lt;br /&gt;&lt;br /&gt;
+또한 auxiliary classifier을 통해 하나의 discriminator가 multiple domain을 control할 수 있도록 하였다. Discrimintor은 source와 domain label의 &lt;strong&gt;probability distributions&lt;/strong&gt;을 생성한다.&lt;br /&gt;
+D : x → {D&lt;sub&gt;src&lt;/sub&gt;(x), D&lt;sub&gt;cls&lt;/sub&gt;(x)}&lt;/p&gt;
+
+&lt;h4&gt;&lt;b&gt;Adversarial Loss&lt;/b&gt;&lt;/h4&gt;
+&lt;p&gt;  생성된 이미지와 원본 이미지를 구별하기 위해 adversarial loss를 사용한다.
+&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/05.png&quot; alt=&quot;&quot; width=&quot;60%&quot; height=&quot;60%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 D&lt;sub&gt;src&lt;/sub&gt;(x)는 discriminator D에 의해 생성된 source의 probability distribution을 뜻한다.&lt;br /&gt;
+Generator G는 최소화되고 discriminator D는 최대화하도록 할 것이다.&lt;/p&gt;
+
+&lt;h4&gt;&lt;b&gt;Domain Classification Loss&lt;/b&gt;&lt;/h4&gt;
+&lt;p&gt;  input x와 target domain label c가 주어졌을 때 우리는 x에서 target domain c로 적절히 분리 된 output y를 만드는 것이다. 이를 위해서 D의 상단에 &lt;strong&gt;auxiliary classifier&lt;/strong&gt;을 추가하고 D와 G를 최적화 할 때 &lt;strong&gt;domain classification loss&lt;/strong&gt;를 추가한다. 정리하면 다음과 같다. &lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;실제 이미지의 domain classification loss → D를 최적화&lt;/li&gt;
+  &lt;li&gt;가짜 이미지의 domain classification loss → G를 최적화&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/06.png&quot; alt=&quot;&quot; width=&quot;60%&quot; height=&quot;60%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 D&lt;sub&gt;cls&lt;/sub&gt;(c’ㅣx)는 D에 의해 계산된 domain label의 probability distribution이다. 따라서 D는 결국 이 classification loss를 최소화시켜, original domain c’에 해당하는 real image를 분류할 수 있다.&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;반면에 fake image의 domain classification에 대한 loss funcion은 다음과 같다.
+&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/07.png&quot; alt=&quot;&quot; width=&quot;60%&quot; height=&quot;60%&quot; class=&quot;center&quot; /&gt;
+여기서 G는 위 식의 loss를 줄여나가며 target domain c에 분류되는 이미지를 생성하도록 한다.&lt;/p&gt;
+
+&lt;h4&gt;&lt;b&gt;Reconstruction Loss&lt;/b&gt;&lt;/h4&gt;
+&lt;p&gt;  위의 설명했던 adversarial loss와 classification losses를 최소화함으로써 G는 더 현실적인 이미지를 생성하도록 학습하고 target domain에 정확히 대응되도록 분류한다. &lt;br /&gt;
+“However, minimizing the losses (Eqs. (1) and (3)) does not guarantee that translated images preserve the content of its input images while changing only the domain-related part of the inputs.”&lt;br /&gt;
+하지만 loss들을 최소화하면 바뀐 이미지가 input과 관련된 domain을 바꾸는 동안 입력 이미지의 내용을 유지한다는 보장이 없다.(?)&lt;br /&gt;
+따라서 generator에 &lt;strong&gt;cycle consistency loss&lt;/strong&gt;를 적용시켜 문제를 해결하고자 했다. 이는 다음과 같다.
+&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/08.png&quot; alt=&quot;&quot; width=&quot;60%&quot; height=&quot;60%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 G는 변환이미지 G(x,c)와 original domain label c’를 input으로 다시 original image x를 &lt;strong&gt;재구축(reconstruction)&lt;/strong&gt;하게 되며 L1 norm을 reconstruction loss로 사용하였다. 이 때 주목할 점은 &lt;em&gt;single generator을 두 번 사용한다&lt;/em&gt;
+&lt;br /&gt;&lt;br /&gt;
+그렇다면 이제 Fig. 3을 보면서 StarGAN의 전반적인 학습 프로세스를 요악한다. 
+&lt;br /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/04.png&quot; alt=&quot;&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;G(x:input image, c:target domain) → y:Fake image&lt;/li&gt;
+  &lt;li&gt;G(y:Fake image, c’:original domain) → x:reconstructed image&lt;/li&gt;
+  &lt;li&gt;D : Distinguish between real &amp;amp; fake + auxiliary classifier(domain label classification)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;b&gt;Full Objective&lt;/b&gt;&lt;/h4&gt;
+&lt;p&gt;  G와 D를 최적화하는 objective functions는 다음과 같다.
+&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/09.png&quot; alt=&quot;&quot; width=&quot;60%&quot; height=&quot;60%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
 
 &lt;p id=&quot;sec3_2&quot;&gt;
 &lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2&gt;3. Star Generative Adversarial Networks&lt;/h2&gt;
+&lt;h3&gt;3.2. Training with Multiple Datasets&lt;/h3&gt;
 
-&lt;h3&gt;3.1. Multi-Domain Image-to-Image Translation&lt;/h3&gt;
+&lt;p&gt;  StarGAN의 중요한 장점은 전혀 다른 label을 포함한 multiple dataset을 동시에 적용시켜 모든 label을 control할 수 있다는 점이다. 앞서 설명드린 서로 다른 label을 갖는 CelebA와 RaFD의 경우다. 예를 들어 CelebA는 attribute를 갖지만 facial expression label은 갖고 있지 않다. 이를 해결하기 위해서 reconstruction process의 &lt;b&gt;label vector c’&lt;/b&gt;를 추가할 것이다..
+&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;b&gt;Mask Vector&lt;/b&gt;&lt;/h4&gt;
+&lt;p&gt;StarGAN은 mask vector m을 통해서 필요없는 label은 무시하고 특정 dataset의 label에 집중하도록 도와준다. mask vector m을 나타내기 위해서 datasets의 수(data의 수가 아님) n개가 있다면 &lt;strong&gt;n-dimensional one-hot vector&lt;/strong&gt;을 구성한다. 
+&lt;img src=&quot;http://localhost:4000/assets/img/StarGAN/10.png&quot; alt=&quot;&quot; width=&quot;40%&quot; height=&quot;40%&quot; class=&quot;center&quot; /&gt;&lt;br /&gt;
+C&lt;sub&gt;i&lt;/sub&gt;는 i번째 dataset의 label을 나타내는 vector이다. label c&lt;sub&gt;i&lt;/sub&gt;를 표현하는 방법은 binary attribute의 &lt;strong&gt;binary vector&lt;/strong&gt; 혹은 categorical attribute을 나타내는 &lt;strong&gt;one-hot vector&lt;/strong&gt;일 수 있다. 이 때 나머지 n-1개의 unknown labels는 모두 0으로 준다.&lt;/p&gt;
 
-&lt;h3&gt;3.2. Training with Multiple Datasets&lt;/h3&gt;</content>
+&lt;h4&gt;&lt;b&gt;Training Strategy&lt;/b&gt;&lt;/h4&gt;
+&lt;p&gt;  위에 설명드렸던 domain label vector c ̃를 generator의 input으로 넣을 것이다. 그러면 generator은 불필요한 label(zero vector)을 무시하고 주어진 label을 더욱 집중할 수 있을 것이다..&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;By doing so, the generator learns to ignore the unspecified labels, which are zero vectors, and focus on the explicitly given label.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;G의 구조는 input label c ̃의 차원이 아닌 single dataset 학습 할 때와 동일하다.&lt;/li&gt;
+  &lt;li&gt;모든 dataset에 대한 label에 대해 probability distribution을 만들기 위해 D의 auxiliary classfier를 확장한다.&lt;/li&gt;
+  &lt;li&gt;D가 인식 된 label과 관련된 classification error만을 최소화시키기 위해 multi-task에서 학습을 수행한다.
+&lt;br /&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;4. Implementation&lt;/h2&gt;</content>
 
       
       
@@ -129,7 +205,7 @@
       
 
       
-        <summary type="html">StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image translation.” arXiv preprint 1711 (2017). 1. Introduction   image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발젼시켰다. 두 개의 서로 다른 domain으로부터 training data가 주어졌을 때 model은 한 domain에서 다른 domain으로 image translation을 하도록 학습한다. 이 때의 term들을 다음과 같이 정의한다. attribute : meaningful feature(hair color, gender, age..) attribute value : a particular value of an attribute(brown, black, male, female..) domain : a set of images sharing the same attribute 특히 몇몇 image datasets은 수많은 labeled attributes와 관련이 있다. CelebA dataset : facial attributes(머리색, 성별, 나이 등..)와 관련된 40개의 label들을 가지고 있다. RaFD dataset : facial expressions(happy, angry, sad)와 같은 8개의 label들을 가지고 있다. StarGAN은 이러한 점에서 multiple domain으로부터 attribute에 따라 image를 바꾸는 multi-domain image-to-image translation을 생각해낸 것이다. Figure 1의 우측은 RaFD를 학습하면서 얻은 feature를 이용하여 CelebA와 RaFD jointly training으로 CelebA image의 표정을 바꾸는 학습을 진행한다.   그러나 기존의 모델은 multi-domain image translation에 매우 비효율적이다. 그 이유는 다음 3가지와 같다. k개의 domain 간 mapping을 학습할 때 (k-1)개의 generator를 학습해야 하기 때문이다. 또한 각각의 generator들은 전체 training data를 완전히 사용하지 못하고 k개의 domain 중에 2개만 학습한다. 이는 생성되는 이미지의 품질 저하를 일으킨다. 게다가 기존의 모델에서는 서로 다른 dataset으로부터 jointly training domain이 불가능하다. 왜냐하면 각각의 dataset은 partially labeled이기 때문에..Section 3.2   StarGAN은 위의 그림처럼 하나의 generator로 여러 multiple domain 사이의 mapping을 학습시키는 모델 구조를 제안한다. 또한 input으로는 image와 domain information을 넣는다. 이 때 domain information은 label(binary나 one-hot vector)을 사용한다. 그리고 서로 다른 dataset의 domain의 joint training을 위해 domain label에 mask vector라는 정보를 추가한다. 이 방법은 알려지지 않는 label은 무시하고 특정 dataset의 label에만 집중 할 수 있게 된다. 따라서 요악하면 다음과 같다. 각각의 domain의 image로부터 효율적으로 image-to-image translation을 학습하기 위해 single generator와 discriminator을 이용하여 multiple domains의 mapping을 학습하는 starGAN 제안 domain labels를 control하기 위해 mask vector를 사용하여 multi domain image translation 학습 StarGAN을 이용하여 facial attribute transfer와 facial expression synthesis에서 좋은 성과를 얻음 2. Related Work Generative Adversarial Networks 생성되는 이미지가 더욱 실감나도록 adversarial loss를 leverage Conditional GANs 본 논문에서는 conditional domain information을 넣기 위해 scalabe GAN framework를 사용한다. 이는 다양한 domain에서 image translation을 유연하게 control할 수 있도록 한다. Image-to-Image Translation CycleGAN과 DiscoGAN은 cycle consistency loss를 활용하여 input과 translated image 사이의 key attributes를 보존하므로 즉, 복원된 이미지가 입력 이미지와 비슷하게 학습시키기 위해 starGAN에서도 cycle consistency loss를 추가한다. 3. Star Generative Adversarial Networks 3.1. Multi-Domain Image-to-Image Translation 3.2. Training with Multiple Datasets</summary>
+        <summary type="html">StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation Choi, Yunjey, et al. “Stargan: Unified generative adversarial networks for multi-domain image-to-image translation.” arXiv preprint 1711 (2017). 1. Introduction   image-to-image translation은 한 이미지에서 다른 이미지로 바꾸는 기술이다. 특히 Generative Adversarial Networks(GANs)로 image-to-image translation의 기술을 크게 발전시켰다. 두 개의 서로 다른 domain으로부터 training data가 주어졌을 때 model은 한 domain에서 다른 domain으로 image translation을 하도록 학습한다. 이 때의 term들을 다음과 같이 정의한다. attribute : meaningful feature(hair color, gender, age..) attribute value : a particular value of an attribute(brown, black, male, female..) domain : a set of images sharing the same attribute 특히 몇몇 image datasets은 수많은 labeled attributes와 관련이 있다. CelebA dataset : facial attributes(머리색, 성별, 나이 등..)와 관련된 40개의 label들을 가지고 있다. RaFD dataset : facial expressions(happy, angry, sad)와 같은 8개의 label들을 가지고 있다. StarGAN은 이러한 점에서 multiple domain으로부터 attribute에 따라 image를 바꾸는 multi-domain image-to-image translation을 생각해낸 것이다. Figure 1의 우측은 RaFD를 학습하면서 얻은 feature를 이용하여 CelebA와 RaFD jointly training으로 CelebA image의 표정을 바꾸는 학습을 진행한다.   그러나 기존의 모델은 multi-domain image translation에 매우 비효율적이다. 그 이유는 다음 3가지와 같다. k개의 domain 간 mapping을 학습할 때 (k-1)개의 generator를 학습해야 하기 때문이다. 또한 각각의 generator들은 전체 training data를 완전히 사용하지 못하고 k개의 domain 중에 2개만 학습한다. 이는 생성되는 이미지의 품질 저하를 일으킨다. 게다가 기존의 모델에서는 서로 다른 dataset으로부터 jointly training domain이 불가능하다. 왜냐하면 각각의 dataset은 partially labeled이기 때문에..Section 3.2   StarGAN은 위의 그림처럼 하나의 generator로 여러 multiple domain 사이의 mapping을 학습시키는 모델 구조를 제안한다. 또한 input으로는 image와 domain information을 넣는다. 이 때 domain information은 label(binary나 one-hot vector)을 사용한다. 그리고 서로 다른 dataset의 domain의 joint training을 위해 domain label에 mask vector라는 정보를 추가한다. 이 방법은 알려지지 않는 label은 무시하고 특정 dataset의 label에만 집중 할 수 있게 된다. 따라서 요악하면 다음과 같다. 각각의 domain의 image로부터 효율적으로 image-to-image translation을 학습하기 위해 single generator와 discriminator을 이용하여 multiple domains의 mapping을 학습하는 starGAN 제안 domain labels를 control하기 위해 mask vector를 사용하여 multi domain image translation 학습 StarGAN을 이용하여 facial attribute transfer와 facial expression synthesis에서 좋은 성과를 얻음 2. Related Work Generative Adversarial Networks 생성되는 이미지가 더욱 실감나도록 adversarial loss를 leverage Conditional GANs 본 논문에서는 conditional domain information을 넣기 위해 scalabe GAN framework를 사용한다. 이는 다양한 domain에서 image translation을 유연하게 control할 수 있도록 한다. Image-to-Image Translation CycleGAN과 DiscoGAN은 cycle consistency loss를 활용하여 input과 translated image 사이의 key attributes를 보존하므로 즉, 복원된 이미지가 입력 이미지와 비슷하게 학습시키기 위해 starGAN에서도 cycle consistency loss를 추가한다. 3. Star Generative Adversarial Networks 이번 섹션에서는 서로 다른 label을 갖는 multiple dataset을 가지고 StarGAN으로 label을 통해 image translation 시키는 지 알아본다. 3.1. Multi-Domain Image-to-Image Translation   먼저 Generator를 학습시키기 위해서 input: x, target domain label: c, output: y G(x, c) → y 또한 auxiliary classifier을 통해 하나의 discriminator가 multiple domain을 control할 수 있도록 하였다. Discrimintor은 source와 domain label의 probability distributions을 생성한다. D : x → {Dsrc(x), Dcls(x)} Adversarial Loss   생성된 이미지와 원본 이미지를 구별하기 위해 adversarial loss를 사용한다. 여기서 Dsrc(x)는 discriminator D에 의해 생성된 source의 probability distribution을 뜻한다. Generator G는 최소화되고 discriminator D는 최대화하도록 할 것이다. Domain Classification Loss   input x와 target domain label c가 주어졌을 때 우리는 x에서 target domain c로 적절히 분리 된 output y를 만드는 것이다. 이를 위해서 D의 상단에 auxiliary classifier을 추가하고 D와 G를 최적화 할 때 domain classification loss를 추가한다. 정리하면 다음과 같다. 실제 이미지의 domain classification loss → D를 최적화 가짜 이미지의 domain classification loss → G를 최적화 여기서 Dcls(c’ㅣx)는 D에 의해 계산된 domain label의 probability distribution이다. 따라서 D는 결국 이 classification loss를 최소화시켜, original domain c’에 해당하는 real image를 분류할 수 있다. 반면에 fake image의 domain classification에 대한 loss funcion은 다음과 같다. 여기서 G는 위 식의 loss를 줄여나가며 target domain c에 분류되는 이미지를 생성하도록 한다. Reconstruction Loss   위의 설명했던 adversarial loss와 classification losses를 최소화함으로써 G는 더 현실적인 이미지를 생성하도록 학습하고 target domain에 정확히 대응되도록 분류한다. “However, minimizing the losses (Eqs. (1) and (3)) does not guarantee that translated images preserve the content of its input images while changing only the domain-related part of the inputs.” 하지만 loss들을 최소화하면 바뀐 이미지가 input과 관련된 domain을 바꾸는 동안 입력 이미지의 내용을 유지한다는 보장이 없다.(?) 따라서 generator에 cycle consistency loss를 적용시켜 문제를 해결하고자 했다. 이는 다음과 같다. 여기서 G는 변환이미지 G(x,c)와 original domain label c’를 input으로 다시 original image x를 재구축(reconstruction)하게 되며 L1 norm을 reconstruction loss로 사용하였다. 이 때 주목할 점은 single generator을 두 번 사용한다 그렇다면 이제 Fig. 3을 보면서 StarGAN의 전반적인 학습 프로세스를 요악한다. G(x:input image, c:target domain) → y:Fake image G(y:Fake image, c’:original domain) → x:reconstructed image D : Distinguish between real &amp;amp; fake + auxiliary classifier(domain label classification) Full Objective   G와 D를 최적화하는 objective functions는 다음과 같다. 3.2. Training with Multiple Datasets   StarGAN의 중요한 장점은 전혀 다른 label을 포함한 multiple dataset을 동시에 적용시켜 모든 label을 control할 수 있다는 점이다. 앞서 설명드린 서로 다른 label을 갖는 CelebA와 RaFD의 경우다. 예를 들어 CelebA는 attribute를 갖지만 facial expression label은 갖고 있지 않다. 이를 해결하기 위해서 reconstruction process의 label vector c’를 추가할 것이다.. Mask Vector StarGAN은 mask vector m을 통해서 필요없는 label은 무시하고 특정 dataset의 label에 집중하도록 도와준다. mask vector m을 나타내기 위해서 datasets의 수(data의 수가 아님) n개가 있다면 n-dimensional one-hot vector을 구성한다. Ci는 i번째 dataset의 label을 나타내는 vector이다. label ci를 표현하는 방법은 binary attribute의 binary vector 혹은 categorical attribute을 나타내는 one-hot vector일 수 있다. 이 때 나머지 n-1개의 unknown labels는 모두 0으로 준다. Training Strategy   위에 설명드렸던 domain label vector c ̃를 generator의 input으로 넣을 것이다. 그러면 generator은 불필요한 label(zero vector)을 무시하고 주어진 label을 더욱 집중할 수 있을 것이다.. By doing so, the generator learns to ignore the unspecified labels, which are zero vectors, and focus on the explicitly given label. G의 구조는 input label c ̃의 차원이 아닌 single dataset 학습 할 때와 동일하다. 모든 dataset에 대한 label에 대해 probability distribution을 만들기 위해 D의 auxiliary classfier를 확장한다. D가 인식 된 label과 관련된 classification error만을 최소화시키기 위해 multi-task에서 학습을 수행한다. 4. Implementation</summary>
       
 
       
