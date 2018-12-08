@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "StarGAN 정리"
-date:   2018-12-07 23:07:17 +0900
+date:   2018-12-08 17:17:00 +0900
 lang: ko
 tags: Deeplearning GAN
 ---
