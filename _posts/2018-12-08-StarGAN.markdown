@@ -131,18 +131,52 @@ C<sub>i</sub>는 i번째 dataset의 label을 나타내는 vector이다. label c<
 
 #### <b>Training Strategy</b> ####
 &nbsp;&nbsp;위에 설명드렸던 domain label vector c ̃를 generator의 input으로 넣을 것이다. 그러면 generator은 불필요한 label(zero vector)을 무시하고 주어진 label을 더욱 집중할 수 있을 것이다..<br>
-~~~
-By doing so, the generator learns to ignore the unspecified labels, which are zero vectors, and focus on the explicitly given label.
-~~~
-
+<b>
+"By doing so, the generator learns to ignore the unspecified labels, which are zero vectors, and focus on the explicitly given label.
+"
+</b>
 * G의 구조는 input label c ̃의 차원이 아닌 single dataset 학습 할 때와 동일하다.
 * 모든 dataset에 대한 label에 대해 probability distribution을 만들기 위해 D의 auxiliary classfier를 확장한다.
 * D가 인식 된 label과 관련된 classification error만을 최소화시키기 위해 multi-task에서 학습을 수행한다.
 <br><br>
 
 ## 4. Implementation ##
+#### <b>Improved GAN Training</b> ####
+&nbsp;&nbsp;학습을 안정화시키고 high quality image를 만들기 위해 Adversarial loss를 gradient penalty가 포함 된 **Wasserstein GAN objective**로 바꾼다.
+![]({{ site.url }}/assets/img/StarGAN/05.png){: width="60%" height="60%" .center}
+<center>↓</center><br>
+![]({{ site.url }}/assets/img/StarGAN/11.png){: width="60%" height="60%" .center}<br>
+λ<sub>gp</sub> = 10으로 설정한다. x^는 한 pair의 real image와 생성된 이미지 사이의 직선을 따라 균일하게 샘플링 된다.(?)<br>
 
+#### <b>Network Architecture</b> ####
+&nbsp;&nbsp;StarGaN의 generator network와 discriminator는 다음과 같이 구성되어 있다.
+* Generator network architecture
+![]({{ site.url }}/assets/img/StarGAN/12.png){: width="80%" height="80%" .center}<br>
+* Discriminator network architecture
+![]({{ site.url }}/assets/img/StarGAN/13.png){: width="80%" height="80%" .center}
+<br><br>
 
+## 5. Experiments ##
+
+### 5.1. Baseline Models ###
+* DIAT
+* CycleGAN
+* IcGAN
+
+### 5.2. Dataset ###
+* CelebA : 202,599 face images of celebrities, 40 binary attributes, 7 domains
+    + Attributes : hair color(black, blond, brown), gender(male/female), age(young/old)
+* RaFD : 4,824 images collected from 67 participants, 8 facial expression in 3 different gaze directions
+
+### 5.3. Training ###
+* Using Adam optimizer, β<sub>1</sub> = 0.5, β<sub>2</sub> = 0.999
+* Batch size : 16
+* Learning rate
+    + CelebA : 0.0001에서 10 epochs마다 감소
+    + RaFD : 0.0001에서 100 epochs 마다 감소
+* Source : single NVIDIA Tesla M40 GPU
+
+### 5.4. Experimental Results on CelebA ###
 
 
 
