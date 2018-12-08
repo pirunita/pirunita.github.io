@@ -5,7 +5,7 @@ date:   2018-12-08 17:17:00 +0900
 lang: ko
 tags: Deeplearning GAN
 ---
-# StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-toImage Translation #
+# StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-to-Image Translation #
 
 ##### Choi, Yunjey, et al. "Stargan: Unified generative adversarial networks for multi-domain image-to-image translation." arXiv preprint 1711 (2017). #####
 <hr>
