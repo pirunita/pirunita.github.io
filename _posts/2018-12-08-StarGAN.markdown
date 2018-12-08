@@ -65,7 +65,7 @@ CycleGAN과 DiscoGAN은 **cycle consistency loss**를 활용하여 input과 tran
 <br><br>
 ## 3. Star Generative Adversarial Networks ##
 이번 섹션에서는 서로 다른 label을 갖는 multiple dataset을 가지고 StarGAN으로 label을 통해 image translation 시키는 지 알아본다.
-
+![]({{ site.url }}/assets/img/StarGAN/04.png){: .center}
 
 ### 3.1. Multi-Domain Image-to-Image Translation ###
 &nbsp;&nbsp;먼저 Generator를 학습시키기 위해서<br>
@@ -103,9 +103,10 @@ Generator G는 최소화되고 discriminator D는 최대화하도록 할 것이�
 
 여기서 G는 변환이미지 G(x,c)와 original domain label c'를 input으로 다시 original image x를 **재구축(reconstruction)**하게 되며 L1 norm을 reconstruction loss로 사용하였다. 이 때 주목할 점은 *single generator을 두 번 사용한다*
 <br><br>
-그렇다면 이제 Fig. 3을 보면서 StarGAN의 전반적인 학습 프로세스를 요악한다. 
+그렇다면 이제 다음 그림을 보면서 StarGAN의 전반적인 학습 프로세스를 요악한다. 
 <br>
-![]({{ site.url }}/assets/img/StarGAN/04.png){: .center}
+![]({{ site.url }}/assets/img/StarGAN/14.png){: .center}
+![]({{ site.url }}/assets/img/StarGAN/15.png){: .center}
 
 * G(x:input image, c:target domain) → y:Fake image
 * G(y:Fake image, c':original domain) → x:reconstructed image
@@ -178,7 +179,19 @@ C<sub>i</sub>는 i번째 dataset의 label을 나타내는 vector이다. label c<
 
 ### 5.4. Experimental Results on CelebA ###
 
+![]({{ site.url }}/assets/img/StarGAN/16.png){: .center}
+&nbsp;&nbsp;먼저 CelebA로만 학습시켰을 때의 결과다. multiple attribute에서 합성을 진행하였으며, 좋은 퀄리티를 낼 수 있었다.
 
+### 5.5. Experimental Results on RaFD ###
+![]({{ site.url }}/assets/img/StarGAN/17.png){: .center}
+&nbsp;&nbsp;다음은 RaFD로만 학습을 시켰을 때의 결과이다.
 
+### 5.6. Experimental Results on CelebA + RaFD ###
+![]({{ site.url }}/assets/img/StarGAN/18.png){: .center}
+&nbsp;&nbsp;Multi Domatin뿐만 아니라 Multi dataset으로도 학습시킨 결과이다.
+* StarGAN(SNG) : RaFD로 학습시킨 모델로 CelebA에 적용시킨 결과
+* StarGAN(JNT) : RaFD + CelebA로 학습시킨 모델로 CelebA에 적용시킨 결과
+
+multi dataset으로 학습시킨 모델이 조금 더 사진을 잘 생성해내는 것을 알 수 있다.
 
 
