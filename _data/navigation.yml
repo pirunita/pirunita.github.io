@@ -3,6 +3,8 @@
 main:
   - title: "About"
     url: /about/
+  - title: "TagCloud"
+    url: /tagcloud/
   - title: "Archives"
     url: /archives/
   - title: "GitHub"
