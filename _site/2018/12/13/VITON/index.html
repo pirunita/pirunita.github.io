@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>VITON 정리</title>
+  <meta name="description" content="VITON: An Image-based Virtual Try-on Network Xintong Han, et al. “VITON: An Image-based Virtual Try-on Network” arXiv: 1711.08447 (2017). 1. Introduction   VITON은 어떠한 3D 정보 없이 plain RGB image만을 갖고 image기반의 virtual try-on을 제안한다. VITON은 옷을 착용한 사람의 영역에 균일하게 상품이미지를 overlaying시켜 photo-realistic한 이미지를 합성하고자 한다. 이 때 합성되는 이미지에는 몇 가지 issue들이 있다. 원본 이미지에서 body parts와 사람의 pose가 같아야 한다. 상품 이미지의 옷이 사람의 pose와 body shape에 맞춰 자연스럽게 변형되어야 한다. 상품의 low-level feature(color, texture)나 복잡한 그래픽(로고, 자수)와 같은 디테일한 시각적 패턴이 명확하게 드러나야 한다.   Conditional Generative Adversarial Networks는 다양한 이미지 처리에서 좋은 결과를 보여준 네트워크이기 때문에 이 문제를 해결하기 위해 자연스럽게 사용할 것이다. 특히 CGAN은 adversarial loss를 최소화하여 input signal을 조건으로 generator에서 생성된 이미지가 discriminator에 의해 진짜 이미지와 구별될 수 없도록 한다. 하지만 CGAN은 object단위의 클래스나 attribute를 rough하게 변형하기 때문에 디테일하거나 기하학적인 변화를 기대하기는 어렵다는 한계가 있다.   이러한 한계를 해결하기 위해 VITON에서는 2D image 기반으로 target clothing item에서 옷을 입은 사람의 영역으로 균일하게 바꾸는 새로운 coarse-to-fine framework를 제안한다. 특히, 사람의 서로 다른 특징을 표현하기 위해서 clothing-agnostic representation을 도입한다. Multi-task encoder-decoder network : target clothing item을 옷을 입히고 싶은 마스크(clothing region mask)에 맞춰 같은 포즈로 coarse synthetic clothed person을 생성한다. 이 때 clothing region mask는 옷을 변형하는 데 가이드라인으로 사용 될 것이다. refinement network : 이 네트워크는 warping된 옷이 coarse image에 얼마나 잘 합성되는 지 학습하며, 이를 통해 원하는 옷이 자연스럽게 변형되어 입혀질 것이다. 2. Related Work Fashion analysis 2D image들을 input으로 넣어 vitual try-on에 중점을 두었다. Image synthesis 당연히 알고 있는 것이지만 conditional GANs을 통해 image-to-image translation을 수행한다. 최근에는 adversarial training을 사용하지 않고 regression loss를 사용한 CNN을 통해 더욱 photo-realistic한 이미지를 생성할 수 있었다.(CRN, Cascaded Refinement Networks) 하지만 기하학적인 변형에는 한계가 있다. (CycleGAN) 대신에 VITON은 refinement network를 통해 clothing region에 집중하고 clothing deformation을 처리할 것이다. (1. 최근에 CRN과 CycleGAN을 비교해 좋은 성능을 보여준 논문을 봤는데 pix2pixHD였나..다시 봐야 할 듯..) (2. CRN은 기하학적인 변형이 불가능하다면 CRN과 refinement network의 차이는 무엇일까) Fashion application에서 image synthesis은 다양하게 나왔다. 여기서 제시 된 가장 관련된 것은 Fashion GAN Virtual try-on 다양한 virtual try-on들이 소개 된다. 가장 주목할만 한 것은 conditional analogy GAN으로 swap fashion을 하는 데, 이 작업의 문제는 target item과 original item을 각각 입고 있어야 하는 데이터가 필요하므로 실용적이지 못하며 person representation이 전혀 들어가지 않아 현실적이지 못함. 3. VITON   옷을 입고있는 사람 reference image I와 그 target clothing item c를 통해 새로운 image I^를 합성하는 것이다. 이 때 target clothing c는 그 사람의 body parts와 pose 값들을 통해 해당 영역에 맞춰 변형될 것이다. 핵심은 product image가 몸에 맞게 적절히 변형되도록 학습하는 것이다.   보다 실용적인 가상 피팅 시나리오를 위해서 test할 때는 reference image, 즉 입히고 싶은 사람사진과 원하는 상품이미지만 필요하다. 따라서 보다 실용적인 학습을 위해서 학습 진행 시 input으로 상품 이미지 c와 c를 입고 있는 reference image I가 들어가게 된다. 하지만 이것만으로는 generator가 사람의 정보를 통해 옷을 변형시킬 수 없기 때문에 다음과 같은 과정을 진행으로 학습한다. Clothing-agnostic person representation Encoder-decoder architecture Refinement network 3.1. Person Representation   VITON에서 보다 기술적인 도전은 사람의 자세에 맞춰 의류 이미지를 변형시키는 것이다. 따라서 VITON은 위 그림과 같이 pose, body parts, Face and hair의 정보를 포함하는 clothing-agnostic person representation를 도입하였다. Pose heatmap   사람의 자세에 따라서 옷은 다양하게 변하게 된다. 따라서 VITON에서는 최신 pose estimator를 사용하여 사람의 pose를 18개의 keypoint를 좌표로 나타냈다. 그리고 공간 레이아웃의 활용을 위해 각 키 포인트는 그 주변이 11 * 11이 1로 채워지는 heatmap으로 구성되고 나머지는 0으로 채워진다.   → keypoint로 부터 18 채널의 pose heatmap으로 구성 Human body representation   옷의 형태는 신체의 모양에 크게 의존하기 때문에 target clothing을 변형시키는 것은 신체 부위와 신체 형태에 따라 달라진다. 따라서 human parser를 통해 신체를 영역별로 추출하는 human segmentation map을 얻는다.   또한 VITON에서는 segmentation map을 1-channel binary mask(1 : 얼굴과 머리를 제외한 신체, 0 : 그 외)를 얻어 16 * 12의 저해상도 이미지를 위 그림과 같이 얻는다. 이를 통해 body shape와 target clothing간의 충돌을 방지할 수 있다.(왜?)   → segmentation map으로 부터 1 채널의 binary mask로 구성 Face and hair segment   사진 속 인물의 특성을 살리기 위해서는 얼굴, 피부 색, 머리 모양과 같은 physical attributes를 추출해야 한다. 따라서 VITON에서는 human parser를 사용하여 이미지를 생성할 때 얼굴의 RGB channel과 hair region을 추출한다.   → human parser로 부터 3 채널의 face color &amp;amp; hair region으로 구성 Concatenation   최종적으로 clothing-agnostic person representation p를 형성하기 위해서 위의 3가지 feature map을 같은 해상도로 resize 및 concatenate를 진행한다. m : 256, height of the feature map n : 192, widht of the feature map k : 18(pose heat map) + 1(segment to binary mask) + 3(human parser RGB) = 22의 채널 수를 나타낸다.">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2018/12/13/VITON/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="pirunita" href="http://localhost:4000/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="VITON 정리">
+  <meta name="twitter:description" content="VITON: An Image-based Virtual Try-on Network Xintong Han, et al. “VITON: An Image-based Virtual Try-on Network” arXiv: 1711.08447 (2017). 1. Introduction   VITON은 어떠한 3D 정보 없이 plain RGB image만을 갖고 ...">
+  
+  
+  
+    
+
+
+
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">pirunita</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/pirunita">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+    
+      <h1 class="post-title" itemprop="name headline">VITON 정리</h1>
+    
+    <p class="post-meta"><time datetime="2018-12-13T16:13:00+00:00" itemprop="datePublished">Dec 13, 2018</time>
+      <span>[
+        
+          
+          <a href="/tag/Deeplearning"><code class="highligher-rouge"><nobr>Deeplearning</nobr></code>&nbsp;</a>
+        
+          
+          <a href="/tag/GAN"><code class="highligher-rouge"><nobr>GAN</nobr></code>&nbsp;</a>
+        
+      ]</span>
+    </p>
+  </header>
+  
+  <div class="post-content" itemprop="articleBody">
+    <h1>VITON: An Image-based Virtual Try-on Network</h1>
+
+<h5>Xintong Han, et al. “VITON: An Image-based Virtual Try-on Network” arXiv: 1711.08447 (2017).</h5>
+<hr />
+
+<h2>1. Introduction</h2>
+<p>  VITON은 어떠한 3D 정보 없이 plain RGB image만을 갖고 image기반의 virtual try-on을 제안한다. VITON은 옷을 착용한 사람의 영역에 균일하게 상품이미지를 overlaying시켜 photo-realistic한 이미지를 합성하고자 한다. 이 때 합성되는 이미지에는 몇 가지 issue들이 있다.</p>
+
+<ul>
+  <li>원본 이미지에서 body parts와 사람의 pose가 같아야 한다.</li>
+  <li>상품 이미지의 옷이 사람의 pose와 body shape에 맞춰 자연스럽게 변형되어야 한다.</li>
+  <li>상품의 low-level feature(color, texture)나 복잡한 그래픽(로고, 자수)와 같은 디테일한 시각적 패턴이 명확하게 드러나야 한다.
+<br /></li>
+</ul>
+
+<p>  Conditional Generative Adversarial Networks는 다양한 이미지 처리에서 좋은 결과를 보여준 네트워크이기 때문에 이 문제를 해결하기 위해 자연스럽게 사용할 것이다. 특히 CGAN은 <strong>adversarial loss</strong>를 최소화하여 input signal을 조건으로 generator에서 생성된 이미지가 discriminator에 의해 진짜 이미지와 구별될 수 없도록 한다. <u>하지만 CGAN은 object단위의 클래스나 attribute를 rough하게 변형하기 때문에 디테일하거나 기하학적인 변화를 기대하기는 어렵다는 한계</u>가 있다.<br />
+  이러한 한계를 해결하기 위해 VITON에서는 2D image 기반으로 target clothing item에서 옷을 입은 사람의 영역으로 균일하게 바꾸는 새로운 coarse-to-fine framework를 제안한다. 특히, 사람의 서로 다른 특징을 표현하기 위해서 <strong>clothing-agnostic representation</strong>을 도입한다.</p>
+
+<ul>
+  <li>Multi-task encoder-decoder network : target clothing item을 옷을 입히고 싶은 마스크(clothing region mask)에 맞춰 같은 포즈로 <strong>coarse synthetic clothed person</strong>을 생성한다. 이 때 <strong>clothing region mask</strong>는 옷을 변형하는 데 가이드라인으로 사용 될 것이다.</li>
+  <li>refinement network : 이 네트워크는 warping된 옷이 coarse image에 얼마나 잘 합성되는 지 학습하며, 이를 통해 원하는 옷이 자연스럽게 변형되어 입혀질 것이다.</li>
+</ul>
+
+<p><br /></p>
+<h2>2. Related Work</h2>
+<h4><b> Fashion analysis </b></h4>
+<p>2D image들을 input으로 넣어 vitual try-on에 중점을 두었다.</p>
+
+<h4><b> Image synthesis </b></h4>
+<p>당연히 알고 있는 것이지만 <strong>conditional GANs</strong>을 통해 image-to-image translation을 수행한다. 최근에는 adversarial training을 사용하지 않고 <strong>regression loss</strong>를 사용한 CNN을 통해 더욱 photo-realistic한 이미지를 생성할 수 있었다.(CRN, Cascaded Refinement Networks) 하지만 기하학적인 변형에는 한계가 있다. (CycleGAN) 대신에 VITON은 <strong>refinement network</strong>를 통해 clothing region에 집중하고 clothing deformation을 처리할 것이다.
+<br /><br />
+(1. 최근에 CRN과 CycleGAN을 비교해 좋은 성능을 보여준 논문을 봤는데 pix2pixHD였나..다시 봐야 할 듯..)<br />
+(2. CRN은 기하학적인 변형이 불가능하다면 CRN과 refinement network의 차이는 무엇일까)<br /></p>
+
+<p><br />
+Fashion application에서 image synthesis은 다양하게 나왔다. 여기서 제시 된 가장 관련된 것은 <strong>Fashion GAN</strong>
+<br /></p>
+
+<h4><b> Virtual try-on </b></h4>
+<p>다양한 virtual try-on들이 소개 된다. 가장 주목할만 한 것은 <strong>conditional analogy GAN</strong>으로 swap fashion을 하는 데, 이 작업의 문제는 target item과 original item을 각각 입고 있어야 하는 데이터가 필요하므로 실용적이지 못하며 person representation이 전혀 들어가지 않아 현실적이지 못함.
+<br /></p>
+
+<h2><u>3. VITON</u></h2>
+<p><img src="http://localhost:4000/assets/img/VITON/01.png" alt="" width="70%" height="70%" class="center" />
+<br />
+  옷을 입고있는 사람 reference image I와 그 target clothing item c를 통해 새로운 image I<sup>^</sup>를 합성하는 것이다. 이 때 target clothing c는 그 사람의 body parts와 pose 값들을 통해 해당 영역에 맞춰 변형될 것이다. 핵심은 <u>product image가 몸에 맞게 적절히 변형되도록 학습하는 것</u>이다.<br />
+  보다 실용적인 가상 피팅 시나리오를 위해서 test할 때는 reference image, 즉 <u>입히고 싶은 사람</u>사진과 원하는 상품이미지만 필요하다. 따라서 보다 실용적인 학습을 위해서 학습 진행 시 input으로 상품 이미지 c와 c를 입고 있는 reference image I가 들어가게 된다. 하지만 이것만으로는 generator가 사람의 정보를 통해 옷을 변형시킬 수 없기 때문에 다음과 같은 과정을 진행으로 학습한다.</p>
+<ol>
+  <li>Clothing-agnostic person representation</li>
+  <li>Encoder-decoder architecture</li>
+  <li>Refinement network</li>
+</ol>
+
+<h3>3.1. Person Representation</h3>
+<p><img src="http://localhost:4000/assets/img/VITON/02.png" alt="" width="80%" height="80%" class="center" />
+<br />
+  VITON에서 보다 기술적인 도전은 사람의 자세에 맞춰 의류 이미지를 변형시키는 것이다. 따라서 VITON은 위 그림과 같이 <u>pose, body parts, Face and hair</u>의 정보를 포함하는 <b>clothing-agnostic person representation</b>를 도입하였다.</p>
+
+<h4><b>Pose heatmap</b></h4>
+<p>  사람의 자세에 따라서 옷은 다양하게 변하게 된다. 따라서 VITON에서는 최신 pose estimator를 사용하여 사람의 pose를 <u>18개의 keypoint를 좌표</u>로 나타냈다. 그리고 공간 레이아웃의 활용을 위해 각 키 포인트는 <u>그 주변이 11 * 11이 1로 채워지는 <b>heatmap</b></u>으로 구성되고 나머지는 0으로 채워진다.<br /><br />
+  → keypoint로 부터 18 채널의 <strong>pose heatmap</strong>으로 구성<br /></p>
+
+<h4><b>Human body representation</b></h4>
+<p>  옷의 형태는 신체의 모양에 크게 의존하기 때문에 target clothing을 변형시키는 것은 <strong>신체 부위</strong>와 <strong>신체 형태</strong>에 따라 달라진다. 따라서 <strong>human parser</strong>를 통해 신체를 영역별로 추출하는 <strong>human segmentation map</strong>을 얻는다.
+  또한 VITON에서는 segmentation map을 <strong>1-channel binary mask</strong>(1 : 얼굴과 머리를 제외한 신체, 0 : 그 외)를 얻어 16 * 12의 저해상도 이미지를 위 그림과 같이 얻는다. 이를 통해 body shape와 target clothing간의 충돌을 방지할 수 있다.(왜?)
+<br /><br />
+  → segmentation map으로 부터 1 채널의 <strong>binary mask</strong>로 구성<br /></p>
+
+<h4><b>Face and hair segment</b></h4>
+<p>  사진 속 인물의 특성을 살리기 위해서는 얼굴, 피부 색, 머리 모양과 같은 <strong>physical attributes</strong>를 추출해야 한다. 따라서 VITON에서는 <strong>human parser</strong>를 사용하여 이미지를 생성할 때 <strong>얼굴의 RGB channel</strong>과 <strong>hair region</strong>을 추출한다.
+<br /><br />
+  → human parser로 부터 3 채널의 <strong>face color &amp; hair region</strong>으로 구성<br /></p>
+
+<h4><b>Concatenation</b></h4>
+<p><img src="http://localhost:4000/assets/img/VITON/03.png" alt="" width="20%" height="20%" class="center" /><br />
+  최종적으로 clothing-agnostic person representation p를 형성하기 위해서 위의 3가지 feature map을 같은 해상도로 resize 및 concatenate를 진행한다.</p>
+<ul>
+  <li>m : 256, height of the feature map</li>
+  <li>n : 192, widht of the feature map</li>
+  <li>k : 18(pose heat map) + 1(segment to binary mask) + 3(human parser RGB) = 22의 채널 수를 나타낸다.</li>
+</ul>
+
+
+  </div>
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; pirunita - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
