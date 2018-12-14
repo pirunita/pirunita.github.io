@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>M2E-Try On Net 정리</title>
+  <meta name="description" content="M2E-Try On Net: Fashion from Model to Everyone Zhonghua Wu, et al. “M2E-Try On Net: Fashion from Model to Everyone” arXiv: 1811.08599 (2018). 1. Introduction   VITON처럼 3D 정보 없이 virtual-try-on system을 만들고 싶다. M2E에서 하고자 하는 것은 요약하면 다음 3가지와 같다. M2E-TON이라 불리는 virtual Try-On Network는 원하는 모델의 옷을 임의의 사람 사진에 자동으로 바꿔준다. 이는 M2E-TON가 디자인 한 sub-network들을 통해 texture을 보존하면서 사람의 pose에 따라 잘 정립된 real한 이미지를 만들어 줄 것이다. 특히 M2E-TON은 product image가 필요 없다는 것이 큰 특징이다. M2E-TON에서는 3가지 sub-network를 제안한다. model image에서 target person pose로 정렬되는 pose alignment network(PAN) 도입 옷의 특징을 더욱 끌어내기 위해 pose가 정렬 된 이미지에 변형된 clothes textures를 추가하는 Texture Refinement Network(TRN)을 도입 원하는 옷을 target person image에 맞추기 위한 Fitting Network(FTN)을 도입 target person P와 원하는 model clothes인 P’는 unpair한 학습 데이터이기 때문에 unsupervised learning &amp;amp; self-supervised learning의 hybrid learning framework을 사용한다. 2. Related Works   M2E-TON은 human parsing &amp;amp; analysis, person image generation, virtul try-on, fashion dataset과 관련이 있다. 2.1. Human Parsing and Human Pose Estimation   더 정확한 pose estimation을 위해 DensePose를 이용한다. DensePose는 각 픽셀마다 dense pose point를 mapping시켜 human pose estimation을 얻는 방법이다. M2E-TON에서는 clothes region warping과 pose alignment을 위해 estimated dense poses를 활용한다. 2.2. Person Image Generation and Virtual Try-On   이전에 시도되었던 virtual try on은 product image를 input으로 넣는 방식이었다. 하지만 M2E-TON은 identity와 pose를 유지하면서 model pearson에서 target person으로 자연스럽게 변할 수 있다. 2.3. Fashion Datasets Deep Fashion dataset : clothes attribute prediction과 landmark detection을 위한 fashion dataset MVC dataset : invariant clothing retrieval and attribute prediction 3. Approach 3.1. Pose Alignment Network (PAN) 3.2. Texture Refinement Network (TRN) 3.3. Fitting Network (FTN) 3.4. Unpair-Pair Joint Training 3.5. Loss Functions">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2018/12/14/M2E-Try-On-Net/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="pirunita" href="http://localhost:4000/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="M2E-Try On Net 정리">
+  <meta name="twitter:description" content="M2E-Try On Net: Fashion from Model to Everyone Zhonghua Wu, et al. “M2E-Try On Net: Fashion from Model to Everyone” arXiv: 1811.08599 (2018). 1. Introduction   VITON처럼 3D 정보 없이 virtual-try-on syste...">
+  
+  
+  
+    
+
+
+
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">pirunita</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/tagcloud/">TagCloud</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/pirunita">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+    
+      <h1 class="post-title" itemprop="name headline">M2E-Try On Net 정리</h1>
+    
+    <p class="post-meta"><time datetime="2018-12-14T12:47:00+00:00" itemprop="datePublished">Dec 14, 2018</time>
+      <span>
+        
+          
+          <a href="/tag/DeepLearning"><code class="highligher-rouge"><nobr>DeepLearning</nobr></code>&nbsp;</a>
+        
+          
+          <a href="/tag/GAN"><code class="highligher-rouge"><nobr>GAN</nobr></code>&nbsp;</a>
+        
+          
+          <a href="/tag/Virtual-Try-On"><code class="highligher-rouge"><nobr>Virtual-Try-On</nobr></code>&nbsp;</a>
+        
+      </span>
+    </p>
+  </header>
+  
+  <div class="post-content" itemprop="articleBody">
+    <h1>M2E-Try On Net: Fashion from Model to Everyone</h1>
+
+<h5>Zhonghua Wu, et al. “M2E-Try On Net: Fashion from Model to Everyone” arXiv: 1811.08599 (2018).</h5>
+<hr />
+
+<h2>1. Introduction</h2>
+<p>  VITON처럼 3D 정보 없이 virtual-try-on system을 만들고 싶다. M2E에서 하고자 하는 것은 요약하면 다음 3가지와 같다.
+<br />
+<img src="http://localhost:4000/assets/img/M2E-TON/01.png" alt="" width="70%" height="70%" class="center" /></p>
+<ul>
+  <li>
+    <p>M2E-TON이라 불리는 virtual Try-On Network는 원하는 모델의 옷을 임의의 사람 사진에 자동으로 바꿔준다. 이는 M2E-TON가 디자인 한 sub-network들을 통해 texture을 보존하면서 사람의 pose에 따라 잘 정립된 real한 이미지를 만들어 줄 것이다. 특히 M2E-TON은 <u>product image가 필요 없다는 것</u>이 큰 특징이다.</p>
+  </li>
+  <li>M2E-TON에서는 3가지 sub-network를 제안한다.
+    <ul>
+      <li>model image에서 target person pose로 정렬되는 <strong>pose alignment network(PAN)</strong> 도입</li>
+      <li>옷의 특징을 더욱 끌어내기 위해 pose가 정렬 된 이미지에 변형된 clothes textures를 추가하는 <strong>Texture Refinement Network(TRN)</strong>을 도입</li>
+      <li>원하는 옷을 target person image에 맞추기 위한 <strong>Fitting Network(FTN)</strong>을 도입</li>
+    </ul>
+  </li>
+  <li>target person P와 원하는 model clothes인 P’는 unpair한 학습 데이터이기 때문에 <strong>unsupervised learning &amp; self-supervised learning</strong>의 <u>hybrid learning framework</u>을 사용한다.</li>
+</ul>
+
+<h2>2. Related Works</h2>
+<p>  M2E-TON은 human parsing &amp; analysis, person image generation, virtul try-on, fashion dataset과 관련이 있다.</p>
+
+<h3>2.1. Human Parsing and Human Pose Estimation</h3>
+<p>  더 정확한 pose estimation을 위해 <strong>DensePose</strong>를 이용한다. DensePose는 각 픽셀마다 dense pose point를 mapping시켜 human pose estimation을 얻는 방법이다. M2E-TON에서는 clothes region warping과 pose alignment을 위해 <strong>estimated dense poses</strong>를 활용한다.
+<br /></p>
+
+<h3>2.2. Person Image Generation and Virtual Try-On</h3>
+<p>  이전에 시도되었던 virtual try on은 product image를 input으로 넣는 방식이었다.<br />
+하지만 M2E-TON은 identity와 pose를 유지하면서 model pearson에서 target person으로 자연스럽게 변할 수 있다.</p>
+
+<h3>2.3. Fashion Datasets</h3>
+<ul>
+  <li>Deep Fashion dataset : clothes attribute prediction과 landmark detection을 위한 fashion dataset</li>
+  <li>MVC dataset : invariant clothing retrieval and attribute prediction</li>
+</ul>
+
+<h2>3. Approach</h2>
+<p><img src="http://localhost:4000/assets/img/M2E-TON/02.png" alt="" width="70%" height="70%" class="center" /></p>
+<h3>3.1. Pose Alignment Network (PAN)</h3>
+
+<h3>3.2. Texture Refinement Network (TRN)</h3>
+
+<h3>3.3. Fitting Network (FTN)</h3>
+
+<h3>3.4. Unpair-Pair Joint Training</h3>
+
+<h3>3.5. Loss Functions</h3>
+
+  </div>
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; pirunita - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

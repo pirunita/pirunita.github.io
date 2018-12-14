@@ -3,7 +3,7 @@ layout: post
 title:  "VITON 정리"
 date:   2018-12-14 01:13:00 +0900
 lang: ko
-tags: Deeplearning GAN
+tags: DeepLearning GAN Virtual-Try-On
 ---
 # VITON: An Image-based Virtual Try-on Network #
 
@@ -78,4 +78,22 @@ Fashion application에서 image synthesis은 다양하게 나왔다. 여기서 �
 * m : 256, height of the feature map
 * n : 192, widht of the feature map
 * k : 18(pose heat map) + 1(segment to binary mask) + 3(human parser RGB) = 22의 채널 수를 나타낸다.
+<br>
+### 3.2. Multi-task Encoder-Decoder Generator ###
+&nbsp;&nbsp;clothing-agnostic person representation p와 target clothing image c를 통해 reference image I를 **reconstruction**하여 p영역에 c를 다시 입힐 수 있도록 학습한다. 이 때 쓰이는 **Multi-task Encoder-Decoder framework**를 통해 clothing mask를 따라 옷을 입은 사람 이미지를 형성할 것이다. 추가적으로, clothing region에 초점을 둔 network를 따라서 예측된 clothing mask는 refinement network에 활용된다. Encoder-decoder은 U-net 구조의 일반적 형태이며 **skip connection**을 통해 레이어 간 정보를 직접 공유한다.<br>
+
+![]({{ site.url }}/assets/img/VITON/01.png){: width="70%" height="70%" .center}
+
+&nbsp;&nbsp;G<sub>c</sub>를 encoder-decoder generator라고 정의하고 concatenate된 c와 p를 input으로 넣고 4-channel의 output을 만든다.<br>
+(I', M) = G<sub>c</sub>(c, p)에서 3-channels은 합성 된 이미지 I'를 나타내고 last channel M은 위의 그림에서처럼 clothing region의 segmentation mask를 나타낸다. VITON은 generator가 I'를 I와 가깝게, M을 M<sub>0</sub>(M<sub>0</sub>는 I의 human parser에 의해 예측된 **pseudo ground truth clothing mask**)와 가깝게 학습한다.<br>
+<br>
+
+### 3.3. Refinement Network ###
+
+#### <b>Warped clothing item</b> ####
+
+#### <b>Learn to composite</b> ####
+
+### Detailed Network Structures ###
+
 

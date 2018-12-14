@@ -3,7 +3,7 @@ layout: post
 title:  "StarGAN 정리"
 date:   2018-12-08 17:17:00 +0900
 lang: ko
-tags: Deeplearning GAN
+tags: DeepLearning GAN
 ---
 # StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-to-Image Translation #
 
