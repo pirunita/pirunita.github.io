@@ -21,8 +21,9 @@ tags: DeepLearning GAN Virtual-Try-On
     + 옷의 특징을 더욱 끌어내기 위해 pose가 정렬 된 이미지에 변형된 clothes textures를 추가하는 **Texture Refinement Network(TRN)**을 도입
     + 원하는 옷을 target person image에 맞추기 위한 **Fitting Network(FTN)**을 도입
 
-
 * target person P와 원하는 model clothes인 P'는 unpair한 학습 데이터이기 때문에 **unsupervised learning & self-supervised learning**의 <u>hybrid learning framework</u>을 사용한다.
+
+<br>
 
 ## 2. Related Works ##
 &nbsp;&nbsp;M2E-TON은 human parsing & analysis, person image generation, virtul try-on, fashion dataset과 관련이 있다.
@@ -38,6 +39,8 @@ tags: DeepLearning GAN Virtual-Try-On
 ### 2.3. Fashion Datasets ###
 * Deep Fashion dataset : clothes attribute prediction과 landmark detection을 위한 fashion dataset
 * MVC dataset : invariant clothing retrieval and attribute prediction
+
+<br>
 
 ## 3. Approach ##
 ![]({{ site.url }}/assets/img/M2E-TON/02.png){: width="70%" height="70%" .center}
