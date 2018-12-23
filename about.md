@@ -17,4 +17,4 @@ permalink: /about/
 <b>Objective</b><br>
 * 2018.06, "Solution processed Enhanced light extraction for Organic Light Emitting Diode(OLED)", Graduation thesis with AMIE
 * 2018.06, "Elevator reservation application using Bluetooth beacon",  Graduation portfolio with CE
-* 2018.06 - 2018.12, Software Maestro 9th(Government-sponsored)
+* 2018.06 - 2018.12, Complete Software Maestro 9th(Government-sponsored)
