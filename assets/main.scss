@@ -14,7 +14,7 @@ $base-line-height: 1.5;
 $spacing-unit:     30px;
 
 $text-color:       #111;
-$background-color: #fdfdfd;
+$background-color: #fff8dc;
 $brand-color:      #2568ba;
 
 $grey-color:       #828282;
@@ -47,6 +47,7 @@ $on-laptop:        800px;
   display: block;
   margin: auto;
 }
+
 
 // Import partials from the `whiteglass` theme.
 @import "whiteglass";

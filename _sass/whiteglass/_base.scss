@@ -111,8 +111,21 @@ a {
     color: $text-color;
     text-decoration: underline;
   }
+  
 }
-
+/*
+* tag
+*/
+span{
+  .highligher-rouge{
+    font-size: 14px;
+    background-color: #dcdcdc;
+  }
+  a:hover{
+    text-decoration: none;
+    color: Navy;
+  }
+}
 
 
 /**
@@ -205,3 +218,5 @@ pre {
   display: table;
   clear: both;
 }
+
+

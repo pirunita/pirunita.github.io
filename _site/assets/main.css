@@ -17,7 +17,7 @@ dl, dd, ol, ul, figure {
 body {
   font: 400 16px/1.5 Bitter, "Apple SD Gothic Neo", AppleGothic, NanumBarunGothic, "Malgun Gothic", Dotum, sans-serif;
   color: #111;
-  background-color: #fdfdfd;
+  background-color: #fff8dc;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
   -moz-font-feature-settings: "kern" 1;
@@ -85,6 +85,16 @@ a {
   a:hover {
     color: #111;
     text-decoration: underline; }
+
+/*
+* tag
+*/
+span .highligher-rouge {
+  font-size: 14px;
+  background-color: #dcdcdc; }
+span a:hover {
+  text-decoration: none;
+  color: Navy; }
 
 /**
  * Blockquotes
@@ -212,10 +222,10 @@ pre {
   .post-list .post-link:hover {
     text-decoration: none; }
   .post-list > li {
-    margin-bottom: 60px; }
+    margin-bottom: 45px; }
     .post-list > li:not(:first-child) {
-      border-top: 4px solid #e8e8e8;
-      padding-top: 60px; }
+      border-top: 4px solid #a9a9a9;
+      padding-top: 45px; }
 
 .post-archives {
   margin-left: 0;

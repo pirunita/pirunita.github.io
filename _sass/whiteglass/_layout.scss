@@ -82,11 +82,11 @@
   }
 
   > li {
-    margin-bottom: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 1.5;
 
     &:not(:first-child) {
-      border-top: 4px solid $grey-color-light;
-      padding-top: $spacing-unit * 2;
+      border-top: 4px solid #a9a9a9;
+      padding-top: $spacing-unit * 1.5;
     }
   }
 }
@@ -224,3 +224,4 @@
     float: right;
   }
 }
+
