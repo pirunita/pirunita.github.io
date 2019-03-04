@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "딥러닝 공부 기초"
-date:   2018-12-17 23:00:00 +0900
+date:   2018-12-23 23:00:00 +0900
 lang: ko
 tags: DeepLearning
 ---

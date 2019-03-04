@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-01-02T15:56:45+00:00</updated>
+  <updated>2019-03-04T13:22:04+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -31,12 +31,12 @@
       <title type="html">딥러닝 공부 기초</title>
       
       
-      <link href="http://localhost:4000/2018/12/17/DeepLearningBasic/" rel="alternate" type="text/html" title="딥러닝 공부 기초" />
+      <link href="http://localhost:4000/2018/12/23/DeepLearningBasic/" rel="alternate" type="text/html" title="딥러닝 공부 기초" />
       
-      <published>2018-12-17T14:00:00+00:00</published>
-      <updated>2018-12-17T14:00:00+00:00</updated>
-      <id>http://localhost:4000/2018/12/17/DeepLearningBasic</id>
-      <content type="html" xml:base="http://localhost:4000/2018/12/17/DeepLearningBasic/">&lt;h4&gt;Deep Learning from Scratch(밑바닥부터 시작하는 딥러닝), Saito koki, 한빛미디어&lt;/h4&gt;
+      <published>2018-12-23T14:00:00+00:00</published>
+      <updated>2018-12-23T14:00:00+00:00</updated>
+      <id>http://localhost:4000/2018/12/23/DeepLearningBasic</id>
+      <content type="html" xml:base="http://localhost:4000/2018/12/23/DeepLearningBasic/">&lt;h4&gt;Deep Learning from Scratch(밑바닥부터 시작하는 딥러닝), Saito koki, 한빛미디어&lt;/h4&gt;
 &lt;hr /&gt;
 
 &lt;p&gt;Chapter 1, 2 : 생략&lt;br /&gt;
@@ -75,10 +75,10 @@ Chapter 4 : &lt;a href=&quot;https://github.com/pirunita/DeepLearningBasic/blob/
   
     <entry xml:lang="ko">
       
-      <title type="html">M2E-Try On Net 정리</title>
+      <title type="html">M2E-Try On Net</title>
       
       
-      <link href="http://localhost:4000/2018/12/14/M2E-Try-On-Net/" rel="alternate" type="text/html" title="M2E-Try On Net 정리" />
+      <link href="http://localhost:4000/2018/12/14/M2E-Try-On-Net/" rel="alternate" type="text/html" title="M2E-Try On Net" />
       
       <published>2018-12-14T12:47:00+00:00</published>
       <updated>2018-12-14T12:47:00+00:00</updated>
@@ -175,10 +175,10 @@ Chapter 4 : &lt;a href=&quot;https://github.com/pirunita/DeepLearningBasic/blob/
   
     <entry xml:lang="ko">
       
-      <title type="html">VITON 정리</title>
+      <title type="html">VITON</title>
       
       
-      <link href="http://localhost:4000/2018/12/13/VITON/" rel="alternate" type="text/html" title="VITON 정리" />
+      <link href="http://localhost:4000/2018/12/13/VITON/" rel="alternate" type="text/html" title="VITON" />
       
       <published>2018-12-13T16:13:00+00:00</published>
       <updated>2018-12-13T16:13:00+00:00</updated>
@@ -319,10 +319,10 @@ Fashion application에서 image synthesis은 다양하게 나왔다. 여기서 �
   
     <entry xml:lang="ko">
       
-      <title type="html">StarGAN 정리</title>
+      <title type="html">StarGAN</title>
       
       
-      <link href="http://localhost:4000/2018/12/08/StarGAN/" rel="alternate" type="text/html" title="StarGAN 정리" />
+      <link href="http://localhost:4000/2018/12/08/StarGAN/" rel="alternate" type="text/html" title="StarGAN" />
       
       <published>2018-12-08T08:17:00+00:00</published>
       <updated>2018-12-08T08:17:00+00:00</updated>

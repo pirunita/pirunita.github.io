@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "M2E-Try On Net 정리"
+title:  "M2E-Try On Net"
 date:   2018-12-14 21:47:00 +0900
 lang: ko
 tags: DeepLearning GAN Virtual-Try-On

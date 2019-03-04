@@ -222,10 +222,10 @@ pre {
   .post-list .post-link:hover {
     text-decoration: none; }
   .post-list > li {
-    margin-bottom: 45px; }
+    margin-bottom: 36px; }
     .post-list > li:not(:first-child) {
       border-top: 4px solid #a9a9a9;
-      padding-top: 45px; }
+      padding-top: 36px; }
 
 .post-archives {
   margin-left: 0;

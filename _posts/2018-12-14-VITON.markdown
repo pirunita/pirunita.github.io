@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "VITON 정리"
+title:  "VITON"
 date:   2018-12-14 01:13:00 +0900
 lang: ko
 tags: DeepLearning GAN Virtual-Try-On
