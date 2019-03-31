@@ -23,10 +23,9 @@ layout: default
   <div class="post-content" itemprop="articleBody">
     {{ content }}
   </div>
-  {% if site.comments == true and page.comments != false %}
-    <div class="post-comments" itemprop="comment">
-      {% include custom_comments_provider.html %}
-    </div>
-  {% endif %}
-
+  <div class="post-comments" itemprop="comment">
+    {% include custom_comments_provider.html %}
+  </div>
+  
+  
 </article>
