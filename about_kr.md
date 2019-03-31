@@ -18,7 +18,7 @@ permalink: /about_kr/
 * 2018.06, "내부 광 추출층 적용을 통한 OLED소자 발광효율 향상 연구", 정보전자신소재공학 졸업논문
 * 2018.06, "블루투스 Beacon 장치를 통한 엘레베이터 예약 시스템 어플리케이션",  컴퓨터공학 졸업작품
 * 2018.06 - 2018.12, SW 마에스트로 9기 과정 수료
-  - 10인 인증자 선발
+  - 10인 인증 선발
   - 이미지 처리와 딥러닝을 이용한 가상 피팅 플랫폼 서비스 개발
 * 2019.01, UC Berkeley, BMoE(Berkeley Method of Entrepreneurship Bootcamp) 수료
 * 2019.01- 2019.02, Brookhurst Garage, Inc. 인턴

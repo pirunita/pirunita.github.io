@@ -206,6 +206,28 @@ pre {
   font-size: 15px;
   color: #828282;
   text-align: center; }
+  .site-footer .svg-icon {
+    display: block;
+    font-size: 0;
+    list-style: none;
+    margin: 0;
+    text-align: center; }
+    .site-footer .svg-icon li {
+      display: inline-block;
+      margin: 10px; }
+    .site-footer .svg-icon svg {
+      height: 30px;
+      width: 30px; }
+    .site-footer .svg-icon em {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-top: -.75em;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      right: 0;
+      bottom: 0;
+      left: 0; }
 
 /**
  * Page content

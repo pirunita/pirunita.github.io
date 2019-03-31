@@ -32,11 +32,23 @@ exclude:
   - vendor
 
 # Social media
-twitter_username:
-twitter_image:
-facebook_app_id:
-facebook_image:
-google_analytics:
+footer-links:
+  behance: 
+  dribbble:
+  email: ksparchive39@gmail.com
+  facebook: 
+  flickr:
+  github: pirunita
+  googleplus: # anything in your profile username that comes after plus.google.com/
+  instagram: sungpilkho
+  linkedin: pirunita
+  pinterest:
+  rss: # just type anything here for a working RSS icon
+  stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
+  tumblr: # https://<username>.tumblr.com
+  twitter: 
+  youtube: # channel/<your_long_string> or user/<user-name>
+
 comments: true
 disqus_url: https://pirunita.disqus.com/
 disqus_ID: pirunita
