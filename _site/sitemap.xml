@@ -5,11 +5,11 @@
 <lastmod>2018-12-23T14:00:00+00:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/2019/04/10/Docker_basic_command/</loc>
+<loc>http://localhost:4000/2019/04/10/Docker-Docker_basic_command/</loc>
 <lastmod>2019-04-10T15:00:00+00:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/2019/04/15/Binary_Search/</loc>
+<loc>http://localhost:4000/2019/04/15/C++-Binary_Search/</loc>
 <lastmod>2019-04-15T14:00:00+00:00</lastmod>
 </url>
 <url>
@@ -17,8 +17,12 @@
 <lastmod>2019-04-15T15:00:00+00:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/2019/04/16/STL_container/</loc>
+<loc>http://localhost:4000/2019/04/16/C++-STL_container/</loc>
 <lastmod>2019-04-16T03:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/2019/04/20/Daily/</loc>
+<lastmod>2019-04-20T15:00:00+00:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/tag/Daily/</loc>
@@ -64,5 +68,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/tags/daily/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/posts/2/</loc>
 </url>
 </urlset>

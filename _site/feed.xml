@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-04-16T15:19:26+00:00</updated>
+  <updated>2019-04-21T17:48:35+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -28,15 +28,63 @@
   
     <entry xml:lang="ko">
       
-      <title type="html">STL Container</title>
+      <title type="html">2019-04-21</title>
       
       
-      <link href="http://localhost:4000/2019/04/16/STL_container/" rel="alternate" type="text/html" title="STL Container" />
+      <link href="http://localhost:4000/2019/04/20/Daily/" rel="alternate" type="text/html" title="2019-04-21" />
+      
+      <published>2019-04-20T15:00:00+00:00</published>
+      <updated>2019-04-20T15:00:00+00:00</updated>
+      <id>http://localhost:4000/2019/04/20/Daily</id>
+      <content type="html" xml:base="http://localhost:4000/2019/04/20/Daily/">&lt;h3&gt;일상 및 생각&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;이번 주는 창업에 있어서 본격적인 사업화 지원서류를 많이 제출하고 발표도 하러 다녔다. 작년에도 몇 개 넣어서 적은 자금을 확보했지만, 정부 차원에서 큰 규모의 사업을 지원한 것은 처음이라 중요하고 또 떨렸다(내가 발표도 안했는데..). 그래도 지난 1년 간 해 왔던 것 그리고 우리 대표님이 워낙 언변이 좋아서 느낌이 좋다. 제발!&lt;/li&gt;
+  &lt;li&gt;학교에서 중간고사 시즌인가보다. 그 뜻은 내 휴학도 절반정도 지나갔다고 할 수 있는데, 반 학기동안 내가 잘 해 왔는 지 열심히 살았는 지 되돌아보게 된다. 역시나 게을렀던 것 같다..여름 전 까지 후회없이&lt;/li&gt;
+  &lt;li&gt;탄천에서 자전거를 타 보았다. 길이 좁고 산책로랑 많이 겹쳐서 한강 자전거길처럼 빨리 달릴 순 없지만 경치가 너무 이쁘고 다 지지 못한 벚꽃들도 많아서 이뻤다. 또 너무 좋은사람과 함께 있어서 더 좋았고 자전거를 타면서 맞는 바람과 함께 따라오는 탄천의 물내음이 감동적이었다.&lt;/li&gt;
+  &lt;li&gt;이번 주도 할 일이 많아졌다.&lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="Daily" />
+      
+
+      
+        <summary type="html">일상 및 생각 이번 주는 창업에 있어서 본격적인 사업화 지원서류를 많이 제출하고 발표도 하러 다녔다. 작년에도 몇 개 넣어서 적은 자금을 확보했지만, 정부 차원에서 큰 규모의 사업을 지원한 것은 처음이라 중요하고 또 떨렸다(내가 발표도 안했는데..). 그래도 지난 1년 간 해 왔던 것 그리고 우리 대표님이 워낙 언변이 좋아서 느낌이 좋다. 제발! 학교에서 중간고사 시즌인가보다. 그 뜻은 내 휴학도 절반정도 지나갔다고 할 수 있는데, 반 학기동안 내가 잘 해 왔는 지 열심히 살았는 지 되돌아보게 된다. 역시나 게을렀던 것 같다..여름 전 까지 후회없이 탄천에서 자전거를 타 보았다. 길이 좁고 산책로랑 많이 겹쳐서 한강 자전거길처럼 빨리 달릴 순 없지만 경치가 너무 이쁘고 다 지지 못한 벚꽃들도 많아서 이뻤다. 또 너무 좋은사람과 함께 있어서 더 좋았고 자전거를 타면서 맞는 바람과 함께 따라오는 탄천의 물내음이 감동적이었다. 이번 주도 할 일이 많아졌다.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry xml:lang="ko">
+      
+      <title type="html">[C++] STL Container</title>
+      
+      
+      <link href="http://localhost:4000/2019/04/16/C++-STL_container/" rel="alternate" type="text/html" title="[C++] STL Container" />
       
       <published>2019-04-16T03:00:00+00:00</published>
       <updated>2019-04-16T03:00:00+00:00</updated>
-      <id>http://localhost:4000/2019/04/16/STL_container</id>
-      <content type="html" xml:base="http://localhost:4000/2019/04/16/STL_container/">&lt;p&gt;&lt;em&gt;이번부터는 cpp로 PS를 하기 위해 필요한 STL 컨테이너(docker의 컨테이너 아님)의 내부 자료구조와 동작을 간략하게 보고 PS에 필요한 것만 공부한다.&lt;/em&gt;
+      <id>http://localhost:4000/2019/04/16/%5BC++%5DSTL_container</id>
+      <content type="html" xml:base="http://localhost:4000/2019/04/16/C++-STL_container/">&lt;p&gt;&lt;em&gt;이번부터는 cpp로 PS를 하기 위해 필요한 STL 컨테이너(docker의 컨테이너 아님)의 내부 자료구조와 동작을 간략하게 보고 PS에 필요한 것만 공부한다.&lt;/em&gt;
 &lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
 
@@ -267,15 +315,15 @@
   
     <entry xml:lang="ko">
       
-      <title type="html">Binary Search</title>
+      <title type="html">[C++] Binary Search</title>
       
       
-      <link href="http://localhost:4000/2019/04/15/Binary_Search/" rel="alternate" type="text/html" title="Binary Search" />
+      <link href="http://localhost:4000/2019/04/15/C++-Binary_Search/" rel="alternate" type="text/html" title="[C++] Binary Search" />
       
       <published>2019-04-15T14:00:00+00:00</published>
       <updated>2019-04-15T14:00:00+00:00</updated>
-      <id>http://localhost:4000/2019/04/15/Binary_Search</id>
-      <content type="html" xml:base="http://localhost:4000/2019/04/15/Binary_Search/">&lt;p&gt;&lt;em&gt;1일 1커밋을 목표로 했지만 시간이 없으니 예전에 정리해 둔 binary search를 올리려고 한다.&lt;/em&gt;&lt;br /&gt;
+      <id>http://localhost:4000/2019/04/15/%5BC++%5DBinary_Search</id>
+      <content type="html" xml:base="http://localhost:4000/2019/04/15/C++-Binary_Search/">&lt;p&gt;&lt;em&gt;1일 1커밋을 목표로 했지만 시간이 없으니 예전에 정리해 둔 binary search를 올리려고 한다.&lt;/em&gt;&lt;br /&gt;
 &lt;em&gt;원래 JAVA로 Problem Solving을 했지만 진짜 코드가 길고 귀찮아서 역시 언어를 바꿔야겠다는 생각에&lt;/em&gt;&lt;br /&gt;
 &lt;em&gt;빠르게 C++ 기초를 읽고 hackerrank로 PS를 시작하게 되는데…&lt;/em&gt;
 &lt;br /&gt;
@@ -364,15 +412,15 @@ up 은 20 초과가 처음 나오는 위치이기 때문에 7번째 즉 v[6]에 
   
     <entry xml:lang="ko">
       
-      <title type="html">Docker 기초 및 command 정리</title>
+      <title type="html">[Docker] Docker 기초 및 command 정리</title>
       
       
-      <link href="http://localhost:4000/2019/04/10/Docker_basic_command/" rel="alternate" type="text/html" title="Docker 기초 및 command 정리" />
+      <link href="http://localhost:4000/2019/04/10/Docker-Docker_basic_command/" rel="alternate" type="text/html" title="[Docker] Docker 기초 및 command 정리" />
       
       <published>2019-04-10T15:00:00+00:00</published>
       <updated>2019-04-10T15:00:00+00:00</updated>
-      <id>http://localhost:4000/2019/04/10/Docker_basic_command</id>
-      <content type="html" xml:base="http://localhost:4000/2019/04/10/Docker_basic_command/">&lt;h2&gt;Docker basic &amp;amp; Command&lt;/h2&gt;
+      <id>http://localhost:4000/2019/04/10/%5BDocker%5DDocker_basic_command</id>
+      <content type="html" xml:base="http://localhost:4000/2019/04/10/Docker-Docker_basic_command/">&lt;h2&gt;Docker basic &amp;amp; Command&lt;/h2&gt;
 &lt;hr /&gt;
 
 &lt;h3&gt;왜 Docker를 사용하는가?&lt;/h3&gt;

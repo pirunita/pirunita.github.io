@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Binary Search"
+title:  "[C++] Binary Search"
 date:   2019-04-15 23:00:00 +0900
 lang: ko
 tags: ProblemSolving
