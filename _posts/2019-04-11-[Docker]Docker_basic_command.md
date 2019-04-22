@@ -11,6 +11,8 @@ tags: DevOps
 ### 왜 Docker를 사용하는가? ###
 &nbsp;&nbsp;Containers는 하나의 서로 다른 프로그램이나 프로세스를 고립시키는 방법이며, 프로그램이 오류없이 빠르게 deploy를 시킬 수 있게한다. 또한 application을 호스트 컴퓨터에 직접 설치할 때보다 높은 유연성을 제공하며 가상머신과 비교했을 때 CPU, 메모리, 디스크 공간과 같은 시스템 리소스를 적게 소비한다.
 
+<hr>
+
 ### Docker 이미지와 컨테이너 ###
 * Containerization: Application을 하나의 컨테이너 단위로 구동하는 데 필요한 모든 구성 요소(라이브러리, 설정 파일, 실행 파일 등..)를 하나로 묶는다. 이러한 단위를 **image**라고 한다.
 
@@ -18,6 +20,8 @@ tags: DevOps
   - Image를 파일시스템에 저장하면 tarb4all(tar.gz) 파일 형태로 저장된다.
 
 * Container: Docker Image를 구동한 instance를 의미한다.
+
+<hr>
 
 ### Docker command ###
 * Docker 구성 요소에 대한 정보 조회
