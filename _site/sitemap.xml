@@ -33,6 +33,10 @@
 <lastmod>2019-05-02T15:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/2019/05/03/Python-Profiling/</loc>
+<lastmod>2019-05-03T04:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/tag/Daily/</loc>
 </url>
 <url>
@@ -46,6 +50,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/tag/ProblemSolving/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/tag/Python/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/tag/Virtual-Try-On/</loc>
@@ -76,6 +83,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/tags/daily/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/tags/python/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/posts/2/</loc>
