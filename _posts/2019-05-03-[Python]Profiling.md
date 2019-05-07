@@ -204,7 +204,8 @@ if '__builtin__' not in dir() or not hasattr(__builtin__, 'profile'):
 
 '__builtin __' 테스트는 nosetest 유무를 위한 것이고 hasattr 테스트는 네임스페이스에 @profile이 추가되었는 지 검사한다.
 
-~~~
+
+
 $ kernprof.py -v -l ex.py
 Line #     Hits        Time Per %%HTMLit    % Time Line Contests
 =====================================================================
