@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[Python] Effective Python(2) - List(1)"
-date:   2019-05-09 11:00:00 +0900
+date:   2019-05-09 09:00:00 +0900
 lang: ko
 tags: Python
 ---
@@ -115,3 +115,49 @@ print(color_len_set)
 {1: 'red', 2: 'green', 3: 'blue'}
 {3, 5, 4}
 ~~~
+
+## list comprehension에서 표현식을 두 개 넘게 쓰지 않는다. ##
+&nbsp;&nbsp;list comprehension에서는 다중 루프도 가능하다.
+~~~python
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flat = [x for row in matrix for x in row]
+print(flat)
+
+>>>
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+~~~
+~~~python
+squared = [[x**2 for x in row] for row in matrix]
+print(squared)
+
+>>>
+[[1, 4, 9], [16, 25, 36], [49, 64, 81]]
+~~~
+하지만 여러 줄의 list comprehension은 그다지 짧지 않기 때문에 for문을 사용한다.
+
+또한 list comprehension은 다중 if도 가능하다. 같은 for문에 여러 조건이 있으면 and표현식이 된다.
+~~~python
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+b = [x for x in a if x > 4 if x % 2 == 0]
+c = [x for x in a if x > 4 and x % 2 == 0]
+# b와 c는 동일
+~~~
+
+## list comprehension 시 제너레이터 표현식을 고려 ##
+&nbsp;&nbsp;list comprehension은 각각의 값을 담은 새 리스트를 새로 생성하기 때문에 크면 메모리를 많이 소모한다. 파이썬은 이를 해결하기 위해 list comprehension과 제너레이터를 일반화한 generator expression을 제공한다. 제너레이터 표현식은 실행될 때 모두 메모리에로딩하지 않으며 표현식에서 하나에 한 아이템을 내주는 iterator로 평가된다.
+~~~python
+value = [len(x) for x in open('/tmp/my_file.txt')]
+it = (len(x) for x in open('/tmp/my_file.txt'))
+
+print(value)
+print(next(it))
+~~~
+필요할 때 제너레이터 표현식에서 내장 함수 next로 반환받은 iterator를 한 번에 전진시키면 메모리 사용량을 걱정하지 않고 제너레이터 표현식을 사용하면 된다.
+
+또한 제너레이터 표현식은 다른 제너레이터 표현식과 함께 사용할 수 있다.
+~~~python
+roots = ((x, x**0.5) for x in it)
+print(next(roots))
+~~~
+위의 iterator를 전진시키면 내부의 iterator도 전진한다. 제너레이터를 연결하면 파이썬에서 매우 빨라진다.
+
