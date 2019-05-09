@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Python] Effective Python(2) - List(1)"
+title:  "[Python] Effective Python(2) - List"
 date:   2019-05-09 09:00:00 +0900
 lang: ko
 tags: Python
@@ -161,3 +161,4 @@ print(next(roots))
 ~~~
 위의 iterator를 전진시키면 내부의 iterator도 전진한다. 제너레이터를 연결하면 파이썬에서 매우 빨라진다.
 
+브렛 슬라킨, ⌜파이썬 코딩의 기술⌟, 김형철, 길벗(2017)
