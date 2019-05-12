@@ -113,6 +113,7 @@ def divide_json(path):
     finally:
         handle.close()
 ~~~
+
 <br>
 <hr>
 브렛 슬라킨, ⌜파이썬 코딩의 기술⌟, 김형철, 길벗(2017)
