@@ -61,6 +61,10 @@
 <lastmod>2019-05-27T02:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/2019/05/27/Effective_Python8/</loc>
+<lastmod>2019-05-27T04:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/tag/Daily/</loc>
 </url>
 <url>
@@ -113,5 +117,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/posts/3/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/posts/4/</loc>
 </url>
 </urlset>
