@@ -14,7 +14,7 @@ tags: DevOps
 docker run fedora cat /etc/os-release
 ~~~
 * cat /etc/os-release: container에 실행되고 있는 OS의 버전과 종류 확인
-* 이미지 이름 뒤에 태그를 지정하지 않았ㅇ므ㅡ로 :latest를 지정
+* 이미지 이름 뒤에 태그를 지정하지 않았으므로 :latest를 지정
 
 ### Image vs Container ###
 * Image: Container instance가 영구적으로 저장된 것
