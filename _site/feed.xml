@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-06-23T16:23:49+00:00</updated>
+  <updated>2019-06-23T16:25:30+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -161,19 +161,20 @@
 &lt;ul&gt;
   &lt;li&gt;document: 객체 인스턴스나 데이터베이스의 레코드같은 개념&lt;/li&gt;
   &lt;li&gt;collection: 서버에서 관리하는 directory resource&lt;/li&gt;
-  &lt;li&gt;store: client에서 관리하는 resource 저장소
-    &lt;ol&gt;
-      &lt;li&gt;URI는 정보의 자원을 표현&lt;/li&gt;
-    &lt;/ol&gt;
+  &lt;li&gt;store: client에서 관리하는 resource 저장소&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;URI는 정보의 자원을 표현
     &lt;ul&gt;
       &lt;li&gt;resource는 명사, 소문자를 사용&lt;/li&gt;
       &lt;li&gt;resource의 document 이름은 단수 명사 사용&lt;/li&gt;
       &lt;li&gt;resource의 collection 이름은 복수 명사 사용&lt;/li&gt;
-      &lt;li&gt;resource의 store 이름은 복수명사 사용
-        &lt;ol&gt;
-          &lt;li&gt;자원에 대한 행위는 HTTP Method(GET, PUT, POST, DELETE)로 표현&lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
+      &lt;li&gt;resource의 store 이름은 복수명사 사용&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;자원에 대한 행위는 HTTP Method(GET, PUT, POST, DELETE)로 표현
+    &lt;ul&gt;
       &lt;li&gt;URI에 HTTP Method가 들어가면 안됨
         &lt;ul&gt;
           &lt;li&gt;Ex) GET /members/delete/1 -&amp;gt; DELETE /members/1&lt;/li&gt;
@@ -193,7 +194,7 @@
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ol&gt;
 
 &lt;table&gt;
   &lt;thead&gt;

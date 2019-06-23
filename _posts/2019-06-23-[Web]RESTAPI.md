@@ -70,6 +70,7 @@ tags: Backend
 * document: 객체 인스턴스나 데이터베이스의 레코드같은 개념
 * collection: 서버에서 관리하는 directory resource
 * store: client에서 관리하는 resource 저장소
+
 1. URI는 정보의 자원을 표현
     * resource는 명사, 소문자를 사용
     * resource의 document 이름은 단수 명사 사용

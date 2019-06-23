@@ -215,19 +215,20 @@
 <ul>
   <li>document: 객체 인스턴스나 데이터베이스의 레코드같은 개념</li>
   <li>collection: 서버에서 관리하는 directory resource</li>
-  <li>store: client에서 관리하는 resource 저장소
-    <ol>
-      <li>URI는 정보의 자원을 표현</li>
-    </ol>
+  <li>store: client에서 관리하는 resource 저장소</li>
+</ul>
+
+<ol>
+  <li>URI는 정보의 자원을 표현
     <ul>
       <li>resource는 명사, 소문자를 사용</li>
       <li>resource의 document 이름은 단수 명사 사용</li>
       <li>resource의 collection 이름은 복수 명사 사용</li>
-      <li>resource의 store 이름은 복수명사 사용
-        <ol>
-          <li>자원에 대한 행위는 HTTP Method(GET, PUT, POST, DELETE)로 표현</li>
-        </ol>
-      </li>
+      <li>resource의 store 이름은 복수명사 사용</li>
+    </ul>
+  </li>
+  <li>자원에 대한 행위는 HTTP Method(GET, PUT, POST, DELETE)로 표현
+    <ul>
       <li>URI에 HTTP Method가 들어가면 안됨
         <ul>
           <li>Ex) GET /members/delete/1 -&gt; DELETE /members/1</li>
@@ -247,7 +248,7 @@
       </li>
     </ul>
   </li>
-</ul>
+</ol>
 
 <table>
   <thead>
