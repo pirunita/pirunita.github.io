@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-06-23T16:25:30+00:00</updated>
+  <updated>2019-08-23T19:00:50+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -24,6 +24,234 @@
     </author>
   
 
+  
+  
+    <entry xml:lang="ko">
+      
+      <title type="html">[Paper review] Fast R-CNN</title>
+      
+      
+      <link href="http://localhost:4000/2019/08/23/Paperreview-R-CNN-copy/" rel="alternate" type="text/html" title="[Paper review] Fast R-CNN" />
+      
+      <published>2019-08-23T15:02:00+00:00</published>
+      <updated>2019-08-23T15:02:00+00:00</updated>
+      <id>http://localhost:4000/2019/08/23/%5BPaperreview%5DR-CNN%20copy</id>
+      <content type="html" xml:base="http://localhost:4000/2019/08/23/Paperreview-R-CNN-copy/">&lt;h2&gt;Fast R-CNN&lt;/h2&gt;
+&lt;hr /&gt;
+
+&lt;h2&gt;1) Introduction&lt;/h2&gt;
+&lt;p&gt;  전에 리뷰한 R-CNN에는 3가지에 문제가 있다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;3단계 모델을 거친 pipeline 구조&lt;br /&gt;
+Region-proposal을 추출하기 위해 Selective search 알고리즘, feature vector을 얻기 위한 CNN, 그리고 feature vector로 분류하는 SVM classifier, 더 정확한 bounding-box를 얻기위한 regressor&lt;/li&gt;
+  &lt;li&gt;Training에 자원과 시간이 많이 소모&lt;br /&gt;
+각각 이미지에서 얻은 2000개의 region-proposal로부터 CNN을 통해 얻은 feature vector로 SVM과 bounding-box regressor를 훈련할 때 디스크에 이 data들을 모두 쓰면서 deep network를 training한다.&lt;/li&gt;
+  &lt;li&gt;느린 수행 속도&lt;br /&gt;
+역시나 각각의 test image에서 region proposal, feature vector을 얻는 데 시간이 걸린다.&lt;/li&gt;
+  &lt;li&gt;원치않는 이미지의 왜곡과 손실
+CNN의 input을 맞추기 위해 warping 및 cropping이 일어나 정보의 손실 발생&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;앞서 b-box 사이에 겹치는 영역을 따로따로 CNN에 통과시키는 것은 비용적으로 낭비이다. 그래서 제안된 것이 &lt;strong&gt;SPPnets&lt;/strong&gt;이었다.&lt;/p&gt;
+
+&lt;h3&gt;Spatial Pyramid Pooling networks(SPPnets)&lt;/h3&gt;
+&lt;p&gt;  앞서 R-CNN이 비용 낭비가 심하므로 R-CNN의 속도를 개선하기 위해 computation을 공유하도록 했다. 즉 SPPnets는 전체 &lt;em&gt;이미지에서 convolutional feature map을 먼저 계산하고 feature map으로부터 pooling으로 얻은 feature vector를 분류하는 방법&lt;/em&gt;이다. 이러면 feature map이라는 계산을 공유하게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/rcnn/fastrcnn1.png&quot; alt=&quot;&quot; width=&quot;70%&quot; height=&quot;70%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 때 사용된 &lt;strong&gt;Spatial pyramid pooling&lt;/strong&gt;은 feature map으로부터 다양한 사이즈로 영역을 분할하고 max-pooling을 통해 feature를 얻고 이들을 concatenation 시켜 fixed-length representation을 생성한다. 이를 FC로 넣어 training과 inference 속도를 개선하였다. training은 3배정도 빨라지고 수행 속도도 10배에서 100배까지 빨라졌다.&lt;/p&gt;
+
+&lt;p&gt;R-CNN은 CNN이 도는 횟수가 많았으나 SPPnet은 CNN이 한 번만 수행되어 빨라질 수 있었으며 feature map에서 정보를 추출한다는 특징이다.&lt;/p&gt;
+
+&lt;p&gt;또한 중요한 건 pyramid layer로 부터 얻는 representation(feature vector)이므로 이것만 미리 정하면 FC의 input으로 넣을 수 있으며 최초의 input 크기에 제한을 받지 않게 된다. 기존의 AlexNet과 같은 신경망의 입력 size가 고정되는 것은 FC이기 때문이다.&lt;/p&gt;
+
+&lt;h4&gt;Drawback&lt;/h4&gt;
+&lt;p&gt;하지만 SPPnets 역시 multi-stage pipeline 구조라는 한계를 지니며(feature 추출, network fine-tuning, SVM 학습, fitting b-box regressor) feature들을 모두 disk에 쓰여져야 한다.&lt;/p&gt;
+
+&lt;p&gt;그리고 R-CNN과 다르게 spatial pyramid pooling을 예측하는 convolutional layer는 update를 할 수 없다. &lt;strong&gt;(Q1)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;그렇다면 이제 문제 해결 목표를 다시 정의 해 보자.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;R-CNN, SPPnet보다 정확한 object-detection&lt;/li&gt;
+  &lt;li&gt;multi-task loss를 이용한 single-stage training&lt;/li&gt;
+  &lt;li&gt;학습 시 모든 network layer update가 가능해야 함.&lt;/li&gt;
+  &lt;li&gt;feature를 disk에 쓰는 과정이 없어야 함.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;2) Fast R-CNN architecture and training&lt;/h2&gt;
+&lt;p&gt;  구조는 다음과 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/rcnn/fastrcnn2.png&quot; alt=&quot;&quot; width=&quot;70%&quot; height=&quot;70%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;ConvNet을 거쳐 max pooling layer을 통해 conv feature map을 얻는다. 이 때 이미지와 region-proposal을 한 번에 넣는다. regional-proposal을 얻기 위해 selectvie search를 사용한다.&lt;/li&gt;
+  &lt;li&gt;feature map으로 부터 fixed-length feature vector를 얻기 위해 각 object proposal의 &lt;strong&gt;RoI(Region of Interest) pooling layer&lt;/strong&gt;을 거친다.&lt;/li&gt;
+  &lt;li&gt;얻은 feature vector에 각각 FC와 연결된 Softmax classifier &amp;amp; b-box regressor 두 개의 브런치 레이어를 먹인다.
+    &lt;ul&gt;
+      &lt;li&gt;Softmax classifier: object class와 배경 추정&lt;/li&gt;
+      &lt;li&gt;b-box regressor: object class 좌표를 추정&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;R-CNN은 이미지를 warping했다면 Fast R-CNN은 &lt;em&gt;feature map&lt;/em&gt;을 고정되게 warping해야 한다. 이를 위해 &lt;strong&gt;RoI pooling layer&lt;/strong&gt;를 사용한다.&lt;/p&gt;
+
+&lt;h3&gt;2-1) The RoI pooling layer&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/rcnn/fastrcnn3.png&quot; alt=&quot;&quot; width=&quot;70%&quot; height=&quot;70%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;  RoI layer는 위에서 설명한 SPPnets의 가장 단순한 케이스이다. SPPnet이 여러 size의 bin으로 영역을 나눴다면 RoI layer는 하나로 정해진 bin의 갯수로 RoI에 대해 한 번만 pooling을 진행한다. 이를 통해 fixed-length feature vector를 얻는다.&lt;/p&gt;
+
+&lt;h3&gt;2-2) Fine-tuning for detection&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/rcnn/fastrcnn4.png&quot; alt=&quot;&quot; width=&quot;70%&quot; height=&quot;70%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;  Fast R-CNN의 Network의 weight들을 갱신하기 위해 back-propagation을 한다. 그림과 같이 모든 layer에 대해 학습이 가능한 1 stage pipeline으로 구성되어 error-backProp이 가능해 정확도 개선이 이루어졌다.&lt;/p&gt;
+
+&lt;h3&gt;2-3) Region-wise sampling&lt;/h3&gt;
+&lt;p&gt;  Training time을 줄이기 위해 &lt;strong&gt;region-wise sampling&lt;/strong&gt; 방법을 사용하였다. R-CNN의 경우 모든 region-proposal을 동일한 크기(224 × 224)로 바꾸지만 Fast R-CNN은 원본 그대로 사용하여 연산량이 증가하는 최악의 경우가 생긴다. 이를 피하기 위해 &lt;strong&gt;hierarchical sampling&lt;/strong&gt; 방식을 사용한다.&lt;/p&gt;
+
+&lt;p&gt;기존의 R-CNN, SPPnet에서는 한 mini-batch 당 128개의 data에서 RoI를 무작위로 선택하였다. Fast R-CNN에서는 2개의 input으로부터 128개의 RoI(하나 당 64개)를 정함으로써 이미지의 RoI는 연산과 메모리를 공유하게 된다.&lt;strong&gt;(Q2)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2&gt;3) Reference&lt;/h2&gt;
+&lt;p&gt;[1] paper : https://arxiv.org/abs/1504.08083&lt;/p&gt;
+
+&lt;p&gt;[2] https://tensorflow.blog/2017/06/05/from-r-cnn-to-mask-r-cnn/&lt;/p&gt;
+
+&lt;p&gt;[3] https://nittaku.tistory.com/273&lt;/p&gt;
+
+&lt;p&gt;[4] https://m.blog.naver.com/PostView.nhn?blogId=laonple&amp;amp;logNo=220776743537&amp;amp;proxyReferer=https%3A%2F%2Fwww.google.com%2F&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="DeepLearning" />
+      
+
+      
+        <summary type="html">Fast R-CNN 1) Introduction   전에 리뷰한 R-CNN에는 3가지에 문제가 있다. 3단계 모델을 거친 pipeline 구조 Region-proposal을 추출하기 위해 Selective search 알고리즘, feature vector을 얻기 위한 CNN, 그리고 feature vector로 분류하는 SVM classifier, 더 정확한 bounding-box를 얻기위한 regressor Training에 자원과 시간이 많이 소모 각각 이미지에서 얻은 2000개의 region-proposal로부터 CNN을 통해 얻은 feature vector로 SVM과 bounding-box regressor를 훈련할 때 디스크에 이 data들을 모두 쓰면서 deep network를 training한다. 느린 수행 속도 역시나 각각의 test image에서 region proposal, feature vector을 얻는 데 시간이 걸린다. 원치않는 이미지의 왜곡과 손실 CNN의 input을 맞추기 위해 warping 및 cropping이 일어나 정보의 손실 발생 앞서 b-box 사이에 겹치는 영역을 따로따로 CNN에 통과시키는 것은 비용적으로 낭비이다. 그래서 제안된 것이 SPPnets이었다. Spatial Pyramid Pooling networks(SPPnets)   앞서 R-CNN이 비용 낭비가 심하므로 R-CNN의 속도를 개선하기 위해 computation을 공유하도록 했다. 즉 SPPnets는 전체 이미지에서 convolutional feature map을 먼저 계산하고 feature map으로부터 pooling으로 얻은 feature vector를 분류하는 방법이다. 이러면 feature map이라는 계산을 공유하게 된다. 이 때 사용된 Spatial pyramid pooling은 feature map으로부터 다양한 사이즈로 영역을 분할하고 max-pooling을 통해 feature를 얻고 이들을 concatenation 시켜 fixed-length representation을 생성한다. 이를 FC로 넣어 training과 inference 속도를 개선하였다. training은 3배정도 빨라지고 수행 속도도 10배에서 100배까지 빨라졌다. R-CNN은 CNN이 도는 횟수가 많았으나 SPPnet은 CNN이 한 번만 수행되어 빨라질 수 있었으며 feature map에서 정보를 추출한다는 특징이다. 또한 중요한 건 pyramid layer로 부터 얻는 representation(feature vector)이므로 이것만 미리 정하면 FC의 input으로 넣을 수 있으며 최초의 input 크기에 제한을 받지 않게 된다. 기존의 AlexNet과 같은 신경망의 입력 size가 고정되는 것은 FC이기 때문이다. Drawback 하지만 SPPnets 역시 multi-stage pipeline 구조라는 한계를 지니며(feature 추출, network fine-tuning, SVM 학습, fitting b-box regressor) feature들을 모두 disk에 쓰여져야 한다. 그리고 R-CNN과 다르게 spatial pyramid pooling을 예측하는 convolutional layer는 update를 할 수 없다. (Q1) 그렇다면 이제 문제 해결 목표를 다시 정의 해 보자. R-CNN, SPPnet보다 정확한 object-detection multi-task loss를 이용한 single-stage training 학습 시 모든 network layer update가 가능해야 함. feature를 disk에 쓰는 과정이 없어야 함. 2) Fast R-CNN architecture and training   구조는 다음과 같다. ConvNet을 거쳐 max pooling layer을 통해 conv feature map을 얻는다. 이 때 이미지와 region-proposal을 한 번에 넣는다. regional-proposal을 얻기 위해 selectvie search를 사용한다. feature map으로 부터 fixed-length feature vector를 얻기 위해 각 object proposal의 RoI(Region of Interest) pooling layer을 거친다. 얻은 feature vector에 각각 FC와 연결된 Softmax classifier &amp;amp; b-box regressor 두 개의 브런치 레이어를 먹인다. Softmax classifier: object class와 배경 추정 b-box regressor: object class 좌표를 추정 R-CNN은 이미지를 warping했다면 Fast R-CNN은 feature map을 고정되게 warping해야 한다. 이를 위해 RoI pooling layer를 사용한다. 2-1) The RoI pooling layer   RoI layer는 위에서 설명한 SPPnets의 가장 단순한 케이스이다. SPPnet이 여러 size의 bin으로 영역을 나눴다면 RoI layer는 하나로 정해진 bin의 갯수로 RoI에 대해 한 번만 pooling을 진행한다. 이를 통해 fixed-length feature vector를 얻는다. 2-2) Fine-tuning for detection   Fast R-CNN의 Network의 weight들을 갱신하기 위해 back-propagation을 한다. 그림과 같이 모든 layer에 대해 학습이 가능한 1 stage pipeline으로 구성되어 error-backProp이 가능해 정확도 개선이 이루어졌다. 2-3) Region-wise sampling   Training time을 줄이기 위해 region-wise sampling 방법을 사용하였다. R-CNN의 경우 모든 region-proposal을 동일한 크기(224 × 224)로 바꾸지만 Fast R-CNN은 원본 그대로 사용하여 연산량이 증가하는 최악의 경우가 생긴다. 이를 피하기 위해 hierarchical sampling 방식을 사용한다. 기존의 R-CNN, SPPnet에서는 한 mini-batch 당 128개의 data에서 RoI를 무작위로 선택하였다. Fast R-CNN에서는 2개의 input으로부터 128개의 RoI(하나 당 64개)를 정함으로써 이미지의 RoI는 연산과 메모리를 공유하게 된다.(Q2) 3) Reference [1] paper : https://arxiv.org/abs/1504.08083 [2] https://tensorflow.blog/2017/06/05/from-r-cnn-to-mask-r-cnn/ [3] https://nittaku.tistory.com/273 [4] https://m.blog.naver.com/PostView.nhn?blogId=laonple&amp;amp;logNo=220776743537&amp;amp;proxyReferer=https%3A%2F%2Fwww.google.com%2F</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry xml:lang="ko">
+      
+      <title type="html">[Paper review] R-CNN</title>
+      
+      
+      <link href="http://localhost:4000/2019/08/23/Paperreview-R-CNN/" rel="alternate" type="text/html" title="[Paper review] R-CNN" />
+      
+      <published>2019-08-23T15:01:00+00:00</published>
+      <updated>2019-08-23T15:01:00+00:00</updated>
+      <id>http://localhost:4000/2019/08/23/%5BPaperreview%5DR-CNN</id>
+      <content type="html" xml:base="http://localhost:4000/2019/08/23/Paperreview-R-CNN/">&lt;h2&gt;Rich feature hierarchies for accurate object detection and semantic segmentation&lt;/h2&gt;
+&lt;hr /&gt;
+
+&lt;h2&gt;1) Introduction&lt;/h2&gt;
+&lt;p&gt;  고전의 &lt;strong&gt;visual recognition task&lt;/strong&gt;는 SIFT와 HOG 알고리즘 기반으로 수행했다. 하지만 R-CNN에서는 Convolutional Neural Networks(CNNs)를 통해 여러 태스크에서 극적으로 향상된 object detection을 보여주었다. 이 페이퍼에서는 두 가지의 문제를 찝었다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Deep Network를 통해 object localizing&lt;/li&gt;
+  &lt;li&gt;Training a high-capacity model&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Detection의 경우는 이미지에서 물체를 가능한 많이 localizing을 해야 한다. 하지만 regression으로는 performance가 낮고 sliding-window detector를 쓸 경우 network에서 unit이 커져 너무 많은 localization이 이루어지고 이는 overfitting을 일으킨다.&lt;/p&gt;
+
+&lt;p&gt;따라서 R-CNN에서는 **recognition using regions”이라는 기법으로 위와 같은 CNN localization 문제를 해결하고자 하였다. 간략하게는 다음과 같은 방법을 제시했다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;2000개의 독립된 카테고리가 있을 region proposal을 input image와 함께 CNN을 사용하여 각 proposal(물체가 있을 후보)으로부터 fixed-length feature vector를 얻는다.&lt;/li&gt;
+  &lt;li&gt;각 카테고리에 특화된 specific linear SVM으로 각 영역을 분류한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;2) Object detection with R-CNN&lt;/h2&gt;
+&lt;p&gt;  R-CNN에서 object detection system은 3개의 module로 이루어져 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/rcnn/rcnn1.png&quot; alt=&quot;&quot; width=&quot;70%&quot; height=&quot;70%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;category-independent region proposal를 만드는 module, 이 때 proposal은 detector에 있는 candidate detection을 의미한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;각 region으로부터 fixed-lenght feature vector을 추출하기 위해 large CNN을 사용한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;class-specific linear SVM을 분류기로 사용한다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;각 module을 어떻게 구성했는 지 살펴보자.&lt;/p&gt;
+
+&lt;h3&gt;Module design&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Region proposals&lt;br /&gt;
+category-independent region proposal은 가능한 이미지 영역이며 이를 찾아내기 위한 다양한 알고리즘이 있지만 R-CNN에서는 selective search를 사용한다. 이는 색상이나 강도, 패턴이 비슷한 인접한 픽셀을 합치는 방식이다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Feature extraction&lt;br /&gt;
+Region proposals을 통해 찾은 2000 region proprosal으로부터 feature vectore를 추출한다. 이 때 CNN의 input은 고정 사이즈의 image여야 하므로 227 * 227 사이즈로 afffine image warping을 진행한다. (이 때 bounding box가 안으로 들어오도록 필요한 사이즈에 딱 맞게 이미지를 warping한다.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Classifier&lt;br /&gt;
+class별로 훈련된 SVM을 사용하여 추출된 feature vector에 스코어를 매긴다. 이 때 이미지의 스코어가 매겨진 모든 region은 greedy non-maximum suppression을 적용한다. 이는 Intersection-over-Union(IoU) overlap을 방지한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bounding-box regression&lt;br /&gt;
+localization error을 줄이고 더 정확한 bounding box를 얻기 위해 linear regression을 수행한다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;3) Reference&lt;/h2&gt;
+&lt;p&gt;[1] paper : https://arxiv.org/abs/1311.2524&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="DeepLearning" />
+      
+
+      
+        <summary type="html">Rich feature hierarchies for accurate object detection and semantic segmentation 1) Introduction   고전의 visual recognition task는 SIFT와 HOG 알고리즘 기반으로 수행했다. 하지만 R-CNN에서는 Convolutional Neural Networks(CNNs)를 통해 여러 태스크에서 극적으로 향상된 object detection을 보여주었다. 이 페이퍼에서는 두 가지의 문제를 찝었다. Deep Network를 통해 object localizing Training a high-capacity model Detection의 경우는 이미지에서 물체를 가능한 많이 localizing을 해야 한다. 하지만 regression으로는 performance가 낮고 sliding-window detector를 쓸 경우 network에서 unit이 커져 너무 많은 localization이 이루어지고 이는 overfitting을 일으킨다. 따라서 R-CNN에서는 **recognition using regions”이라는 기법으로 위와 같은 CNN localization 문제를 해결하고자 하였다. 간략하게는 다음과 같은 방법을 제시했다. 2000개의 독립된 카테고리가 있을 region proposal을 input image와 함께 CNN을 사용하여 각 proposal(물체가 있을 후보)으로부터 fixed-length feature vector를 얻는다. 각 카테고리에 특화된 specific linear SVM으로 각 영역을 분류한다. 2) Object detection with R-CNN   R-CNN에서 object detection system은 3개의 module로 이루어져 있다. category-independent region proposal를 만드는 module, 이 때 proposal은 detector에 있는 candidate detection을 의미한다. 각 region으로부터 fixed-lenght feature vector을 추출하기 위해 large CNN을 사용한다. class-specific linear SVM을 분류기로 사용한다. 각 module을 어떻게 구성했는 지 살펴보자. Module design Region proposals category-independent region proposal은 가능한 이미지 영역이며 이를 찾아내기 위한 다양한 알고리즘이 있지만 R-CNN에서는 selective search를 사용한다. 이는 색상이나 강도, 패턴이 비슷한 인접한 픽셀을 합치는 방식이다. Feature extraction Region proposals을 통해 찾은 2000 region proprosal으로부터 feature vectore를 추출한다. 이 때 CNN의 input은 고정 사이즈의 image여야 하므로 227 * 227 사이즈로 afffine image warping을 진행한다. (이 때 bounding box가 안으로 들어오도록 필요한 사이즈에 딱 맞게 이미지를 warping한다.) Classifier class별로 훈련된 SVM을 사용하여 추출된 feature vector에 스코어를 매긴다. 이 때 이미지의 스코어가 매겨진 모든 region은 greedy non-maximum suppression을 적용한다. 이는 Intersection-over-Union(IoU) overlap을 방지한다. Bounding-box regression localization error을 줄이고 더 정확한 bounding box를 얻기 위해 linear regression을 수행한다. 3) Reference [1] paper : https://arxiv.org/abs/1311.2524</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry xml:lang="ko">

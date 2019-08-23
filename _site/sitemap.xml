@@ -57,6 +57,14 @@
 <lastmod>2019-06-23T03:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/2019/08/23/Paperreview-R-CNN/</loc>
+<lastmod>2019-08-23T15:01:00+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/2019/08/23/Paperreview-R-CNN-copy/</loc>
+<lastmod>2019-08-23T15:02:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/tag/Backend/</loc>
 </url>
 <url>
@@ -112,5 +120,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/posts/3/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/posts/4/</loc>
 </url>
 </urlset>
