@@ -61,8 +61,12 @@
 <lastmod>2019-08-23T15:01:00+00:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/2019/08/23/Paperreview-R-CNN-copy/</loc>
+<loc>http://localhost:4000/2019/08/23/Paperreview-Fast_R-CNN/</loc>
 <lastmod>2019-08-23T15:02:00+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/2019/09/15/Paperreview-Faster_R-CNN/</loc>
+<lastmod>2019-09-15T15:02:00+00:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/tag/Backend/</loc>
