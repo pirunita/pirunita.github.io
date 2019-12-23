@@ -7,16 +7,14 @@ permalink: /about_kr/
 <a href = "/about">[English]</a>
 <a href = "/about_kr">[Korean]</a>
 
-<img src="{{ site.url }}/assets/pirunita.jpeg" style='float:left' height='30%' width='30%' vspace='20' hspace='20' >
-<b></b>
-<br><br><br>
+
 <b>Name</b> 고 성 필<br>
 <b>E-mail</b> ksparchive39@gmail.com<br>
 <b>Birth</b> 1993.05.19<br>
 <b>Univ</b> 경희대학교<br>
 <b>Major degree</b> 정보전자신소재공학과<br>
 <b>Minor degree</b> 컴퓨터공학과<br>
-<b>Programming Language</b> C++, JAVA, python3, C#<br><br><br><br><br>
+<b>Programming Language</b> C++, JAVA, python3, C#<br>
 <b>Objective</b><br>
 * 2018.06, "내부 광 추출층 적용을 통한 OLED소자 발광효율 향상 연구", 정보전자신소재공학 졸업논문
 * 2018.06, "블루투스 Beacon 장치를 통한 엘레베이터 예약 시스템 어플리케이션",  컴퓨터공학 졸업작품
