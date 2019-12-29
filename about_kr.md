@@ -22,7 +22,10 @@ permalink: /about_kr/
   - 10인 인증 선발
   - 이미지 처리와 딥러닝을 이용한 가상 피팅 플랫폼 서비스 개발
 * 2019.01, UC Berkeley, BMoE(Berkeley Method of Entrepreneurship Bootcamp) 수료
-* 2019.01- 2019.02, Brookhurst Garage, Inc. 인턴
+* 2019.01 - 2019.02, Brookhurst Garage, Inc. 인턴
   - Generating more dataset for improving accuracy of object detection using GAN
   - Developed realizing model virtual image to real image using GAN
   - Investigated how GAN's performance would improve and improved accuracy from 69% to 81%
+* 2019.03 -, EVERYWEAR CTO & AI researcher, Engineer
+  - Virtual Try-On app service based on Deep Learning
+  - <a href="https://everywear.style">https://everywear.style/</a>

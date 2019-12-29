@@ -25,3 +25,6 @@ permalink: /about/
   - Generating more dataset for improving accuracy of object detection using GAN
   - Developed realizing model virtual image to real image using GAN
   - Investigated how GAN's performance would improve and improved accuracy from 69% to 81%
+* 2019.03 -, EVERYWEAR CTO & AI researcher, Engineer
+  - Virtual Try-On app service based on Deep Learning
+  - <a href="https://everywear.style">https://everywear.style/</a>
