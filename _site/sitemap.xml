@@ -73,6 +73,10 @@
 <lastmod>2019-09-17T15:02:00+00:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/2019/12/29/Daily-191229/</loc>
+<lastmod>2019-12-29T03:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/tag/Backend/</loc>
 </url>
 <url>
@@ -122,6 +126,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/tags/backend/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/tags/daily/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/posts/2/</loc>
