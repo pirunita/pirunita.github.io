@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-01-02T15:07:42+00:00</updated>
+  <updated>2020-01-02T15:08:44+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -92,12 +92,12 @@
       <title type="html">191229</title>
       
       
-      <link href="http://localhost:4000/2019/12/29/Daily-191229/" rel="alternate" type="text/html" title="191229" />
+      <link href="http://localhost:4000/2019/12/28/Daily-191229/" rel="alternate" type="text/html" title="191229" />
       
-      <published>2019-12-29T03:00:00+00:00</published>
-      <updated>2019-12-29T03:00:00+00:00</updated>
-      <id>http://localhost:4000/2019/12/29/%5BDaily%5D191229</id>
-      <content type="html" xml:base="http://localhost:4000/2019/12/29/Daily-191229/">&lt;p&gt;1년 휴학의 종지부를 찍고 마지막 학기에 너무 많은 것을 이루려고 했다.&lt;br /&gt;
+      <published>2019-12-28T15:12:00+00:00</published>
+      <updated>2019-12-28T15:12:00+00:00</updated>
+      <id>http://localhost:4000/2019/12/28/%5BDaily%5D191229</id>
+      <content type="html" xml:base="http://localhost:4000/2019/12/28/Daily-191229/">&lt;p&gt;1년 휴학의 종지부를 찍고 마지막 학기에 너무 많은 것을 이루려고 했다.&lt;br /&gt;
 그래서 정말 단 하루도 쉴 수가 없었다. 일을 끝내면 다시 해야 할 일들이 2배로 불어났다.&lt;br /&gt;
 잠도 제대로 못 자고 눈병까지 났다.&lt;/p&gt;
 
@@ -145,8 +145,8 @@
       
       <link href="http://localhost:4000/2019/09/17/Paperreview-SPADE/" rel="alternate" type="text/html" title="[Paper review] SPADE" />
       
-      <published>2019-09-17T15:02:00+00:00</published>
-      <updated>2019-09-17T15:02:00+00:00</updated>
+      <published>2019-09-17T15:00:00+00:00</published>
+      <updated>2019-09-17T15:00:00+00:00</updated>
       <id>http://localhost:4000/2019/09/17/%5BPaperreview%5DSPADE</id>
       <content type="html" xml:base="http://localhost:4000/2019/09/17/Paperreview-SPADE/">&lt;h2&gt;Semantic Image Synthesis with SPADE&lt;/h2&gt;
 &lt;hr /&gt;
