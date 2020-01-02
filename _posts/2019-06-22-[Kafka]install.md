@@ -5,8 +5,9 @@ date:   2019-06-22 15:00:00 +0900
 lang: ko
 tags: Backend
 ---
+<hr>
 
-# Apache Kafka #
+## Apache Kafka ##
 
 &nbsp;&nbsp;Apache Kafka는 대용량, 대규모의 메시지 데이터를 빠르게 처리할 수 있는 메시지 큐이며 분산처리에 특화되어 있다.
 

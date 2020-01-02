@@ -5,6 +5,8 @@ date:   2019-05-09 23:00:00 +0900
 lang: ko
 tags: Python
 ---
+<hr>
+
 ## range보다는 enumerate ##
 &nbsp;&nbsp;내장 함수 range는 정수 집합을 순회(iterate)하는 루프, 문자열의 리스트 순회할 때 좋다. 하지만 리스트를 순회할 때 아이템의 인덱스를 알고 싶을 때 **enumerate**를 사용한다. enumerate는 지연 제너레이터로 iterator를 감싼다.
 ~~~python

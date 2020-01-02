@@ -5,8 +5,10 @@ date:   2019-04-22 00:00:00 +0900
 lang: ko
 tags: DevOps
 ---
-## 컨테이너 이미지 실행하기 ##
 <hr>
+
+## 컨테이너 이미지 실행하기 ##
+
 
 &nbsp;&nbsp;**docker run** 커맨드는 인터넷이 연결되어 있다면 자동으로 image를 찾아서 다운받고 구동한다.
 예를 들어 fedora를 container에 띄우고 싶을 때

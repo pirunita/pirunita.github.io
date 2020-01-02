@@ -5,9 +5,9 @@ date:   2019-08-24 00:02:00 +0900
 lang: ko
 tags: DeepLearning Paper
 ---
+<hr>
 
 ## Fast R-CNN ##
-<hr>
 
 ## 1) Introduction ##
 &nbsp;&nbsp;전에 리뷰한 R-CNN에는 3가지에 문제가 있다.

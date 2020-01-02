@@ -5,8 +5,8 @@ date:   2019-06-23 12:00:00 +0900
 lang: ko
 tags: Backend
 ---
+<hr>
 ## REST ##
-
 * REST: REpresentational State Transfer, 자원을 정의하고 자원의 정보(상태)를 주고받는 모든 것
     - Browser와 같은 Web Client는 Resource identifier를 통해 resource에 대해 어떤 요청을 하고 그 결과를 받아 브라우저 화면에 띄우는 방식으로 표현되며 이 과정은 **브라우저 표현상태(Representational state)**의 변경(Transfer)을 일으킨다. **REST**는 이러한 특성을 표현한다.
 

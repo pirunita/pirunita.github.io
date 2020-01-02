@@ -5,9 +5,9 @@ date:   2019-09-16 00:02:00 +0900
 lang: ko
 tags: DeepLearning Paper
 ---
+<hr>
 
 ## Faster R-CNN ##
-<hr>
 
 ## 1) Introduction ##
 &nbsp;&nbsp;이전의 object detection으로 제안된 **SPPnets**과 **Fast R-CNN**의 경우 region proposal을 만드는 데 걸리는 시간은 여전히 많이 걸린다.

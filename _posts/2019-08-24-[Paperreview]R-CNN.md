@@ -5,9 +5,10 @@ date:   2019-08-24 00:01:00 +0900
 lang: ko
 tags: DeepLearning Paper
 ---
+<hr>
 
 ## Rich feature hierarchies for accurate object detection and semantic segmentation ##
-<hr>
+
 
 ## 1) Introduction ##
 &nbsp;&nbsp;고전의 **visual recognition task**는 SIFT와 HOG 알고리즘 기반으로 수행했다. 하지만 R-CNN에서는 Convolutional Neural Networks(CNNs)를 통해 여러 태스크에서 극적으로 향상된 object detection을 보여주었다. 이 페이퍼에서는 두 가지의 문제를 찝었다.

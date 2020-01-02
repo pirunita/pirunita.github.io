@@ -90,7 +90,9 @@
   </header>
   
   <div class="post-content" itemprop="articleBody">
-    <h2>range보다는 enumerate</h2>
+    <hr />
+
+<h2>range보다는 enumerate</h2>
 <p>  내장 함수 range는 정수 집합을 순회(iterate)하는 루프, 문자열의 리스트 순회할 때 좋다. 하지만 리스트를 순회할 때 아이템의 인덱스를 알고 싶을 때 <strong>enumerate</strong>를 사용한다. enumerate는 지연 제너레이터로 iterator를 감싼다.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">color_list</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">d: </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="p">))</span>

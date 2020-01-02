@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-01-02T15:08:44+00:00</updated>
+  <updated>2020-01-02T15:17:52+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -31,12 +31,12 @@
       <title type="html">200101</title>
       
       
-      <link href="http://localhost:4000/2020/01/01/Daily-200101/" rel="alternate" type="text/html" title="200101" />
+      <link href="http://localhost:4000/2019/12/31/Daily-200101/" rel="alternate" type="text/html" title="200101" />
       
-      <published>2020-01-01T03:00:00+00:00</published>
-      <updated>2020-01-01T03:00:00+00:00</updated>
-      <id>http://localhost:4000/2020/01/01/%5BDaily%5D200101</id>
-      <content type="html" xml:base="http://localhost:4000/2020/01/01/Daily-200101/">&lt;ol&gt;
+      <published>2019-12-31T15:12:00+00:00</published>
+      <updated>2019-12-31T15:12:00+00:00</updated>
+      <id>http://localhost:4000/2019/12/31/%5BDaily%5D200101</id>
+      <content type="html" xml:base="http://localhost:4000/2019/12/31/Daily-200101/">&lt;ol&gt;
   &lt;li&gt;
     &lt;p&gt;새해가 밝아버렸다.&lt;br.&gt;
 점심엔 떡국을 먹었고 저녁엔 떡국을 먹었다.
@@ -140,73 +140,6 @@
   
     <entry xml:lang="ko">
       
-      <title type="html">[Paper review] SPADE</title>
-      
-      
-      <link href="http://localhost:4000/2019/09/17/Paperreview-SPADE/" rel="alternate" type="text/html" title="[Paper review] SPADE" />
-      
-      <published>2019-09-17T15:00:00+00:00</published>
-      <updated>2019-09-17T15:00:00+00:00</updated>
-      <id>http://localhost:4000/2019/09/17/%5BPaperreview%5DSPADE</id>
-      <content type="html" xml:base="http://localhost:4000/2019/09/17/Paperreview-SPADE/">&lt;h2&gt;Semantic Image Synthesis with SPADE&lt;/h2&gt;
-&lt;hr /&gt;
-
-&lt;p&gt;  &lt;em&gt;오랜만에 GAN 관련 논문을 읽고 SPADE를 너무 감명깊게 본 나머지 리뷰를 꼭 남겨야 할 것 같아서 진행한다.&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2&gt;1) Introduction&lt;/h2&gt;
-&lt;p&gt;  이 논문의 task는 semantic segmentation mask에서 매우 사실적인 사진 이미지로 translation하는 것이다. 이전의 연구에서는 conv, normalization, nonlinearity layer으로 network를 만들었지만 이 때 &lt;u&gt;normalization layer에서는 input semantic mask의 정보를 잃는다는 단점&lt;/u&gt;이 있다.&lt;/p&gt;
-
-&lt;p&gt;따라서 이를 해결하기 위해 spatially adaptive를 이용해 activations를 조절한 conditional normalization layer인 &lt;strong&gt;Spatially-adaptive normalization&lt;/strong&gt;을 제안했다. 이는 transformation을 학습하고 network를 통해 semantic 정보를 효율적으로 전파시킨다.&lt;/p&gt;
-
-&lt;h2&gt;2) Related Work&lt;/h2&gt;
-
-&lt;h3&gt;2-1) Deep generative models&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;SPADE는 GAN의 구조를 갖지만 conditional image synthesis task를 목표로 한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;2-2) Conditional image synthesis&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;다양한 형태의 input data가 있지만 여기서는 &lt;strong&gt;segmentation mask와 image 쌍&lt;/strong&gt;을 사용하여 spatially-adaptive normalization을 통해 segmentation mask에서 photorealistic image를 만든다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;3) Reference&lt;/h2&gt;
-&lt;p&gt;[1] paper :&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>pirunita</name>
-          
-          
-        </author>
-      
-
-      
-
-      
-        <category term="DeepLearning" />
-      
-        <category term="Paper" />
-      
-
-      
-        <summary type="html">Semantic Image Synthesis with SPADE   오랜만에 GAN 관련 논문을 읽고 SPADE를 너무 감명깊게 본 나머지 리뷰를 꼭 남겨야 할 것 같아서 진행한다. 1) Introduction   이 논문의 task는 semantic segmentation mask에서 매우 사실적인 사진 이미지로 translation하는 것이다. 이전의 연구에서는 conv, normalization, nonlinearity layer으로 network를 만들었지만 이 때 normalization layer에서는 input semantic mask의 정보를 잃는다는 단점이 있다. 따라서 이를 해결하기 위해 spatially adaptive를 이용해 activations를 조절한 conditional normalization layer인 Spatially-adaptive normalization을 제안했다. 이는 transformation을 학습하고 network를 통해 semantic 정보를 효율적으로 전파시킨다. 2) Related Work 2-1) Deep generative models SPADE는 GAN의 구조를 갖지만 conditional image synthesis task를 목표로 한다. 2-2) Conditional image synthesis 다양한 형태의 input data가 있지만 여기서는 segmentation mask와 image 쌍을 사용하여 spatially-adaptive normalization을 통해 segmentation mask에서 photorealistic image를 만든다. 3) Reference [1] paper :</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry xml:lang="ko">
-      
       <title type="html">[Paper review] Faster R-CNN</title>
       
       
@@ -215,8 +148,9 @@
       <published>2019-09-15T15:02:00+00:00</published>
       <updated>2019-09-15T15:02:00+00:00</updated>
       <id>http://localhost:4000/2019/09/15/%5BPaperreview%5DFaster_R-CNN</id>
-      <content type="html" xml:base="http://localhost:4000/2019/09/15/Paperreview-Faster_R-CNN/">&lt;h2&gt;Faster R-CNN&lt;/h2&gt;
-&lt;hr /&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/09/15/Paperreview-Faster_R-CNN/">&lt;hr /&gt;
+
+&lt;h2&gt;Faster R-CNN&lt;/h2&gt;
 
 &lt;h2&gt;1) Introduction&lt;/h2&gt;
 &lt;p&gt;  이전의 object detection으로 제안된 &lt;strong&gt;SPPnets&lt;/strong&gt;과 &lt;strong&gt;Fast R-CNN&lt;/strong&gt;의 경우 region proposal을 만드는 데 걸리는 시간은 여전히 많이 걸린다.&lt;/p&gt;
@@ -344,8 +278,9 @@
       <published>2019-08-23T15:02:00+00:00</published>
       <updated>2019-08-23T15:02:00+00:00</updated>
       <id>http://localhost:4000/2019/08/23/%5BPaperreview%5DFast_R-CNN</id>
-      <content type="html" xml:base="http://localhost:4000/2019/08/23/Paperreview-Fast_R-CNN/">&lt;h2&gt;Fast R-CNN&lt;/h2&gt;
-&lt;hr /&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/08/23/Paperreview-Fast_R-CNN/">&lt;hr /&gt;
+
+&lt;h2&gt;Fast R-CNN&lt;/h2&gt;
 
 &lt;h2&gt;1) Introduction&lt;/h2&gt;
 &lt;p&gt;  전에 리뷰한 R-CNN에는 3가지에 문제가 있다.&lt;/p&gt;
@@ -471,8 +406,9 @@ CNN의 input을 맞추기 위해 warping 및 cropping이 일어나 정보의 손
       <published>2019-08-23T15:01:00+00:00</published>
       <updated>2019-08-23T15:01:00+00:00</updated>
       <id>http://localhost:4000/2019/08/23/%5BPaperreview%5DR-CNN</id>
-      <content type="html" xml:base="http://localhost:4000/2019/08/23/Paperreview-R-CNN/">&lt;h2&gt;Rich feature hierarchies for accurate object detection and semantic segmentation&lt;/h2&gt;
-&lt;hr /&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/08/23/Paperreview-R-CNN/">&lt;hr /&gt;
+
+&lt;h2&gt;Rich feature hierarchies for accurate object detection and semantic segmentation&lt;/h2&gt;
 
 &lt;h2&gt;1) Introduction&lt;/h2&gt;
 &lt;p&gt;  고전의 &lt;strong&gt;visual recognition task&lt;/strong&gt;는 SIFT와 HOG 알고리즘 기반으로 수행했다. 하지만 R-CNN에서는 Convolutional Neural Networks(CNNs)를 통해 여러 태스크에서 극적으로 향상된 object detection을 보여주었다. 이 페이퍼에서는 두 가지의 문제를 찝었다.&lt;/p&gt;
@@ -576,8 +512,9 @@ localization error을 줄이고 더 정확한 bounding box를 얻기 위해 line
       <published>2019-06-23T03:00:00+00:00</published>
       <updated>2019-06-23T03:00:00+00:00</updated>
       <id>http://localhost:4000/2019/06/23/%5BWeb%5DRESTAPI</id>
-      <content type="html" xml:base="http://localhost:4000/2019/06/23/Web-RESTAPI/">&lt;h2&gt;REST&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/06/23/Web-RESTAPI/">&lt;hr /&gt;
 
+&lt;h2&gt;REST&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;REST: REpresentational State Transfer, 자원을 정의하고 자원의 정보(상태)를 주고받는 모든 것
     &lt;ul&gt;
@@ -848,7 +785,9 @@ localization error을 줄이고 더 정확한 bounding box를 얻기 위해 line
       <published>2019-06-22T06:00:00+00:00</published>
       <updated>2019-06-22T06:00:00+00:00</updated>
       <id>http://localhost:4000/2019/06/22/%5BKafka%5Dinstall</id>
-      <content type="html" xml:base="http://localhost:4000/2019/06/22/Kafka-install/">&lt;h1&gt;Apache Kafka&lt;/h1&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/06/22/Kafka-install/">&lt;hr /&gt;
+
+&lt;h2&gt;Apache Kafka&lt;/h2&gt;
 
 &lt;p&gt;  Apache Kafka는 대용량, 대규모의 메시지 데이터를 빠르게 처리할 수 있는 메시지 큐이며 분산처리에 특화되어 있다.&lt;/p&gt;
 
@@ -1929,7 +1868,9 @@ Note: This will have no impact if delete.topic.enable is not set to true.
       <published>2019-05-09T14:00:00+00:00</published>
       <updated>2019-05-09T14:00:00+00:00</updated>
       <id>http://localhost:4000/2019/05/09/Effective_Python3</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/09/Effective_Python3/">&lt;h2&gt;range보다는 enumerate&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/05/09/Effective_Python3/">&lt;hr /&gt;
+
+&lt;h2&gt;range보다는 enumerate&lt;/h2&gt;
 &lt;p&gt;  내장 함수 range는 정수 집합을 순회(iterate)하는 루프, 문자열의 리스트 순회할 때 좋다. 하지만 리스트를 순회할 때 아이템의 인덱스를 알고 싶을 때 &lt;strong&gt;enumerate&lt;/strong&gt;를 사용한다. enumerate는 지연 제너레이터로 iterator를 감싼다.&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;d: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
@@ -2397,7 +2338,9 @@ Note: This will have no impact if delete.topic.enable is not set to true.
       <published>2019-05-03T04:00:00+00:00</published>
       <updated>2019-05-03T04:00:00+00:00</updated>
       <id>http://localhost:4000/2019/05/03/%5BPython%5DProfiling</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/03/Python-Profiling/">&lt;h2&gt;profiling으로 병목 지점 찾기&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/05/03/Python-Profiling/">&lt;hr /&gt;
+
+&lt;h2&gt;profiling으로 병목 지점 찾기&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;코드의 속도상 병목과 RAM 사용 병목을 파악하는 방법&lt;/li&gt;
@@ -2690,8 +2633,9 @@ Ran 1 test in 0.000s
       <published>2019-04-21T15:00:00+00:00</published>
       <updated>2019-04-21T15:00:00+00:00</updated>
       <id>http://localhost:4000/2019/04/21/%5BDocker%5Dcontainerimage</id>
-      <content type="html" xml:base="http://localhost:4000/2019/04/21/Docker-containerimage/">&lt;h2&gt;컨테이너 이미지 실행하기&lt;/h2&gt;
-&lt;hr /&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/04/21/Docker-containerimage/">&lt;hr /&gt;
+
+&lt;h2&gt;컨테이너 이미지 실행하기&lt;/h2&gt;
 
 &lt;p&gt;  &lt;strong&gt;docker run&lt;/strong&gt; 커맨드는 인터넷이 연결되어 있다면 자동으로 image를 찾아서 다운받고 구동한다.
 예를 들어 fedora를 container에 띄우고 싶을 때&lt;/p&gt;
@@ -2865,13 +2809,14 @@ baf3c3803a19        ubuntu              &quot;/bin/bash&quot;         5 minutes 
       <published>2019-04-10T15:00:00+00:00</published>
       <updated>2019-04-10T15:00:00+00:00</updated>
       <id>http://localhost:4000/2019/04/10/%5BDocker%5DDocker_basic_command</id>
-      <content type="html" xml:base="http://localhost:4000/2019/04/10/Docker-Docker_basic_command/">&lt;h2&gt;Docker basic &amp;amp; Command&lt;/h2&gt;
-&lt;hr /&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/04/10/Docker-Docker_basic_command/">&lt;hr /&gt;
+
+&lt;h2&gt;Docker basic &amp;amp; Command&lt;/h2&gt;
 
 &lt;h3&gt;왜 Docker를 사용하는가?&lt;/h3&gt;
 &lt;p&gt;  Containers는 하나의 서로 다른 프로그램이나 프로세스를 고립시키는 방법이며, 프로그램이 오류없이 빠르게 deploy를 시킬 수 있게한다. 또한 application을 호스트 컴퓨터에 직접 설치할 때보다 높은 유연성을 제공하며 가상머신과 비교했을 때 CPU, 메모리, 디스크 공간과 같은 시스템 리소스를 적게 소비한다.&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h3&gt;Docker 이미지와 컨테이너&lt;/h3&gt;
 &lt;ul&gt;
@@ -2886,7 +2831,7 @@ baf3c3803a19        ubuntu              &quot;/bin/bash&quot;         5 minutes 
   &lt;li&gt;Container: Docker Image를 구동한 instance를 의미한다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h3&gt;Docker command&lt;/h3&gt;
 &lt;ul&gt;

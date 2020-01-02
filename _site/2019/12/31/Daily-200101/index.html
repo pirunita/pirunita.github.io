@@ -9,12 +9,12 @@
   
   
   
-  <title>[Paper review] SPADE</title>
-  <meta name="description" content="Semantic Image Synthesis with SPADE   오랜만에 GAN 관련 논문을 읽고 SPADE를 너무 감명깊게 본 나머지 리뷰를 꼭 남겨야 할 것 같아서 진행한다. 1) Introduction   이 논문의 task는 semantic segmentation mask에서 매우 사실적인 사진 이미지로 translation하는 것이다. 이전의 연구에서는 conv, normalization, nonlinearity layer으로 network를 만들었지만 이 때 normalization layer에서는 input semantic mask의 정보를 잃는다는 단점이 있다. 따라서 이를 해결하기 위해 spatially adaptive를 이용해 activations를 조절한 conditional normalization layer인 Spatially-adaptive normalization을 제안했다. 이는 transformation을 학습하고 network를 통해 semantic 정보를 효율적으로 전파시킨다. 2) Related Work 2-1) Deep generative models SPADE는 GAN의 구조를 갖지만 conditional image synthesis task를 목표로 한다. 2-2) Conditional image synthesis 다양한 형태의 input data가 있지만 여기서는 segmentation mask와 image 쌍을 사용하여 spatially-adaptive normalization을 통해 segmentation mask에서 photorealistic image를 만든다. 3) Reference [1] paper :">
+  <title>200101</title>
+  <meta name="description" content="새해가 밝아버렸다. 점심엔 떡국을 먹었고 저녁엔 떡국을 먹었다. 죽도록 오버워치했다. 일도 좀 했다. 세상에서 일기 쓰는 게 제일 귀찮다. 나는 심지어 일기장을 따로 쓰는데도 블로그에 또 일기를 쓰고 앉았다. 1일 1블로그를 하는 사람들은..대단한 것 같다. 새해가 되면 이상하게 뭔가 계획하고 싶어진다. 딱 1월만 그런 것 같다. 그래서 나도 1월에 이 블로그를 다시 살리기 위해 공부한 것을 정리하려 한다. 종강을 장식한 빅데이터프로그래밍에 대해 정리할 것이다. 밖에서는 백날천날 빅데이터 빅데이터를 외치길래 이게 뭔가 싶어서 남은 학점으로 수강했더니 과제파티였다. 학점은 비록 잘 안나왔지만 그래도 제일 좋아하는 수업이었기에 또 나름 공부해 보려 한다. Pytorch에 대한 글도 쓰려고 한다. 연구자의 길로 들어 선 이상 이젠 피할 수 없을 것 같다.">
   
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/2019/09/17/Paperreview-SPADE/">
+  <link rel="canonical" href="http://localhost:4000/2019/12/31/Daily-200101/">
   
   
   <link rel="alternate" type="application/rss+xml" title="pirunita" href="http://localhost:4000/feed.xml">
@@ -24,8 +24,8 @@
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="[Paper review] SPADE">
-  <meta name="twitter:description" content="Semantic Image Synthesis with SPADE   오랜만에 GAN 관련 논문을 읽고 SPADE를 너무 감명깊게 본 나머지 리뷰를 꼭 남겨야 할 것 같아서 진행한다. 1) Introduction   이 논문의 task는 semantic segmentation mask에서 매우 사실적인 사진 이미지로 translation하는 것이다. 이...">
+  <meta name="twitter:title" content="200101">
+  <meta name="twitter:description" content="새해가 밝아버렸다. 점심엔 떡국을 먹었고 저녁엔 떡국을 먹었다. 죽도록 오버워치했다. 일도 좀 했다. 세상에서 일기 쓰는 게 제일 귀찮다. 나는 심지어 일기장을 따로 쓰는데도 블로그에 또 일기를 쓰고 앉았다. 1일 1블로그를 하는 사람들은..대단한 것 같다. 새해가 되면 이상하게 뭔가 계획하고 싶어진다. 딱 1월만 그런 것 같다. 그래서 나도 1월에 ...">
   
   
   
@@ -77,46 +77,40 @@
   <header class="post-header">
     
     
-      <h1 class="post-title" itemprop="name headline">[Paper review] SPADE</h1>
+      <h1 class="post-title" itemprop="name headline">200101</h1>
     
-    <p class="post-meta"><time datetime="2019-09-17T15:00:00+00:00" itemprop="datePublished">Sep 17, 2019</time>
+    <p class="post-meta"><time datetime="2019-12-31T15:12:00+00:00" itemprop="datePublished">Dec 31, 2019</time>
       <span>
         
           
-          <a href="/tag/DeepLearning"><code class="highligher-rouge"><nobr>DeepLearning</nobr></code>&nbsp;</a>
-        
-          
-          <a href="/tag/Paper"><code class="highligher-rouge"><nobr>Paper</nobr></code>&nbsp;</a>
+          <a href="/tag/Daily"><code class="highligher-rouge"><nobr>Daily</nobr></code>&nbsp;</a>
         
       </span>
     </p>
   </header>
   
   <div class="post-content" itemprop="articleBody">
-    <h2>Semantic Image Synthesis with SPADE</h2>
-<hr />
+    <ol>
+  <li>
+    <p>새해가 밝아버렸다.<br.>
+점심엔 떡국을 먹었고 저녁엔 떡국을 먹었다.
+죽도록 오버워치했다. 일도 좀 했다.</br.></p>
+  </li>
+  <li>
+    <p>세상에서 일기 쓰는 게 제일 귀찮다. 나는 심지어 일기장을 따로 쓰는데도 블로그에 또 일기를 쓰고 앉았다. <br />1일 1블로그를 하는 사람들은..대단한 것 같다.</p>
+  </li>
+  <li>
+    <p>새해가 되면 이상하게 뭔가 계획하고 싶어진다. 딱 1월만 그런 것 같다. <br />그래서 나도 1월에 이 블로그를 다시 살리기 위해 공부한 것을 정리하려 한다.</p>
+  </li>
+  <li>
+    <p>종강을 장식한 빅데이터프로그래밍에 대해 정리할 것이다. 밖에서는 백날천날 빅데이터 빅데이터를 외치길래 이게 뭔가 싶어서 남은 학점으로 수강했더니 과제파티였다. <br />
+학점은 비록 잘 안나왔지만 그래도 제일 좋아하는 수업이었기에 또 나름 공부해 보려 한다.</p>
+  </li>
+  <li>
+    <p>Pytorch에 대한 글도 쓰려고 한다. <br />연구자의 길로 들어 선 이상 이젠 피할 수 없을 것 같다.</p>
+  </li>
+</ol>
 
-<p>  <em>오랜만에 GAN 관련 논문을 읽고 SPADE를 너무 감명깊게 본 나머지 리뷰를 꼭 남겨야 할 것 같아서 진행한다.</em></p>
-
-<h2>1) Introduction</h2>
-<p>  이 논문의 task는 semantic segmentation mask에서 매우 사실적인 사진 이미지로 translation하는 것이다. 이전의 연구에서는 conv, normalization, nonlinearity layer으로 network를 만들었지만 이 때 <u>normalization layer에서는 input semantic mask의 정보를 잃는다는 단점</u>이 있다.</p>
-
-<p>따라서 이를 해결하기 위해 spatially adaptive를 이용해 activations를 조절한 conditional normalization layer인 <strong>Spatially-adaptive normalization</strong>을 제안했다. 이는 transformation을 학습하고 network를 통해 semantic 정보를 효율적으로 전파시킨다.</p>
-
-<h2>2) Related Work</h2>
-
-<h3>2-1) Deep generative models</h3>
-<ul>
-  <li>SPADE는 GAN의 구조를 갖지만 conditional image synthesis task를 목표로 한다.</li>
-</ul>
-
-<h3>2-2) Conditional image synthesis</h3>
-<ul>
-  <li>다양한 형태의 input data가 있지만 여기서는 <strong>segmentation mask와 image 쌍</strong>을 사용하여 spatially-adaptive normalization을 통해 segmentation mask에서 photorealistic image를 만든다.</li>
-</ul>
-
-<h2>3) Reference</h2>
-<p>[1] paper :</p>
 
   </div>
   <div class="post-comments" itemprop="comment">
