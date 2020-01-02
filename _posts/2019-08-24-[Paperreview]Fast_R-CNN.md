@@ -3,7 +3,7 @@ layout: post
 title:  "[Paper review] Fast R-CNN"
 date:   2019-08-24 00:02:00 +0900
 lang: ko
-tags: DeepLearning
+tags: DeepLearning Paper
 ---
 
 ## Fast R-CNN ##

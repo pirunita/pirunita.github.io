@@ -3,7 +3,7 @@ layout: post
 title:  "[Paper review] SPADE"
 date:   2019-09-18 00:02:00 +0900
 lang: ko
-tags: DeepLearning
+tags: DeepLearning Paper
 ---
 
 ## Semantic Image Synthesis with SPADE ##

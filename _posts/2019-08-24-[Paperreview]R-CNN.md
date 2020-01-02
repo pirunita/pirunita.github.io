@@ -3,7 +3,7 @@ layout: post
 title:  "[Paper review] R-CNN"
 date:   2019-08-24 00:01:00 +0900
 lang: ko
-tags: DeepLearning
+tags: DeepLearning Paper
 ---
 
 ## Rich feature hierarchies for accurate object detection and semantic segmentation ##

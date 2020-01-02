@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-12-29T15:32:58+00:00</updated>
+  <updated>2020-01-02T15:05:11+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -24,6 +24,67 @@
     </author>
   
 
+  
+  
+    <entry xml:lang="ko">
+      
+      <title type="html">200101</title>
+      
+      
+      <link href="http://localhost:4000/2020/01/01/Daily-200101/" rel="alternate" type="text/html" title="200101" />
+      
+      <published>2020-01-01T03:00:00+00:00</published>
+      <updated>2020-01-01T03:00:00+00:00</updated>
+      <id>http://localhost:4000/2020/01/01/%5BDaily%5D200101</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/01/Daily-200101/">&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;새해가 밝아버렸다.&lt;br.&gt;
+점심엔 떡국을 먹었고 저녁엔 떡국을 먹었다.
+죽도록 오버워치했다. 일도 좀 했다.&lt;/br.&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;세상에서 일기 쓰는 게 제일 귀찮다. 나는 심지어 일기장을 따로 쓰는데도 블로그에 또 일기를 쓰고 앉았다. &lt;br /&gt;1일 1블로그를 하는 사람들은..대단한 것 같다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;새해가 되면 이상하게 뭔가 계획하고 싶어진다. 딱 1월만 그런 것 같다. &lt;br /&gt;그래서 나도 1월에 이 블로그를 다시 살리기 위해 공부한 것을 정리하려 한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;종강을 장식한 빅데이터프로그래밍에 대해 정리할 것이다. 밖에서는 백날천날 빅데이터 빅데이터를 외치길래 이게 뭔가 싶어서 남은 학점으로 수강했더니 과제파티였다. &lt;br /&gt;
+학점은 비록 잘 안나왔지만 그래도 제일 좋아하는 수업이었기에 또 나름 공부해 보려 한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Pytorch에 대한 글도 쓰려고 한다. &lt;br /&gt;연구자의 길로 들어 선 이상 이젠 피할 수 없을 것 같다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="Daily" />
+      
+
+      
+        <summary type="html">새해가 밝아버렸다. 점심엔 떡국을 먹었고 저녁엔 떡국을 먹었다. 죽도록 오버워치했다. 일도 좀 했다. 세상에서 일기 쓰는 게 제일 귀찮다. 나는 심지어 일기장을 따로 쓰는데도 블로그에 또 일기를 쓰고 앉았다. 1일 1블로그를 하는 사람들은..대단한 것 같다. 새해가 되면 이상하게 뭔가 계획하고 싶어진다. 딱 1월만 그런 것 같다. 그래서 나도 1월에 이 블로그를 다시 살리기 위해 공부한 것을 정리하려 한다. 종강을 장식한 빅데이터프로그래밍에 대해 정리할 것이다. 밖에서는 백날천날 빅데이터 빅데이터를 외치길래 이게 뭔가 싶어서 남은 학점으로 수강했더니 과제파티였다. 학점은 비록 잘 안나왔지만 그래도 제일 좋아하는 수업이었기에 또 나름 공부해 보려 한다. Pytorch에 대한 글도 쓰려고 한다. 연구자의 길로 들어 선 이상 이젠 피할 수 없을 것 같다.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry xml:lang="ko">
@@ -130,6 +191,8 @@
 
       
         <category term="DeepLearning" />
+      
+        <category term="Paper" />
       
 
       
@@ -258,6 +321,8 @@
       
         <category term="DeepLearning" />
       
+        <category term="Paper" />
+      
 
       
         <summary type="html">Faster R-CNN 1) Introduction   이전의 object detection으로 제안된 SPPnets과 Fast R-CNN의 경우 region proposal을 만드는 데 걸리는 시간은 여전히 많이 걸린다. region proposal을 생성하기 위해서 selective search를 사용하는데 이는 다음과 같은 문제를 갖는다. 2000개의 Region proposal을 생성하며 bottleneck이 발생한다. Region proposal을 만드는 데 CPU를 사용한다. 이는 sharing computation을 할 수 없음을 의미한다. 따라서 Faster R-CNN에서는 깊은 CNN을 이용하여 computing proposal 방법을 바꾼 것이 특징이라고 볼 수 있다. Faster R-CNN에서는 기존의 Region proposal 대신 Region Proposal Networks(RPNs) 라는 네트워크를 도입하였다. 예상할 수 있는 것처럼 Region proposal을 생성하는 방법 자체를 CNN 내부의 네트워크 구조로 넣은 모델이며 Fast R-CNN, SPPNet에서 제안된 object detection networks의 convolutional networks와 정보를 공유할 수 있는 신경망이다. RPNs의 특징은 다음과 같다. data의 grid에서 각 위치마다 region bounds(bounding box라고 생각)와 objectness scores(roi pooling)를 동시에 구함으로써 같은 feature map을 공유하게 된다. FCN와 비슷한 역할이 비슷하다. object detection에 있어서 모두 neural network를 이용하기 때문에 end-to-end로 학습이 가능하다. 또한 RPNs는 보다 다양한 scale과 aspect ratio에서도 효율적으로 region proposals을 구하기 위해 anchor boxes라는 개념을 도입하였다. 이에 대한 동작은 Related work에서 설명한다. 기존의 Fast R-CNN의 object detection networks에서 RPNs를 합치기 위해 region proposal와 object detection 각각의 fine tuning을 바꾼 새로운 training scheme를 제안하였다. 2) Faster R-CNN   구조는 다음과 같다. Faster R-CNN은 2개의 module로 이루어져 있다. region을 계산하는 deep fully convolutional network 계산된 region을 이용한 Fast R-CNN detector 그리고 이 과정은 모두 위의 구조처럼 하나의 unify된 network로 구성되어 있다. 이 때 위에서 설명했던 RPN module을 사용하므로 기존의 Fast R-CNN과는 구별된다. 2-1) Region Proposal Networks   Region Proposal Networks(RPN) 은 다양한 크기의 이미지를 넣어 직사각형의 object proposal들을 출력하는 데 각각은 objectness score을 나타낸다. 이 과정은 FCN으로 구성되는 데 기존의 Fast R-CNN object detection network와 RPN의 computation을 공유하기 위함이다.   Region proposal을 만들기 위해 연산을 공유하는 마지막 conv layer에서 나온 conv feature map에 small network를 슬라이딩시킨다. 이 small network는 conv feature map을 input으로 하는 n ✕ n size의 spatial window로 이루어져 있다. sliding window는 intermediate layer를 통해 lower-dimensional feature로 매핑된다. 이 논문에서 실험한 intermediate layer는 두 가지이다. 256-d for Zeiler and Fergus model(ZF), which has 5 shareable conv + ReLU 512-d for VGG-16, which has 13 shareable conv + ReLU 이를 통해 나온 feature들은 두 개의 Fully connected layers를 통과한다. Box-regression layer(reg) Box-classification layer(cls) small network는 위의 그림에서 처럼 slinding-window에서 작동하여 저차원 feature을 매핑하기 때문에 모든 공간적 위치에서 fully-connected layer가 공유된다. 2-2) Anchor   sliding-window 위치마다 multiple region proposal을 계산하는 데 각 위치에서 최대 k개만큼 anchor를 사용하여 계산한다. 따라서 k에 따라 reg layer는 2k cls layer는 4k가 된다. cls layer는 분류작업이므로 2k가 되고, reg layer는 anchor마다 4개의 좌표값이 있으므로 4k가 된다. 또한 anchor는 3개의 크기(512, 256, 192)와 3개의 비율(1:1, 1:2, 2:1)을 사용해 총 9개의 anchor를 논문에서 사용한다. 이 두 layer를 학습하여 물체의 정확한 bounding box(roi)를 추출하고 Roi pooling을 통해 각 region에 대한 feature map이 동일하게 고정된 크기로 생성된다. 3) Reference [1] paper : https://arxiv.org/abs/1506.01497</summary>
@@ -383,6 +448,8 @@ CNN의 input을 맞추기 위해 warping 및 cropping이 일어나 정보의 손
       
         <category term="DeepLearning" />
       
+        <category term="Paper" />
+      
 
       
         <summary type="html">Fast R-CNN 1) Introduction   전에 리뷰한 R-CNN에는 3가지에 문제가 있다. 3단계 모델을 거친 pipeline 구조 Region-proposal을 추출하기 위해 Selective search 알고리즘, feature vector을 얻기 위한 CNN, 그리고 feature vector로 분류하는 SVM classifier, 더 정확한 bounding-box를 얻기위한 regressor Training에 자원과 시간이 많이 소모 각각 이미지에서 얻은 2000개의 region-proposal로부터 CNN을 통해 얻은 feature vector로 SVM과 bounding-box regressor를 훈련할 때 디스크에 이 data들을 모두 쓰면서 deep network를 training한다. 느린 수행 속도 역시나 각각의 test image에서 region proposal, feature vector을 얻는 데 시간이 걸린다. 원치않는 이미지의 왜곡과 손실 CNN의 input을 맞추기 위해 warping 및 cropping이 일어나 정보의 손실 발생 앞서 b-box 사이에 겹치는 영역을 따로따로 CNN에 통과시키는 것은 비용적으로 낭비이다. 그래서 제안된 것이 SPPnets이었다. Spatial Pyramid Pooling networks(SPPnets)   앞서 R-CNN이 비용 낭비가 심하므로 R-CNN의 속도를 개선하기 위해 computation을 공유하도록 했다. 즉 SPPnets는 전체 이미지에서 convolutional feature map을 먼저 계산하고 feature map으로부터 pooling으로 얻은 feature vector를 분류하는 방법이다. 이러면 feature map이라는 계산을 공유하게 된다. 이 때 사용된 Spatial pyramid pooling은 feature map으로부터 다양한 사이즈로 영역을 분할하고 max-pooling을 통해 feature를 얻고 이들을 concatenation 시켜 fixed-length representation을 생성한다. 이를 FC로 넣어 training과 inference 속도를 개선하였다. training은 3배정도 빨라지고 수행 속도도 10배에서 100배까지 빨라졌다. R-CNN은 CNN이 도는 횟수가 많았으나 SPPnet은 CNN이 한 번만 수행되어 빨라질 수 있었으며 feature map에서 정보를 추출한다는 특징이다. 또한 중요한 건 pyramid layer로 부터 얻는 representation(feature vector)이므로 이것만 미리 정하면 FC의 input으로 넣을 수 있으며 최초의 input 크기에 제한을 받지 않게 된다. 기존의 AlexNet과 같은 신경망의 입력 size가 고정되는 것은 FC이기 때문이다. Drawback 하지만 SPPnets 역시 multi-stage pipeline 구조라는 한계를 지니며(feature 추출, network fine-tuning, SVM 학습, fitting b-box regressor) feature들을 모두 disk에 쓰여져야 한다. 그리고 R-CNN과 다르게 spatial pyramid pooling을 예측하는 convolutional layer는 update를 할 수 없다. (Q1) 그렇다면 이제 문제 해결 목표를 다시 정의 해 보자. R-CNN, SPPnet보다 정확한 object-detection multi-task loss를 이용한 single-stage training 학습 시 모든 network layer update가 가능해야 함. feature를 disk에 쓰는 과정이 없어야 함. 2) Fast R-CNN architecture and training   구조는 다음과 같다. ConvNet을 거쳐 max pooling layer을 통해 conv feature map을 얻는다. 이 때 이미지와 region-proposal을 한 번에 넣는다. regional-proposal을 얻기 위해 selectvie search를 사용한다. feature map으로 부터 fixed-length feature vector를 얻기 위해 각 object proposal의 RoI(Region of Interest) pooling layer을 거친다. 얻은 feature vector에 각각 FC와 연결된 Softmax classifier &amp;amp; b-box regressor 두 개의 브런치 레이어를 먹인다. Softmax classifier: object class와 배경 추정 b-box regressor: object class 좌표를 추정 R-CNN은 이미지를 warping했다면 Fast R-CNN은 feature map을 고정되게 warping해야 한다. 이를 위해 RoI pooling layer를 사용한다. 2-1) The RoI pooling layer   RoI layer는 위에서 설명한 SPPnets의 가장 단순한 케이스이다. SPPnet이 여러 size의 bin으로 영역을 나눴다면 RoI layer는 하나로 정해진 bin의 갯수로 RoI에 대해 한 번만 pooling을 진행한다. 이를 통해 fixed-length feature vector를 얻는다. 2-2) Fine-tuning for detection   Fast R-CNN의 Network의 weight들을 갱신하기 위해 back-propagation을 한다. 그림과 같이 모든 layer에 대해 학습이 가능한 1 stage pipeline으로 구성되어 error-backProp이 가능해 정확도 개선이 이루어졌다. 2-3) Region-wise sampling   Training time을 줄이기 위해 region-wise sampling 방법을 사용하였다. R-CNN의 경우 모든 region-proposal을 동일한 크기(224 × 224)로 바꾸지만 Fast R-CNN은 원본 그대로 사용하여 연산량이 증가하는 최악의 경우가 생긴다. 이를 피하기 위해 hierarchical sampling 방식을 사용한다. 기존의 R-CNN, SPPnet에서는 한 mini-batch 당 128개의 data에서 RoI를 무작위로 선택하였다. Fast R-CNN에서는 2개의 input으로부터 128개의 RoI(하나 당 64개)를 정함으로써 이미지의 RoI는 연산과 메모리를 공유하게 된다.(Q2) 3) Reference [1] paper : https://arxiv.org/abs/1504.08083 [2] https://tensorflow.blog/2017/06/05/from-r-cnn-to-mask-r-cnn/ [3] https://nittaku.tistory.com/273 [4] https://m.blog.naver.com/PostView.nhn?blogId=laonple&amp;amp;logNo=220776743537&amp;amp;proxyReferer=https%3A%2F%2Fwww.google.com%2F</summary>
@@ -485,6 +552,8 @@ localization error을 줄이고 더 정확한 bounding box를 얻기 위해 line
 
       
         <category term="DeepLearning" />
+      
+        <category term="Paper" />
       
 
       
