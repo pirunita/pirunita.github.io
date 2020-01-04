@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-  <generator uri="http://jekyllrb.com" version="3.8.5">Jekyll</generator>
+  <generator uri="http://jekyllrb.com" version="3.8.6">Jekyll</generator>
   
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-01-04T07:37:23+00:00</updated>
+  <updated>2020-01-04T14:49:52+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -28,10 +28,82 @@
   
     <entry xml:lang="ko">
       
-      <title type="html">[PyTorch] Introducing the PyTorch Library</title>
+      <title type="html">[PyTorch] 2. It starts with a tensor</title>
       
       
-      <link href="http://localhost:4000/2020/01/04/Pytorch-Pytorch1/" rel="alternate" type="text/html" title="[PyTorch] Introducing the PyTorch Library" />
+      <link href="http://localhost:4000/2020/01/04/Pytorch-Pytorch2/" rel="alternate" type="text/html" title="[PyTorch] 2. It starts with a tensor" />
+      
+      <published>2020-01-04T03:00:00+00:00</published>
+      <updated>2020-01-04T03:00:00+00:00</updated>
+      <id>http://localhost:4000/2020/01/04/%5BPytorch%5DPytorch2</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/04/Pytorch-Pytorch2/">&lt;hr /&gt;
+
+&lt;h2&gt;PyTorch&lt;/h2&gt;
+
+&lt;p&gt;  Network는 &lt;strong&gt;floating-point numbers&lt;/strong&gt;를 이용하여 information을 다루기 때문에 network가 이해할 수 있는 적절한 표현으로 data를 encoding하고 다시 우리가 이해할 수 있는 표현으로 decoding하여 output을 내야 한다.&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;  Data의 어떤 form에서 다른 form으로 변환하는 것은 Deep neural network에 의해 학습된다. 이는 연속된 intermediate representation이 진행되는 단계 사이에 data가 부분적으로 transform된다고 볼 수 있다. &lt;br /&gt;예를 들어 image recognition에서 early representation으로는 edge detection, texture(fur)이 될 수 있고, Deeper representation에서는 더욱 복잡한 구조(눈, 코, 입)를 찾아낼 수 있다.&lt;br /&gt;
+앞선 예시처럼 일반적으로 이러한 intermediate representations은 &lt;u&gt;Input을 특징화하고&lt;/u&gt;, &lt;u&gt;Data에서 구조를 파악&lt;/u&gt;하며 &lt;u&gt;Neural network의 output을 묘사&lt;/u&gt;하게 된다.
+&lt;img src=&quot;http://localhost:4000/assets/img/pytorch/2_1.png&quot; alt=&quot;&quot; width=&quot;85%&quot; height=&quot;85%&quot; class=&quot;center&quot; /&gt;
+&lt;br /&gt;&lt;br /&gt;
+  Intermediate representation을 위해 Data를 적절하게 floating-point input으로 바꿀 필요가 있으며 PyTorch에서는 기본 자료구조로 &lt;strong&gt;tensor&lt;/strong&gt;를 이용하게 된다. 물론 tensor는 NumPy, SciPy, Scikit-learn, Pandas와 같은 라이브러리에서도 사용된다.&lt;/p&gt;
+
+&lt;h3&gt;1. Tensor fundamentals&lt;/h3&gt;
+&lt;p&gt;tensor는 torch의 function을 이용하여 생성할 수도 있다. 또한 임의로 텐서를 바꿀 수도 있다. 하지만 딥러닝에선 잘 안쓰인다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Eli Stevens, Luca Antiga. Deep Learning with PyTorch&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="DeepLearning" />
+      
+
+      
+        <summary type="html">PyTorch   Network는 floating-point numbers를 이용하여 information을 다루기 때문에 network가 이해할 수 있는 적절한 표현으로 data를 encoding하고 다시 우리가 이해할 수 있는 표현으로 decoding하여 output을 내야 한다.   Data의 어떤 form에서 다른 form으로 변환하는 것은 Deep neural network에 의해 학습된다. 이는 연속된 intermediate representation이 진행되는 단계 사이에 data가 부분적으로 transform된다고 볼 수 있다. 예를 들어 image recognition에서 early representation으로는 edge detection, texture(fur)이 될 수 있고, Deeper representation에서는 더욱 복잡한 구조(눈, 코, 입)를 찾아낼 수 있다. 앞선 예시처럼 일반적으로 이러한 intermediate representations은 Input을 특징화하고, Data에서 구조를 파악하며 Neural network의 output을 묘사하게 된다.   Intermediate representation을 위해 Data를 적절하게 floating-point input으로 바꿀 필요가 있으며 PyTorch에서는 기본 자료구조로 tensor를 이용하게 된다. 물론 tensor는 NumPy, SciPy, Scikit-learn, Pandas와 같은 라이브러리에서도 사용된다. 1. Tensor fundamentals tensor는 torch의 function을 이용하여 생성할 수도 있다. 또한 임의로 텐서를 바꿀 수도 있다. 하지만 딥러닝에선 잘 안쓰인다. import torch a = torch.ones(3) a a[1] float(a[1]) a[2] = 2.0 a &amp;gt;&amp;gt;&amp;gt; tensor([1., 1., 1.]) tensor(1.) 1.0 tensor([1., 1., 2.]) Eli Stevens, Luca Antiga. Deep Learning with PyTorch</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry xml:lang="ko">
+      
+      <title type="html">[PyTorch] 1. Introducing the PyTorch Library</title>
+      
+      
+      <link href="http://localhost:4000/2020/01/04/Pytorch-Pytorch1/" rel="alternate" type="text/html" title="[PyTorch] 1. Introducing the PyTorch Library" />
       
       <published>2020-01-04T03:00:00+00:00</published>
       <updated>2020-01-04T03:00:00+00:00</updated>
@@ -112,10 +184,10 @@
   
     <entry xml:lang="ko">
       
-      <title type="html">[Hadoop] Introducing the Hadoop</title>
+      <title type="html">[Hadoop] 1. Introducing the Hadoop</title>
       
       
-      <link href="http://localhost:4000/2020/01/04/Hadoop-Hadoop1/" rel="alternate" type="text/html" title="[Hadoop] Introducing the Hadoop" />
+      <link href="http://localhost:4000/2020/01/04/Hadoop-Hadoop1/" rel="alternate" type="text/html" title="[Hadoop] 1. Introducing the Hadoop" />
       
       <published>2020-01-04T03:00:00+00:00</published>
       <updated>2020-01-04T03:00:00+00:00</updated>
@@ -181,51 +253,51 @@
 &lt;p&gt;각 단계는 Input과 Output으로 Key-value pair를 가지며 Map 함수와 Reduce 함수를 작성해야 한다. 다음은 MapReduce를 프로그래밍 하는 예시이다.&lt;/p&gt;
 
 &lt;h4&gt;Python&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;# Mapper
-def getName(line):
-    return (line.split('\t')[1], 1)
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Mapper
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-# Reducer
-def addCounts(hist, (name, c)):
-    hist[name] = hist.get(name, default=0) + c
-    return hist
+&lt;span class=&quot;c1&quot;&gt;# Reducer
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addCounts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;hist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hist&lt;/span&gt;
 
-# Key-value iterators
-input = open('employees.txt', 'r')
-intermediate = map(getName, input)
-result = reduce(addCounts, intermediate, {})
-&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;c1&quot;&gt;# Key-value iterators
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'employees.txt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;intermediate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addCounts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;intermediate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4&gt;Java&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;public class HistogramJob extends Configured implements Tool{
-    // class FieldMapper
-    public static class FieldMapper extends MapReduceBase implements Mapper&amp;lt;LongWritable,Text,Text,LongWritable&amp;gt;{
-        private static LongWritable ONE = new LongWritable(1);
-        private static Text firstname = new Text();
 
-        @Override
-        public void map(LongWritable Key, Text value,OutputCollector&amp;lt;Text,LongWritable&amp;gt; out, Reporter r){
-            firstname.set(value.toString().split(&quot;\t&quot;)[1]);
-            output.collect(firstname, ONE);
-        }
-    } 
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HistogramJob&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Configured&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// class FieldMapper&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FieldMapper&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MapReduceBase&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Mapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ONE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;firstname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 
-    // class LongSumReducer
-    public static class LongSumReducer extends MapReduceBase implements Mapper&amp;lt;LongWritable,Text,Text,LongWritable&amp;gt;{
-        private static LongWritable sum = new LongWritable();
+        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;OutputCollector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Reporter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;firstname&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\t&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;firstname&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; 
 
-        @Override
-        public void reduce(Text key, Iterator&amp;lt;LongWritable&amp;gt; vals, OutputCollector&amp;lt;Text,LongWritable&amp;gt; out, Reporter r){
-            long s = 0;
-            while(vals.hasNext()){
-                s += vals.next().get();
-            }
-            sum.set(s);
-            output.collect(key, sum);
-        }
-    }
-} 
-&lt;/code&gt;&lt;/pre&gt;
+    &lt;span class=&quot;c1&quot;&gt;// class LongSumReducer&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LongSumReducer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MapReduceBase&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Mapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Iterator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OutputCollector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;LongWritable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Reporter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hasNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()){&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3&gt;4. Data flow in MapReduce&lt;/h3&gt;
 &lt;ul&gt;
@@ -1211,6 +1283,161 @@ Note: This will have no impact if delete.topic.enable is not set to true.
 
       
         <summary type="html">Apache Kafka   Apache Kafka는 대용량, 대규모의 메시지 데이터를 빠르게 처리할 수 있는 메시지 큐이며 분산처리에 특화되어 있다. Kafka는 PUB/SUB(Publishier, Subscriber) 모델로 메시지를 전달하고 받는 구조다. Publisher는 메시지를 topic을 통해 카테고리화하고 Subscriber는 해당 topic을 subscribe하여 메시지를 읽는다. Kafka는 다음과 같이 구성되어 있다. Topic &amp;amp; Partition Topic: 메시지는 topic으로 분류되고 topic은 여러 파티션으로 나눠진다. 메시지의 상대적 위치를 나타내는 것이 offset이다. Partition: 하나의 topic에 여러 partition을 통해 메시지를 분산 저장하여 병렬처리를 한다. Producer &amp;amp; Consumer Producer: 메시지를 생산하는 주체, Topic에 메시지 작성 Consumer: 메시지를 소비하는 주체, Subscribe 후에 메시지를 소비할 수 있다. 소비를 하는 표시는 topic 내의 각 partition에 존재하는 offset의 위치를 통해 이전에 소비한 offset 위치를 기억하고 관리한다. Consumer Group 반드시 해당 topic의 partition은 consumer group과 1:n 매칭을 해야 한다. 따라서 partition을 늘릴 때 consumer group 내의 consumer 개수도 고려한다. 보통은 맞추는 것을 권장한다. Broker, Zookeeper Broker: Kafka Server, 동일한 노드 내에서 여러 broker server를 띄울 수 있다. Zookeeper: 분산 메시지 큐의 정보를 관리 해 주는 역할, 반드시 실행해야 한다. Replication Broker server를 복제한다. 설치 환경 OS: Mac OS Mojave 10.14.5 Install 다음 링크에 접속한 후 Binary를 다운로드한다. 나는 Kafka 2.2.1 패키지의 Scala 2.12를 다운받았다. https://kafka.apache.org/downloads Kafka는 Scala로 개발되었으므로 JVM이 설치되어야 한다. 난 이미 깔려 있으니 생략한다. Kafka를 다운받고 압축을 해제한 후 폴더 내에는 다음과 같이 있다. khosungpil@khosungpil &amp;gt; ~/kafka_2.12-2.2.1 &amp;gt; &amp;gt; master &amp;gt; ls LICENSE NOTICE bin config libs site-docs Usage ZooKeeper setting &amp;amp; run 다음을 입력하면 Zookeeper가 실행된다. bin/zookeeper-server-start.sh config/zookeeper.properties 정상적으로 실행되면 다음 메시지가 뜬다. [2019-06-22 14:46:24,752] INFO binding to port 0.0.0.0/0.0.0.0:2181 (org.apache.zookeeper.server.NIOServerCnxnFactory) Kafka run ZooKeeper를 실행한 상태에서 kafka를 동작한다. bin/kafka-server-start.sh config/server.properties 정상적으로 실행되연 다음 메시지가 뜬다. [2019-06-22 14:55:46,259] INFO Kafka version: 2.2.1 (org.apache.kafka.common.utils.AppInfoParser) [2019-06-22 14:55:46,261] INFO Kafka commitId: 55783d3133a5a49a (org.apache.kafka.common.utils.AppInfoParser) [2019-06-22 14:55:46,279] INFO [KafkaServer id=0] started (kafka.server.KafkaServer) Topic manage Topic을 생성한다. bin/kafka-topics.sh -create -zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test Created topic test. 2181 port로 열었기 때문에 다음과 같이 Topic 리스트를 확인한다. bin/kafka-topics.sh --list --zookeeper localhost:2181 test Topic을 삭제한다. bin/kafka-topics.sh --delete --zookeeper localhost:2181 --topic test Topic test is marked for deletion. Note: This will have no impact if delete.topic.enable is not set to true. Message send &amp;amp; receive Producer를 실행한다. test라는 topic을 subscribe하는 consumer에게 보낸다고 broker에게 메시지를 보낸다. bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test Consumer를 실행한다. Producer와 같은 port를 쓴다. bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning Producer 콘솔창에 메시지를 전송하면 Consumer 콘솔창에 메시지가 수신되어 나타난다. 다음은 전체 예시이다. Reference https://yfkwon.tistory.com/26 https://medium.com/@umanking/%EC%B9%B4%ED%94%84%EC%B9%B4%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0-%ED%95%98%EA%B8%B0%EC%A0%84%EC%97%90-%EB%A8%BC%EC%A0%80-data%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0%ED%95%B4%EB%B3%B4%EC%9E%90-d2e3ca2f3c2</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry xml:lang="ko">
+      
+      <title type="html">[Python] Effective Python(9) - Class &amp;amp; inheritance(3)</title>
+      
+      
+      <link href="http://localhost:4000/2019/05/27/Effective_Python9/" rel="alternate" type="text/html" title="[Python] Effective Python(9) - Class &amp; inheritance(3)" />
+      
+      <published>2019-05-27T04:00:00+00:00</published>
+      <updated>2019-05-27T04:00:00+00:00</updated>
+      <id>http://localhost:4000/2019/05/27/Effective_Python9</id>
+      <content type="html" xml:base="http://localhost:4000/2019/05/27/Effective_Python9/">&lt;hr /&gt;
+
+&lt;h2&gt;객체를 범용으로 생성하기 위해 @classmethod 이용하기&lt;/h2&gt;
+&lt;p&gt;  다형성(Polymorphism)은 계층 구조에 속한 여러 클래스가 자체적인 메서드를 독립적으로 구현한다. 이를 통해 여러 클래스가 &lt;strong&gt;같은 인터페이스, 추상 기반 클래스&lt;/strong&gt;를 가지면서 다른 기능을 제공할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;# 입력 데이터 클래스
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;InputData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NotImplementedError&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# InputData의 서브 클래스
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PathInputData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InputData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 입력 데이터를 처리하는 작업 클래스
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Worker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_data&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NotImplementedError&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NotImplementedError&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Worker의 서브클래스
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LineCountWorker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Worker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;하지만 위의 클래스들을 연결시키기 위해 헬퍼 함수로 직접 객체를 만들 수 있지만 범용적으로 사용하기 위한 특별한 셍성자를 만들기 위해 **@classmethod 를 이용한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;InputData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NotImplementedError&lt;/span&gt;
+    
+    &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;classmethod&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generate_inputs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NotImplementedError&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PathInputData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InputData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    
+    &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;classmethod&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generate_inputs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;date_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'data_dir'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;increment_with_report 함수를 실행하면 튜플의 요소로 기대한 개수 2를 얻는다. 클로저 안에 상태를 숨기면 기능을 추가하기도 쉽다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;increment_with_report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;increments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;하지만 상태 보존 후크용으로 클로저를 정의할 때 문제는 상태가 없는 함수의 예제보다 이해하기 어렵다. 따라서 보존할 상태를 캡슐화 하는 작은 클래스로 정의한다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CountMissing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;added&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;missing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;added&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;파이썬은 first-class function이므로 객체로 CountMissing.missing 메서드를 직접 참조해서 defaultdict의 기본값 후크로 넘길 수 있다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CountMissing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;defaultdict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;missing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;increments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;added&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;헬퍼 클래스로 상태 보존 클로저의 동작을 제공하는 방법이 앞서 함수를 사용한 방법보다 명확하지만 &lt;strong&gt;CountMissing&lt;/strong&gt;클래스 자체만으로 용도가 무엇인지 바로 이해하기 어렵다. defaultdict와 연계해서 사용한 예를 보기 전까지는 알기 어렵기 때문에 &lt;strong&gt;__ call __&lt;/strong&gt; 이라는 메서드를 정의해서 이를 명확하게 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;__ call __메서드는 객체를 함수처럼 호출할 수 있게 해 주며 내장 함수 callable이 이러한 인스턴스에 대해 True를 반환하게 한다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BetterCountMissing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;added&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__call__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;added&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BetterCountMissing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;callable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# BetterCountMissing 인스턴스를 defaultdict의 기본값 후크로 사용
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BetterCountMissing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;defaultdict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;increments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;added&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;__ call __ 메서드는 함수 인수를 사용하기 적합한 위치에 클래스의 인스턴스를 사용할 수 있다는 것을 알려주며 이 클래스의 주요 동작 진입점을 안내하고 클래스의 목적이 &lt;strong&gt;상태 보존 클로저&lt;/strong&gt;로 동작할 것이라는 힌트를 제공한다. 또한 defaultdict는 여전히 기본값 후크용 함수만 필요하므로 클로저와 분리되어 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;브렛 슬라킨, ⌜파이썬 코딩의 기술⌟, 김형철, 길벗(2017)&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="Python" />
+      
+
+      
+        <summary type="html">객체를 범용으로 생성하기 위해 @classmethod 이용하기   다형성(Polymorphism)은 계층 구조에 속한 여러 클래스가 자체적인 메서드를 독립적으로 구현한다. 이를 통해 여러 클래스가 같은 인터페이스, 추상 기반 클래스를 가지면서 다른 기능을 제공할 수 있다. # 입력 데이터 클래스 class InputData(object): def read(self): raise NotImplementedError # InputData의 서브 클래스 class PathInputData(InputData): def __init__(self, path): super().__init__() self.path = path def read(self): return open(self.path).read() # 입력 데이터를 처리하는 작업 클래스 class Worker(object): def __init__(self, input_data): self.input_data = input_data self.result = None def map(self): raise NotImplementedError def reduce(self, other): raise NotImplementedError # Worker의 서브클래스 class LineCountWorker(Worker): def map(self): data = self.input_data.read() self.result = data.count('\n') def reduce(self, other): self.result += other.result 하지만 위의 클래스들을 연결시키기 위해 헬퍼 함수로 직접 객체를 만들 수 있지만 범용적으로 사용하기 위한 특별한 셍성자를 만들기 위해 **@classmethod 를 이용한다. class InputData(object): def read(self): raise NotImplementedError @classmethod def generate_inputs(cls, config): raise NotImplementedError class PathInputData(InputData): def read(self): return open(self.path).read() @classmethod def generate_inputs(cls, config): date_dir = config['data_dir'] for name in os.listdir(data_dir): yield cls(os.path.join(data_dir, name)) increment_with_report 함수를 실행하면 튜플의 요소로 기대한 개수 2를 얻는다. 클로저 안에 상태를 숨기면 기능을 추가하기도 쉽다. result, count = increment_with_report(current, increments) assert count == 2 하지만 상태 보존 후크용으로 클로저를 정의할 때 문제는 상태가 없는 함수의 예제보다 이해하기 어렵다. 따라서 보존할 상태를 캡슐화 하는 작은 클래스로 정의한다. class CountMissing(object): def __init__(self): self.added = 0 def missing(self): self.added += 1 return 0 파이썬은 first-class function이므로 객체로 CountMissing.missing 메서드를 직접 참조해서 defaultdict의 기본값 후크로 넘길 수 있다. count = CountMissing() result = defaultdict(counter.missing, current) for key, amount in increments: result[key] += amount assert counter.added == 2 헬퍼 클래스로 상태 보존 클로저의 동작을 제공하는 방법이 앞서 함수를 사용한 방법보다 명확하지만 CountMissing클래스 자체만으로 용도가 무엇인지 바로 이해하기 어렵다. defaultdict와 연계해서 사용한 예를 보기 전까지는 알기 어렵기 때문에 __ call __ 이라는 메서드를 정의해서 이를 명확하게 할 수 있다. __ call __메서드는 객체를 함수처럼 호출할 수 있게 해 주며 내장 함수 callable이 이러한 인스턴스에 대해 True를 반환하게 한다. class BetterCountMissing(object): def __init__(self): self.added = 0 def __call__(self): self.added += 1 return 0 counter = BetterCountMissing() counter() assert callable(counter) # BetterCountMissing 인스턴스를 defaultdict의 기본값 후크로 사용 counter = BetterCountMissing() result = defaultdict(counter, current) for key, amount in increments: result[key] += amount assert counter.added == 2 __ call __ 메서드는 함수 인수를 사용하기 적합한 위치에 클래스의 인스턴스를 사용할 수 있다는 것을 알려주며 이 클래스의 주요 동작 진입점을 안내하고 클래스의 목적이 상태 보존 클로저로 동작할 것이라는 힌트를 제공한다. 또한 defaultdict는 여전히 기본값 후크용 함수만 필요하므로 클로저와 분리되어 있다. 브렛 슬라킨, ⌜파이썬 코딩의 기술⌟, 김형철, 길벗(2017)</summary>
       
 
       
@@ -2893,360 +3120,6 @@ Ran 1 test in 0.000s
 
       
         <summary type="html">profiling으로 병목 지점 찾기 코드의 속도상 병목과 RAM 사용 병목을 파악하는 방법 CPU와 메모리 사용량을 프로파일링하는 방법 얼마나 자세하게 프로파일링을 해야 하는가 장시간 실행되는 어플리케이션을 프로파일링 하는 방법 CPython의 내부 동작 성능을 튜닝하는 동안 코드의 올바름을 유지하는 방법   프로파일링을 하게 되면 RAM이 사용될 때 몰리는 병목 지점을 찾을 수 있기 때문에, 프로파일링을 하면 속도를 크게 향상 시키고 자원을 적게 사용할 수 있다는 장점이 있다. 또한 CPU뿐만 아니라 GPU, RAM, 네트워크 대역폭, 디스크 I/O 등 측정 가능한 자원은 모두 프로파일링을 해 볼 수 있다. 2.1 효과적으로 프로파일링 하기 프로파일링의 첫 번째 목표 : 시스템의 어느 부분이 느린 지, 병목 현상이 어디서 일어나는 지 알 수 있다. (주의: 프로파일링 시 평소보다 실행 속도가 느려지므로 검사할 부분만 따로 떼어내서 검사한다.) 프로파일링 방법은 다음과 같다. IPython의 %timeit 매직 명령어, time.time(), timing decorator cProfile: 어떤 함수가 가장 오래 걸리는 지 확인할 수 있는 내장 도구 line_profiler: 선택한 함수를 한 줄씩 프로파일링 line_profiler을 통해 컴파일러를 사용할 부분을 결정할 수 있다. perf stat: CPU에서 실행된 명령의 수, CPU 캐시가 얼마나 효율적으로 활용 되었는 지 알 수 있다.(chap 6) heapy: 파이썬 메모리에 상주하는 모든 객체를 확인 메모리 누수를 찾을 때 유용 장시간 실행되는 시스템이라면 dowser를 사용한다. memory_profiler: 시간에 따른 RAM 사용 추이를 차트로 확인 RAM 사용량이 왜 높은 지 찾을 수 있다. CPython 내부에서 쓰이는 파이썬 바이트코드 2.2 시간을 측정하는 간단한 방법 - print와 데코레이터   print문을 사용하는 경우는 코드를 더럽히지만 시간을 잠깐 조사하는 경우에 매우 유용하다. (작업이 끝나고 print문을 정리하지 않으면 표준 출력을 모두 잡아먹는다.) import time def print_time(): start_time = time.time() output = func() end_time = time.time90 secs = end_time - start_time 조금 더 깨끗한 방법으로 데코레이터가 있다. 여기선 시간을 측정하고 싶은 함수 위에 코드 한 줄을 추가할 것이다. from functools import wraps def timefn(fn): @wraps(fn) def measure_time(*args, **kwargs): t1 = time.time() result = fn(*args, **kwargs) t2 = time.time() print(&quot;@timefn: {} took {} seconds&quot;.format(fn.__name__, t2- t1)) return measure_time @timefn def calculate_z_serial_purepython(maxiter, zs, cs): ... 추가적인 프로파일링 정보는 코드를 느려지게 만들 수 있다. 이번에는 CPU를 많이 사용하는 함수의 실행 속도를 측정하는 다른 방법으로 timeit 모듈을 사용할 수 있다. $ python -m timeit -n 5 -r 5 -s &quot;import julia1&quot; &quot;julia1.calc_pure_python(desired_width=1000, max_iterations=300)&quot; 여기서 calc_pure_python이 모듈 안에 정의되어 있으므로 -s를 사용하여 module을 임포트해야한다. -r 5: 반복횟수를 나타냄 -n 5: 각 검사에서 평균을 구하여 전체 반복 중 가장 나은 값을 출력 만약 -n, -r 옵션을 주지 않고 timeit을 수행했다면 기본값으로 5번씩 10회 반복 수행 2.3 cProfile module 사용   cProfile은 표준 라이브러리가 제공하는 3가지 프로파일러 중 하나이다.(hotshot, profile) tip: 프로파일링을하기 전에 프로파일링하려는 코드의 기대 속도에 대한 가설을 세우는 습관을 들이는 것이 좋다. 의심스러운 코드를 출력해서 메모하는 방식이 좋다. python -m cProfile -s cumulative julia1_nopil.py -s cumulative: 각 함수에서 소비한 누적 시간순으로 정렬되어 어떤 함수가 더 느린지 쉽게 확인 가능 python -m cProfile -o profile.stats julia1.py cProfile의 결과를 더 세밀하게 살펴보려면 통계 파일을 생성한 뒤 파이썬으로 분석할 수 있다. 이제 다음과 같이 파이썬에서 통계 파일을 불러들이면 앞서 살펴본 출력과 같은 결과를 확인할 수 있다. import pstats p = pstats.Stats(&quot;profile.stats&quot;) p.sort_stats(&quot;cumulative&quot;) p.print_stats() 프로파일링 중인 함수를 추적하기 위해 해당 함수를 호출한 측(caller)의 정보를 출력한다. p.print_callers() 이를 통해 어떤 함수가 몇 번 호출했고 수행시간을 측정할 수 있다. 또한 다음 방법으로 해당 함수에서 호출하는 함수 목록도 확인할 수 있다. p.print_callees() 2.4 line_profiler로 한 줄씩 측정하기   line_profiler은 파이썬 코드에서 CPU 병목 원인을 찾아주는 가장 강력한 도구일 것이다. line_profiler는 개별 함수를 한 줄씩 프로파일링할 수 있으므로 cProfile로 어떤 함수를 line_profiler로 자세히 살펴볼 지에 대한 전체적인 방향을 정한다. 먼저 line_profiler를 설치한다. pip install line_profiler @profiler: decorator, 선택한 함수를 표시하기 위해 사용 kernprof.py: 코드를 실행하고 선택한 함수의 각 줄에 대한 CPU 시간 등의 통계를 기록 -l: l옵션은 함수 단위가 아닌 한 줄씩 프로파일링 -v: v옵션은 출력 결과를 다양하게 보여준다. -v를 주지 않으면 line_profiler 모듈을 이용한 분석에 사용할 수 있는 .lprof 결과를 받는다. kernprof.py -l -v julia1_lineprofiler.py 이 내용에서 print만으로 걸린 측정 시간은 13초, cProfile은 19초, 하지만 line_profiler은 100초가 소요되지만 각 줄이 실행되는 데 걸린 시간을 확인할 수 있다. tip: while문에서 조건이 2개 이상이라면 이를 분리해서 if조건문으로 처리 해 준 후에 측정한다. 또한 파이썬은 다른 부분을 계산하지 않고 전체 결과를 확정할 수 있으면 전체를 확정지어 버리기 때문에 while문의 연산 순서를 바꿈으로써 유의미한 속도 개선을 기대할 수 있다. 2.5 memory_profiler로 메모리 사용량 진단하기   메모리 사용량을 줄단위로 측정해주는 memory_profiler이다. 이를 통해서 다음을 알 수 있다. 이 함수를 더 효과적으로 작동하게 고쳐서 RAM을 덜 사용할 수 있는가 캐시를 두어 RAM을 조금 더 쓰는 대신 CPU 사이클을 아길 수 있을까? memory_profiler는 line_profiler와 흡사하게 작동하지만 훨씬 느리다. psutil 패키지를 설치하면 memory_profiler를 더 빠르게 실행할 수 있다. pip install memory_profiler pip install psutil memory_profiler은 느리기 때문에 최소한의 시간에 프로파일링을 마칠 수 있도록 코드의 일부만 떼어내 검사하는 편이 좋다. python -m momry_profiler julia1_memoryprofiler.py 메모리 사용량의 변화를 시각화하는 방법은 시간에 따라 샘플링하고 그 결과를 그래프로 그려보는 것이다. memory_profiler에 포함된 mprof는 메모리 사용량을 샘플링한 후 시각화하며, 시간에 따라 샘플링하기 때문에 코드 실행시간에 큰 영향을 주지 않는다. mprof run julia1_memoryprofiler.py 통계 파일을 먼저 생성하고 mprof plot 명령으로 시각화한다. range vs xrange? 2.6 최적화 중에 단위 테스트 하기   단위 테스트를 하지 않으면 장기적으로 생산성을 떨어트린다. 단위 테스트와 더불어 coverage.py도 함께 고려한다. coverage.py는 코드의 어떤 부분이 검사되었고 검사되지 않은 부분은 어디인지 알 수 있다. no-op @profiler 데코레이터   line_profiler나 memory_profiler에서 @profile을 사용하면 단위테스트에서 NameError 예외가 발생한다. 단위 테스트 프레임워크는 @profile 데코레이터를 로컬 네임스페이스에 추가하지 않았기 때문에 no-op decorator를 이용하면 이 문제를 피할 수 있다. 검사하려는 코드 블록에 추가하고 검사가 끝나면 제거한다. no-op를 이용하면 검사하려는 코드를 변경하지 않고 테스트를 실행할 수 있고, 프로파일링을 통한 최적화 작업 중에도 테스트를 돌려볼 수 있기 때문에 잘못된 최적화에 빠지는 일을 방지할 수 있다. # ex.py import unittest @profile def some_fn(nbr): return nbr * 2 class TestCase(unittest.TestCase): def test(self): result = some_fn(2) self.assertEquals(result, 4) $ nosetests ex.py E ================================================ ERROR: Failure: NameError (name 'profile' is not defined) 따라서 해결책은 ex.py의 첫 부분에 no-op 데코레이터를 추가하는 것이다.(프로파일링이 끝나고 제거하면 된다.) 단위 테스트를 위해 네임스페이스에 no-op @profiler 데코레이터 추가하기(line_profiler) # line_profiler용 if '__builtin__' not in dir() or not hasattr(__builtin__, 'profile'): def profile(func): def inner(*args, **kwargs): return func(*args, **kwargs) return inner ‘__builtin __’ 테스트는 nosetest 유무를 위한 것이고 hasattr 테스트는 네임스페이스에 @profile이 추가되었는 지 검사한다. $ kernprof.py -v -l ex.py Line # Hits Time Per %%HTMLit % Time Line Contests ===================================================================== 11 @profile 12 def some_fn(nbr): 13 1 3 3.0 100.0 return nbr * 2 $ nosetests ex.py . Ran 1 test in 0.000s 단위 테스트를 위해 네임스페이스에 no-op @profiler 데코레이터 추가하기(memory_profiler) # memory_profiler용 if 'profile' not in dir(): def profile(func): def inner(*args, **kwargs): return func(*args, **kwargs) return inner python -m memory_profiler ex.py ... Line # Mem usage Increment Line Contents ===================================================================== 11 10.809 MiB 0.000 MiB @profile 12 def some_fn(nbr): 13 10.809 MiB 0.000 MiB return nbr * 2 $ nosestests ex.py . Ran 1 test in 0.000s</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry xml:lang="ko">
-      
-      <title type="html">[Docker] Container Image 실행하기</title>
-      
-      
-      <link href="http://localhost:4000/2019/04/21/Docker-containerimage/" rel="alternate" type="text/html" title="[Docker] Container Image 실행하기" />
-      
-      <published>2019-04-21T15:00:00+00:00</published>
-      <updated>2019-04-21T15:00:00+00:00</updated>
-      <id>http://localhost:4000/2019/04/21/%5BDocker%5Dcontainerimage</id>
-      <content type="html" xml:base="http://localhost:4000/2019/04/21/Docker-containerimage/">&lt;hr /&gt;
-
-&lt;h2&gt;컨테이너 이미지 실행하기&lt;/h2&gt;
-
-&lt;p&gt;  &lt;strong&gt;docker run&lt;/strong&gt; 커맨드는 인터넷이 연결되어 있다면 자동으로 image를 찾아서 다운받고 구동한다.
-예를 들어 fedora를 container에 띄우고 싶을 때&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run fedora cat /etc/os-release
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;cat /etc/os-release: container에 실행되고 있는 OS의 버전과 종류 확인&lt;/li&gt;
-  &lt;li&gt;이미지 이름 뒤에 태그를 지정하지 않았으므로 :latest를 지정&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;Image vs Container&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Image: Container instance가 영구적으로 저장된 것
-    &lt;ul&gt;
-      &lt;li&gt;docker images: 현재 시스템에 저장된 이미지를 볼 수 있다.&lt;/li&gt;
-      &lt;li&gt;docker rmi &lt;image_name&gt;: 원하는 image 삭제&lt;/image_name&gt;&lt;/li&gt;
-      &lt;li&gt;docker run: image 실행&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Container: Image를 실행하면 container가 생성되며 백그라운드에서 실행하면(-d 옵션) 커맨드 종료 후에도 계속 구동할 수 있다.
-    &lt;ul&gt;
-      &lt;li&gt;docker ps: 현재 실행 중인 컨테이너를 본다.
-        &lt;ul&gt;
-          &lt;li&gt;-a: container가 종료될 때 그 시점의 container 상태가 저장되며 그 때 -a를 붙여도 표시되지 않는다.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;docker start &lt;container_name&gt;: 컨테이너 재구동
-&lt;/container_name&gt;        &lt;ul&gt;
-          &lt;li&gt;-i: container의 실행 결과가 로컬 셸로 전달된다.
-            &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker start -i 28172e7ffbc6
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;            &lt;/div&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;docker stop &lt;container_name&gt;: 컨테이너 멈춤&lt;/container_name&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h3&gt;인터렉티브 방식으로 container image 구동하기&lt;/h3&gt;
-&lt;p&gt;  Container image를 구동하면, 지정한 커맨드를 실행한 뒤에 종료한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;-d: 웹 서버, 프린트 서비스와 같이 지속적으로 서비스를 제공하도록 커맨드를 백그라운드에서 계속 실행하게 한다.&lt;/li&gt;
-  &lt;li&gt;-i: 포그라운드에서 인터렉티브 방식으로 실행한다.
-    &lt;ul&gt;
-      &lt;li&gt;-t: 인터렉티브 방식으로 실행할 때는 -t 옵션을 지정해서 터미널 세션을 별도로 열어주면 좋다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h4&gt;배시 셸 구동하기&lt;/h4&gt;
-&lt;p&gt;  Container 안에서 별도로 셸을 실행해 작업을 수행하려면 container를 인터렉티브 방식으로 구동하는 것이 좋으며 container 내부에서 내용을 수정할 수 있다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -it ubuntu /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Container 내부에 bash shell을 띄웠으므로 어떤 프로세스가 실행되고 있는 지 확인 해 보자.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@baf3c3803a19:/# ps -e
-  PID TTY          TIME CMD
-    1 pts/0    00:00:00 bash
-   13 pts/0    00:00:00 ps
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;ID가 1인 프로세스는 bash command&lt;/li&gt;
-  &lt;li&gt;현재 실행되고 있는 프로세스는 ps command&lt;/li&gt;
-  &lt;li&gt;Container마다 별도의 프로세스 테이블을 갖기 때문에 host의 프로세스는 확인 불가능&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Container 내부에 필요한 패키지를 설치한 후 exit를 통해 Container를 빠져나온다. 이 시점에서 Container를 image로 저장해두면 이 환경을 그대로 사용할 수 있다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; khosungpil@khosungpil  ~/docker   master  docker ps -a
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                            PORTS               NAMES
-baf3c3803a19        ubuntu              &quot;/bin/bash&quot;         5 minutes ago       Exited (127) About a minute ago
-
- khosungpil@khosungpil  ~/docker   master  docker commit -a &quot;John&quot; baf3c3803a19 testrun
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;이러면 로컬 시스템에 testrun이란 이름의 image가 생성되며 docker run을 통해 바로 사용할 수 있다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3&gt;서비스를 Container로 만들어 실행하기&lt;/h3&gt;
-
-&lt;p&gt;  호스트에서 서비스를 직접 구동하는 것보다 서비스를 &lt;strong&gt;Container&lt;/strong&gt;에 담아 실행하는 편이 더 유리하다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;설정: 서비스를 Container 안에 담으면 서비스에 필요한 실행 파일, 라이브러리, 설정 파일 등 다양한 요소를 모두 설정할 수 있으며 다른 호스트에게 Image로 옮길 수 있다.&lt;/li&gt;
-  &lt;li&gt;격리: Container마다 파일 시스템과 네트워크 인터페이스를 별도로 갖고 있기 때문에 동일한 서비스 Container를 원하는 수만큼 실행할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4&gt;Container로 웹 서버 실행&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d -p 80:80 -p 443:443 --name=MyWebServer \
--v /var/www/:/var/www testrun \
-/usr/sbin/httpd -DFOREGROUND
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;-d: 데몬 모드로 실행, Container를 백그라운드에서 실행한다.&lt;/li&gt;
-  &lt;li&gt;-p 80:80, -p 443:443: 포트 매핑, Container의 포트를 호스트의 포트에 연결한다. 클론의 왼쪽은 호스트의 포트고 오른쪽은 Container의 포트, Container의 TCP 80 포트(HTTP)와 443번 포트(HTTPS)를 호스트의 동일한 포트로 연결&lt;/li&gt;
-  &lt;li&gt;–name=MyWebServer: Container 이름, Container ID 대신 지정한 이름을 사용할 수 있다.&lt;/li&gt;
-  &lt;li&gt;-v /var/www/ : /var/www/: 마운트 지점 지정, 호스트의 디렉토리(클론의 왼쪽)를 Container의 디렉토리(클론의 오른쪽)에 마운트한다. -v 옵션을 사용해 apache의 default directory에 있는 공유 웹 콘텐츠를 사용하도록 지정&lt;/li&gt;
-  &lt;li&gt;testrun: Image, 예제에서 사용한 Image 이름&lt;/li&gt;
-  &lt;li&gt;/usr/sbin/httpd -DFOREGROUND: 커맨드, httpd 데몬에 -DFOREGROUND 옵션을 지정해 실행&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;따라서 호스트의 모든 IPV4 네트워크 인터페이스의 TCP 80번과 443번 포트로 들어오는 요청은 Container의 동일한 포트로 전달된다.&lt;/p&gt;
-
-&lt;p&gt;구동중인 Container 내부를 탐색핫기 위해서 bash를 다시 실행할 수 있다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker exec -it MyWebServer /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4&gt;Container에서 실행하는 서비스에서 사용할 resource 제한&lt;/h4&gt;
-&lt;p&gt;  Container의 default는 메모리와 CPU의 사용량을 제한하지 않는다. –memory, –memory-swap, –cpu-shares, –cpuset-cpus 같은 옵션으로 메모리 용량과 CPU 개수에 제한을 걸 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d -p 80:80 -p 443:443 --name=LimitedWebServer \
--v /var/www/ : /var/www/ --memory=10m -memory-swap=-1 \
---cpu-shares=256 testrun /usr/sbin/httpd -DFOREGROUND
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;여기서 Container는 10MB의 RAM만 사용할 수 있다. memory-swap이 지정되어 있지 않다면 container는 메모리의 두 배 공간을 swap 공간으로 사용할 수 있으며 30m이라고 정하면 최대 30MB만큼 swap 공간으로 사용할 수 있다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;–cpu-shares가 지정되어 있지 않으면 모든 container가 동등하게 cpu를 사용한다. default는 전체(1024)를 사용할 수 있다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;–cpuset-cpu: 시스템에 있는 CPU 중에서 사용할 CPU 셋을 지정할 수 있다.&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li&gt;–cpuset-cpus=0,1: CPU셋 0이나 1을 사용&lt;/li&gt;
-      &lt;li&gt;–cpuset-cpus=0,1: 세 번째 CPU 셋을 사용&lt;/li&gt;
-      &lt;li&gt;–cpuset-cpus=0,1: CPU 셋 1이나 2나 3을 사용&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>pirunita</name>
-          
-          
-        </author>
-      
-
-      
-
-      
-        <category term="DevOps" />
-      
-
-      
-        <summary type="html">컨테이너 이미지 실행하기   docker run 커맨드는 인터넷이 연결되어 있다면 자동으로 image를 찾아서 다운받고 구동한다. 예를 들어 fedora를 container에 띄우고 싶을 때 docker run fedora cat /etc/os-release cat /etc/os-release: container에 실행되고 있는 OS의 버전과 종류 확인 이미지 이름 뒤에 태그를 지정하지 않았으므로 :latest를 지정 Image vs Container Image: Container instance가 영구적으로 저장된 것 docker images: 현재 시스템에 저장된 이미지를 볼 수 있다. docker rmi : 원하는 image 삭제 docker run: image 실행 Container: Image를 실행하면 container가 생성되며 백그라운드에서 실행하면(-d 옵션) 커맨드 종료 후에도 계속 구동할 수 있다. docker ps: 현재 실행 중인 컨테이너를 본다. -a: container가 종료될 때 그 시점의 container 상태가 저장되며 그 때 -a를 붙여도 표시되지 않는다. docker start : 컨테이너 재구동 -i: container의 실행 결과가 로컬 셸로 전달된다. docker start -i 28172e7ffbc6 docker stop : 컨테이너 멈춤 인터렉티브 방식으로 container image 구동하기   Container image를 구동하면, 지정한 커맨드를 실행한 뒤에 종료한다. -d: 웹 서버, 프린트 서비스와 같이 지속적으로 서비스를 제공하도록 커맨드를 백그라운드에서 계속 실행하게 한다. -i: 포그라운드에서 인터렉티브 방식으로 실행한다. -t: 인터렉티브 방식으로 실행할 때는 -t 옵션을 지정해서 터미널 세션을 별도로 열어주면 좋다. 배시 셸 구동하기   Container 안에서 별도로 셸을 실행해 작업을 수행하려면 container를 인터렉티브 방식으로 구동하는 것이 좋으며 container 내부에서 내용을 수정할 수 있다. docker run -it ubuntu /bin/bash Container 내부에 bash shell을 띄웠으므로 어떤 프로세스가 실행되고 있는 지 확인 해 보자. root@baf3c3803a19:/# ps -e PID TTY TIME CMD 1 pts/0 00:00:00 bash 13 pts/0 00:00:00 ps ID가 1인 프로세스는 bash command 현재 실행되고 있는 프로세스는 ps command Container마다 별도의 프로세스 테이블을 갖기 때문에 host의 프로세스는 확인 불가능 Container 내부에 필요한 패키지를 설치한 후 exit를 통해 Container를 빠져나온다. 이 시점에서 Container를 image로 저장해두면 이 환경을 그대로 사용할 수 있다. khosungpil@khosungpil  ~/docker   master  docker ps -a CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES baf3c3803a19 ubuntu &quot;/bin/bash&quot; 5 minutes ago Exited (127) About a minute ago khosungpil@khosungpil  ~/docker   master  docker commit -a &quot;John&quot; baf3c3803a19 testrun 이러면 로컬 시스템에 testrun이란 이름의 image가 생성되며 docker run을 통해 바로 사용할 수 있다. 서비스를 Container로 만들어 실행하기   호스트에서 서비스를 직접 구동하는 것보다 서비스를 Container에 담아 실행하는 편이 더 유리하다. 설정: 서비스를 Container 안에 담으면 서비스에 필요한 실행 파일, 라이브러리, 설정 파일 등 다양한 요소를 모두 설정할 수 있으며 다른 호스트에게 Image로 옮길 수 있다. 격리: Container마다 파일 시스템과 네트워크 인터페이스를 별도로 갖고 있기 때문에 동일한 서비스 Container를 원하는 수만큼 실행할 수 있다. Container로 웹 서버 실행 docker run -d -p 80:80 -p 443:443 --name=MyWebServer \ -v /var/www/:/var/www testrun \ /usr/sbin/httpd -DFOREGROUND -d: 데몬 모드로 실행, Container를 백그라운드에서 실행한다. -p 80:80, -p 443:443: 포트 매핑, Container의 포트를 호스트의 포트에 연결한다. 클론의 왼쪽은 호스트의 포트고 오른쪽은 Container의 포트, Container의 TCP 80 포트(HTTP)와 443번 포트(HTTPS)를 호스트의 동일한 포트로 연결 –name=MyWebServer: Container 이름, Container ID 대신 지정한 이름을 사용할 수 있다. -v /var/www/ : /var/www/: 마운트 지점 지정, 호스트의 디렉토리(클론의 왼쪽)를 Container의 디렉토리(클론의 오른쪽)에 마운트한다. -v 옵션을 사용해 apache의 default directory에 있는 공유 웹 콘텐츠를 사용하도록 지정 testrun: Image, 예제에서 사용한 Image 이름 /usr/sbin/httpd -DFOREGROUND: 커맨드, httpd 데몬에 -DFOREGROUND 옵션을 지정해 실행 따라서 호스트의 모든 IPV4 네트워크 인터페이스의 TCP 80번과 443번 포트로 들어오는 요청은 Container의 동일한 포트로 전달된다. 구동중인 Container 내부를 탐색핫기 위해서 bash를 다시 실행할 수 있다. docker exec -it MyWebServer /bin/bash Container에서 실행하는 서비스에서 사용할 resource 제한   Container의 default는 메모리와 CPU의 사용량을 제한하지 않는다. –memory, –memory-swap, –cpu-shares, –cpuset-cpus 같은 옵션으로 메모리 용량과 CPU 개수에 제한을 걸 수 있다. docker run -d -p 80:80 -p 443:443 --name=LimitedWebServer \ -v /var/www/ : /var/www/ --memory=10m -memory-swap=-1 \ --cpu-shares=256 testrun /usr/sbin/httpd -DFOREGROUND 여기서 Container는 10MB의 RAM만 사용할 수 있다. memory-swap이 지정되어 있지 않다면 container는 메모리의 두 배 공간을 swap 공간으로 사용할 수 있으며 30m이라고 정하면 최대 30MB만큼 swap 공간으로 사용할 수 있다. –cpu-shares가 지정되어 있지 않으면 모든 container가 동등하게 cpu를 사용한다. default는 전체(1024)를 사용할 수 있다. –cpuset-cpu: 시스템에 있는 CPU 중에서 사용할 CPU 셋을 지정할 수 있다. –cpuset-cpus=0,1: CPU셋 0이나 1을 사용 –cpuset-cpus=0,1: 세 번째 CPU 셋을 사용 –cpuset-cpus=0,1: CPU 셋 1이나 2나 3을 사용</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry xml:lang="ko">
-      
-      <title type="html">[Docker] Docker 기초 및 command 정리</title>
-      
-      
-      <link href="http://localhost:4000/2019/04/10/Docker-Docker_basic_command/" rel="alternate" type="text/html" title="[Docker] Docker 기초 및 command 정리" />
-      
-      <published>2019-04-10T15:00:00+00:00</published>
-      <updated>2019-04-10T15:00:00+00:00</updated>
-      <id>http://localhost:4000/2019/04/10/%5BDocker%5DDocker_basic_command</id>
-      <content type="html" xml:base="http://localhost:4000/2019/04/10/Docker-Docker_basic_command/">&lt;hr /&gt;
-
-&lt;h2&gt;Docker basic &amp;amp; Command&lt;/h2&gt;
-
-&lt;h3&gt;왜 Docker를 사용하는가?&lt;/h3&gt;
-&lt;p&gt;  Containers는 하나의 서로 다른 프로그램이나 프로세스를 고립시키는 방법이며, 프로그램이 오류없이 빠르게 deploy를 시킬 수 있게한다. 또한 application을 호스트 컴퓨터에 직접 설치할 때보다 높은 유연성을 제공하며 가상머신과 비교했을 때 CPU, 메모리, 디스크 공간과 같은 시스템 리소스를 적게 소비한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3&gt;Docker 이미지와 컨테이너&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Containerization: Application을 하나의 컨테이너 단위로 구동하는 데 필요한 모든 구성 요소(라이브러리, 설정 파일, 실행 파일 등..)를 하나로 묶는다. 이러한 단위를 &lt;strong&gt;image&lt;/strong&gt;라고 한다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Image: 도커가 설치되고 구동할 준비를 하고 있는 로컬 파일 시스템, 또는 repository에 저장된 하나의 정적인 단위.
-    &lt;ul&gt;
-      &lt;li&gt;Image를 파일시스템에 저장하면 tarb4all(tar.gz) 파일 형태로 저장된다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Container: Docker Image를 구동한 instance를 의미한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3&gt;Docker command&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Docker 구성 요소에 대한 정보 조회
-    &lt;ul&gt;
-      &lt;li&gt;docker version: Docker의 버전 정보&lt;/li&gt;
-      &lt;li&gt;docker info: Docker를 구동하는 시스템에 대한 정보&lt;/li&gt;
-      &lt;li&gt;docker comand: Docker command에서 사용할 수 있는 subcommand와 option을 보여준다.&lt;/li&gt;
-      &lt;li&gt;docker history: &lt;strong&gt;Image&lt;/strong&gt;에 대한 히스토리 정보를 보여준다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;실행 중인 Container 다루기
-    &lt;ul&gt;
-      &lt;li&gt;docker ps: 현재 실행 중인 container list를 보여준다.
-        &lt;ul&gt;
-          &lt;li&gt;-a: 모든 container의 상태를 보여준다.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;docker attach: 실행 중인 cantainer에 다른 command를 붙인다.&lt;/li&gt;
-      &lt;li&gt;docker exec: 현재 실행 중인 컨테이너에서 command를 실행한다.&lt;/li&gt;
-      &lt;li&gt;docker inspect: container의 metadata를 본다.&lt;/li&gt;
-      &lt;li&gt;docker cp: container에 있는 파일을 호스트 시스템으로 복사&lt;/li&gt;
-      &lt;li&gt;docker diff: container를 구동한 후에 컨테이너의 파일시스템에서 변경된 사항을 확인&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Image 다루기
-    &lt;ul&gt;
-      &lt;li&gt;docker images: 시스템에 있는 image 리스트를 보여준다.&lt;/li&gt;
-      &lt;li&gt;docker run: image를 실행한다.
-        &lt;ul&gt;
-          &lt;li&gt;-rm: 프로세스가 종료되면 컨테이너 자동 삭제&lt;/li&gt;
-          &lt;li&gt;-it: container 내부에 들어가기 위해 bash 키보드 입력 설정 추가&lt;/li&gt;
-          &lt;li&gt;/bin/bash: bash쉘 실행
-            &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run --rm -it &amp;lt;image_name&amp;gt; /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;            &lt;/div&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;docker pull: 레지스트리에서 image를 가져온다.
-        &lt;ul&gt;
-          &lt;li&gt;docker pull ubuntu:latest&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;docker push: 레지스트리에 image를 올린다.&lt;/li&gt;
-      &lt;li&gt;docker load: 로컬 시스템에 tarball 형태로 존재하는 image를 불러온다.&lt;/li&gt;
-      &lt;li&gt;docker export: container의 파일시스템을 로컬 시스템에 tarball 형태로 내보낸다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Docker 레지스트리 다루기
-    &lt;ul&gt;
-      &lt;li&gt;docker search: 레지스트리에서 이미지를 검색한다.(자신의 계정에 image를 올리거나 가져올 때)&lt;/li&gt;
-      &lt;li&gt;docker login: 도커 허브 레지스트리 로그인&lt;/li&gt;
-      &lt;li&gt;docker logout: 도커 허브 레지스트리 로그아웃&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;기존 이미지 수정하기
-    &lt;ul&gt;
-      &lt;li&gt;docker tag: image에 이름을 붙인다.&lt;/li&gt;
-      &lt;li&gt;docker rename: image의 이름을 변경한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;container 상태 변경하기
-    &lt;ul&gt;
-      &lt;li&gt;docker pause: 실행 중인 container 일시 정지&lt;/li&gt;
-      &lt;li&gt;docker unpause: 일시 정지한 이미지를 다시 시작&lt;/li&gt;
-      &lt;li&gt;docker kill: container에게 kill 신호를 보냄&lt;/li&gt;
-      &lt;li&gt;docker restart: container를 멈췄다가 다시 시작&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;docker 상태 관찰하기
-    &lt;ul&gt;
-      &lt;li&gt;docker events: 도커 서버에서 발생한 이벤트 확인&lt;/li&gt;
-      &lt;li&gt;docker top: container의 프로세스 현황 확인&lt;/li&gt;
-      &lt;li&gt;docker logs: container에서 생성한 로그 메시지 확인&lt;/li&gt;
-      &lt;li&gt;docker stats: container에 대한 CPU 및 메모리 사용량 확인&lt;/li&gt;
-      &lt;li&gt;docker wait: container가 멈출 때까지 관찰하며 container의 종료 코드를 화면에 표시&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Image나 container 생성하기
-    &lt;ul&gt;
-      &lt;li&gt;docker build: Image를 새로 생성
-        &lt;ul&gt;
-          &lt;li&gt;-t: image name을 붙임&lt;/li&gt;
-          &lt;li&gt;dockerfile이 같은 폴더 내에 위치할 경우
-            &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker build -t &amp;lt;image_name&amp;gt; ./
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;            &lt;/div&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;docker rmi: Image를 제거
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker rmi &amp;lt;image_name&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-        &lt;ul&gt;
-          &lt;li&gt;none으로 지정된 이름을 제거하기 위해
-            &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker rmi $(docker images -a|grep &quot;&amp;lt;none&amp;gt;&quot;|awk '{print $3}')
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;            &lt;/div&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;자주 사용하는 옵션
-    &lt;ul&gt;
-      &lt;li&gt;d: detached mode, 백그라운드 모드&lt;/li&gt;
-      &lt;li&gt;p: 호스트와 container의 포트를 연결(포워딩)&lt;/li&gt;
-      &lt;li&gt;v: 호스트와 container의 디렉토리를 연결(마운트)&lt;/li&gt;
-      &lt;li&gt;e: container 내에서 사용 할 환경변수 설정&lt;/li&gt;
-      &lt;li&gt;name: container 이름 설정&lt;/li&gt;
-      &lt;li&gt;rm: 프로세스 종료 시 container 자동 삭제&lt;/li&gt;
-      &lt;li&gt;it: 터미널 입력을 위한 옵션&lt;/li&gt;
-      &lt;li&gt;link: container 연결&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>pirunita</name>
-          
-          
-        </author>
-      
-
-      
-
-      
-        <category term="DevOps" />
-      
-
-      
-        <summary type="html">Docker basic &amp;amp; Command 왜 Docker를 사용하는가?   Containers는 하나의 서로 다른 프로그램이나 프로세스를 고립시키는 방법이며, 프로그램이 오류없이 빠르게 deploy를 시킬 수 있게한다. 또한 application을 호스트 컴퓨터에 직접 설치할 때보다 높은 유연성을 제공하며 가상머신과 비교했을 때 CPU, 메모리, 디스크 공간과 같은 시스템 리소스를 적게 소비한다. Docker 이미지와 컨테이너 Containerization: Application을 하나의 컨테이너 단위로 구동하는 데 필요한 모든 구성 요소(라이브러리, 설정 파일, 실행 파일 등..)를 하나로 묶는다. 이러한 단위를 image라고 한다. Image: 도커가 설치되고 구동할 준비를 하고 있는 로컬 파일 시스템, 또는 repository에 저장된 하나의 정적인 단위. Image를 파일시스템에 저장하면 tarb4all(tar.gz) 파일 형태로 저장된다. Container: Docker Image를 구동한 instance를 의미한다. Docker command Docker 구성 요소에 대한 정보 조회 docker version: Docker의 버전 정보 docker info: Docker를 구동하는 시스템에 대한 정보 docker comand: Docker command에서 사용할 수 있는 subcommand와 option을 보여준다. docker history: Image에 대한 히스토리 정보를 보여준다. 실행 중인 Container 다루기 docker ps: 현재 실행 중인 container list를 보여준다. -a: 모든 container의 상태를 보여준다. docker attach: 실행 중인 cantainer에 다른 command를 붙인다. docker exec: 현재 실행 중인 컨테이너에서 command를 실행한다. docker inspect: container의 metadata를 본다. docker cp: container에 있는 파일을 호스트 시스템으로 복사 docker diff: container를 구동한 후에 컨테이너의 파일시스템에서 변경된 사항을 확인 Image 다루기 docker images: 시스템에 있는 image 리스트를 보여준다. docker run: image를 실행한다. -rm: 프로세스가 종료되면 컨테이너 자동 삭제 -it: container 내부에 들어가기 위해 bash 키보드 입력 설정 추가 /bin/bash: bash쉘 실행 docker run --rm -it &amp;lt;image_name&amp;gt; /bin/bash docker pull: 레지스트리에서 image를 가져온다. docker pull ubuntu:latest docker push: 레지스트리에 image를 올린다. docker load: 로컬 시스템에 tarball 형태로 존재하는 image를 불러온다. docker export: container의 파일시스템을 로컬 시스템에 tarball 형태로 내보낸다. Docker 레지스트리 다루기 docker search: 레지스트리에서 이미지를 검색한다.(자신의 계정에 image를 올리거나 가져올 때) docker login: 도커 허브 레지스트리 로그인 docker logout: 도커 허브 레지스트리 로그아웃 기존 이미지 수정하기 docker tag: image에 이름을 붙인다. docker rename: image의 이름을 변경한다. container 상태 변경하기 docker pause: 실행 중인 container 일시 정지 docker unpause: 일시 정지한 이미지를 다시 시작 docker kill: container에게 kill 신호를 보냄 docker restart: container를 멈췄다가 다시 시작 docker 상태 관찰하기 docker events: 도커 서버에서 발생한 이벤트 확인 docker top: container의 프로세스 현황 확인 docker logs: container에서 생성한 로그 메시지 확인 docker stats: container에 대한 CPU 및 메모리 사용량 확인 docker wait: container가 멈출 때까지 관찰하며 container의 종료 코드를 화면에 표시 Image나 container 생성하기 docker build: Image를 새로 생성 -t: image name을 붙임 dockerfile이 같은 폴더 내에 위치할 경우 docker build -t &amp;lt;image_name&amp;gt; ./ docker rmi: Image를 제거 docker rmi &amp;lt;image_name&amp;gt; none으로 지정된 이름을 제거하기 위해 docker rmi $(docker images -a|grep &quot;&amp;lt;none&amp;gt;&quot;|awk '{print $3}') 자주 사용하는 옵션 d: detached mode, 백그라운드 모드 p: 호스트와 container의 포트를 연결(포워딩) v: 호스트와 container의 디렉토리를 연결(마운트) e: container 내에서 사용 할 환경변수 설정 name: container 이름 설정 rm: 프로세스 종료 시 container 자동 삭제 it: 터미널 입력을 위한 옵션 link: container 연결</summary>
       
 
       

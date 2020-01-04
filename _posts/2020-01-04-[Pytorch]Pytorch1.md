@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[PyTorch] Introducing the PyTorch Library"
+title:  "[PyTorch] 1. Introducing the PyTorch Library"
 date:   2020-01-04 12:00:00 +0900
 lang: ko
 tags: DeepLearning

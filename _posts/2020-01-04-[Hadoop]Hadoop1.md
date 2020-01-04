@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Hadoop] Introducing the Hadoop"
+title:  "[Hadoop] 1. Introducing the Hadoop"
 date:   2020-01-04 12:00:00 +0900
 lang: ko
 tags: BigData
@@ -50,7 +50,7 @@ tags: BigData
 각 단계는 Input과 Output으로 Key-value pair를 가지며 Map 함수와 Reduce 함수를 작성해야 한다. 다음은 MapReduce를 프로그래밍 하는 예시이다.
 
 #### Python ####
-~~~Python
+~~~python
 # Mapper
 def getName(line):
     return (line.split('\t')[1], 1)
@@ -66,8 +66,9 @@ intermediate = map(getName, input)
 result = reduce(addCounts, intermediate, {})
 ~~~
 
+
 #### Java ####
-~~~Java
+{% highlight java %}
 public class HistogramJob extends Configured implements Tool{
     // class FieldMapper
     public static class FieldMapper extends MapReduceBase implements Mapper<LongWritable,Text,Text,LongWritable>{
@@ -96,7 +97,7 @@ public class HistogramJob extends Configured implements Tool{
         }
     }
 } 
-~~~
+{% endhighlight %}
 
 
 ### 4. Data flow in MapReduce ###

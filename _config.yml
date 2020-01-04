@@ -59,6 +59,7 @@ plugins:
   - jekyll-sitemap
 
 # Build settings
+highlighter: rouge
 markdown: kramdown
 excerpt_separator: "<!-- more -->"
 
@@ -70,11 +71,15 @@ paginate: 5
 # Markdown settings
 kramdown:
   auto_ids: false
-  enable_coderay: false
+  hard_wrap: false
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    {span: {disable: true}}
   entity_output: as_char
   footnote_nr: 1
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   toc_levels: 1..6
+  
 
 # jekyll-archives
 jekyll-archives:
