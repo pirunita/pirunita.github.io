@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[PyTorch] It starts with a tensor"
-date:   2020-01-07 00:00:00 +0900
+date:   2020-01-07 12:00:00 +0900
 lang: ko
 tags: DeepLearning
 ---
