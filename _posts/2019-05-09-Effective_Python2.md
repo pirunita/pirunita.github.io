@@ -5,6 +5,7 @@ date:   2019-05-09 09:00:00 +0900
 lang: ko
 tags: Python
 ---
+<hr>
 
 ## 시퀀스 슬라이싱 ##
 &nbsp;&nbsp;파이썬은 슬라이싱으로 특정 subset에 접근할 수 있다. 가장 간단한 슬라이싱 대상은 list, str, bytes이다.
