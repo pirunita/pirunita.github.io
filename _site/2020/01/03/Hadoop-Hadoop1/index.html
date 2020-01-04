@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>[Hadoop] Introducing the Hadoop</title>
+  <meta name="description" content="Hadoop   지난 학기동안 빅데이터프로그래밍을 들었을 때 Hadoop을 처음 접하였다. 이 분야는 진입장벽이 높다고 볼 수 있으며 데이터베이스와 분산처리를 아는 것이 좋고 Java나 Python, Scalar도 익히는 것이 좋다. 일단 데이터베이스와 분산처리가 공부해야 할 양이 엄청나게 방대하고, 학교에서 Hadoop을 알려주는 곳은 많지 없으며(내가 알기로는..) 주로 회사나 독학으로 지식을 습득할 것이다. 나도 학교에서 처음 접하였고, Hadoop definitive guide 책과 강의 슬라이드를 많이 참조하였다. 1. Big Data   Big Data란 무엇일까? 빅데이터는 우리 주변 어느 곳에나 산재한다. Hadoop definitive guide에는 다음과 같은 사례를 제시한다. 뉴욕증권거래소에서는 하루에 4.5TB의 데이터가 발생 Facebook은 2,400억 개의 사진을 보유하고 있으며, 매달 7 petabytes 증가 인터넷 아카이브는 약 18.5 petabytes의 데이터를 저장 이렇게 엄청난 데이터를 저장하고 분석하는 것이 매우 어렵다. 왜 일까? 그 동안 하드 디스크의 용량은 엄청나게 증가했지만 데이터를 읽는 속도는 따라가지 못했다. 단일 디스크의 데이터를 읽는 데 너무 많은 시간이 걸리기 때문에 여러 개의 디스크에서 동시에 병렬적으로 데이터를 읽는 것이다. 이는 두 가지 사안을 고려해야 한다. Hardware fault tolerance Hardware를 많이 사용할 수록 장애가 발생할 확률 증가 데이터 손실을 막기 위해 데이터를 여러 곳에 복제하는 방법 존재 RAID, HDFS … Merge with splited data 분산 시스템에서 다중 출청의 데이터를 병합하면서 정합성을 지켜야 한다. MapReduce는 디스크에서 데이터를 읽고 쓰는 문제를 key-value pair의 계산으로 변환된 추상화 프로그래밍 모델 제공 이러한 문제들을 어느 정도 완화시켜 주는 오픈 소스 빅데이터용 프레임워크인 Hadoop은 안정적이고 확장성이 높은 저장 및 분석 플랫폼을 제공한다고 볼 수 있다. 2. Why we need Hadoop for Big Data?   Apache Hadoop은 위에서 언급한 MapReduce 프로그래밍 모델을 사용하여 Bigdata의 dataset을 분산저장하고 처리하는 데 사용되는 open-source 프레임워크이다. 따라서 병렬컴퓨팅을 위한 computer cluster로 이루어져 있으며 Hadoop의 모든 모듈들은 hardware 장애 발생과 이를 자동으로 핸들링하기 위해 설계되었다. Query All Your Data MapReduce는 전체가 한 번의 query로 대규모의 Dataset을 처리한다. MapReduce는 batch query processor(일괄 질의 처리기)이며, 전체 Dataset을 대상으로 ad hoc query(비정형 쿼리)수행하여 합리적인 시간에 결과를 보여준다. 3. MapReduce   MapReduce는 programming model이며 클러스터 환경에서 병렬 및 분산 알고리즘으로 large dataset을 처리하기 위해 설계 되었다. Map과 Reduce로 이루어져 있다. Map: performs typically filtering and sorting Reduce: performs typically a summary operation 각 단계는 Input과 Output으로 Key-value pair를 가지며 Map 함수와 Reduce 함수를 작성해야 한다. 다음은 MapReduce를 프로그래밍 하는 예시이다. Python # Mapper def getName(line): return (line.split(&#39;\t&#39;)[1], 1) # Reducer def addCounts(hist, (name, c)): hist[name] = hist.get(name, default=0) + c return hist # Key-value iterators input = open(&#39;employees.txt&#39;, &#39;r&#39;) intermediate = map(getName, input) result = reduce(addCounts, intermediate, {}) Java public class HistogramJob extends Configured implements Tool{ // class FieldMapper public static class FieldMapper extends MapReduceBase implements Mapper&amp;lt;LongWritable,Text,Text,LongWritable&amp;gt;{ private static LongWritable ONE = new LongWritable(1); private static Text firstname = new Text(); @Override public void map(LongWritable Key, Text value,OutputCollector&amp;lt;Text,LongWritable&amp;gt; out, Reporter r){ firstname.set(value.toString().split(&quot;\t&quot;)[1]); output.collect(firstname, ONE); } } // class LongSumReducer public static class LongSumReducer extends MapReduceBase implements Mapper&amp;lt;LongWritable,Text,Text,LongWritable&amp;gt;{ private static LongWritable sum = new LongWritable(); @Override public void reduce(Text key, Iterator&amp;lt;LongWritable&amp;gt; vals, OutputCollector&amp;lt;Text,LongWritable&amp;gt; out, Reporter r){ long s = 0; while(vals.hasNext()){ s += vals.next().get(); } sum.set(s); output.collect(key, sum); } } } 4. Data flow in MapReduce Job: 클라이언트가 수행하는 작업의 기본 단위 Input Data, MapReduce program, 설정 정보 Task: Job에서 나누어 실행하는 작업 Map Task, Reduce Task Split: Hadoop이 MapReduce Job의 Input을 split이라 부르는 고정 크기 조각으로 분리 Record: Split에서 아용자 정의 맵 함수로 처리하는 Data 단위   Hadoop은 partition된 Data가 저장된 클러스터의 각 머신에서 MapReduce 프로그램을 실행하며 이는 Hadoop의 YARN이라 불리는 Hadoop resource management system을 이용한다. MapReduce는 기본적으로 batch 단위의 processing system이며 다양한 처리 패턴도 존재한다. Interactive SQL Iterative processing: Machine learning과 같은 반복 연산 Stream processing: 실시간 프로세싱">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2020/01/03/Hadoop-Hadoop1/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="pirunita" href="http://localhost:4000/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="[Hadoop] Introducing the Hadoop">
+  <meta name="twitter:description" content="Hadoop   지난 학기동안 빅데이터프로그래밍을 들었을 때 Hadoop을 처음 접하였다. 이 분야는 진입장벽이 높다고 볼 수 있으며 데이터베이스와 분산처리를 아는 것이 좋고 Java나 Python, Scalar도 익히는 것이 좋다. 일단 데이터베이스와 분산처리가 공부해야 할 양이 엄청나게 방대하고, 학교에서 Hadoop을 알려주는 곳은 많지 없으며(...">
+  
+  
+  
+    
+
+
+
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700" rel="stylesheet">
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">pirunita</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/tagcloud/">TagCloud</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+    
+      <h1 class="post-title" itemprop="name headline">[Hadoop] Introducing the Hadoop</h1>
+    
+    <p class="post-meta"><time datetime="2020-01-03T15:12:00+00:00" itemprop="datePublished">Jan 3, 2020</time>
+      <span>
+        
+          
+          <a href="/tag/BigData"><code class="highligher-rouge"><nobr>BigData</nobr></code>&nbsp;</a>
+        
+      </span>
+    </p>
+  </header>
+  
+  <div class="post-content" itemprop="articleBody">
+    <hr />
+
+<h2>Hadoop</h2>
+
+<p>  <em>지난 학기동안 빅데이터프로그래밍을 들었을 때 Hadoop을 처음 접하였다. 이 분야는 진입장벽이 높다고 볼 수 있으며 데이터베이스와 분산처리를 아는 것이 좋고 Java나 Python, Scalar도 익히는 것이 좋다. 일단 데이터베이스와 분산처리가 공부해야 할 양이 엄청나게 방대하고, 학교에서 Hadoop을 알려주는 곳은 많지 없으며(내가 알기로는..) 주로 회사나 독학으로 지식을 습득할 것이다. 나도 학교에서 처음 접하였고, <u>Hadoop definitive guide</u> 책과 강의 슬라이드를 많이 참조하였다.</em></p>
+
+<h3>1. Big Data</h3>
+<p><img src="http://localhost:4000/assets/img/hadoop/1_1.png" alt="" width="70%" height="70%" class="center" /></p>
+
+<p>  Big Data란 무엇일까? 빅데이터는 우리 주변 어느 곳에나 산재한다. Hadoop definitive guide에는 다음과 같은 사례를 제시한다.</p>
+<ul>
+  <li>뉴욕증권거래소에서는 하루에 4.5TB의 데이터가 발생</li>
+  <li>Facebook은 2,400억 개의 사진을 보유하고 있으며, 매달 7 petabytes 증가</li>
+  <li>인터넷 아카이브는 약 18.5 petabytes의 데이터를 저장</li>
+</ul>
+
+<p>이렇게 엄청난 데이터를 저장하고 분석하는 것이 매우 어렵다. 왜 일까?
+<br />
+<u>그 동안 하드 디스크의 용량은 엄청나게 증가했지만 데이터를 읽는 속도는 따라가지 못했다.</u> 단일 디스크의 데이터를 읽는 데 너무 많은 시간이 걸리기 때문에 여러 개의 디스크에서 동시에 병렬적으로 데이터를 읽는 것이다. 이는 두 가지 사안을 고려해야 한다.</p>
+
+<ol>
+  <li>Hardware fault tolerance
+    <ul>
+      <li>Hardware를 많이 사용할 수록 장애가 발생할 확률 증가</li>
+      <li>데이터 손실을 막기 위해 데이터를 여러 곳에 복제하는 방법 존재</li>
+      <li>RAID, HDFS …</li>
+    </ul>
+  </li>
+  <li>Merge with splited data
+    <ul>
+      <li>분산 시스템에서 다중 출청의 데이터를 병합하면서 정합성을 지켜야 한다.</li>
+      <li>MapReduce는 디스크에서 데이터를 읽고 쓰는 문제를 key-value pair의 계산으로 변환된 추상화 프로그래밍 모델 제공</li>
+    </ul>
+  </li>
+</ol>
+
+<p>이러한 문제들을 어느 정도 완화시켜 주는 <u>오픈 소스 빅데이터용 프레임워크</u>인 <strong>Hadoop</strong>은 안정적이고 확장성이 높은 저장 및 분석 플랫폼을 제공한다고 볼 수 있다.</p>
+
+<h3>2. Why we need Hadoop for Big Data?</h3>
+<p>  <strong>Apache Hadoop</strong>은 위에서 언급한 MapReduce 프로그래밍 모델을 사용하여 Bigdata의 dataset을 분산저장하고 처리하는 데 사용되는 open-source 프레임워크이다.</p>
+
+<p>따라서 병렬컴퓨팅을 위한 computer cluster로 이루어져 있으며 Hadoop의 모든 모듈들은 <u>hardware 장애 발생과 이를 자동으로 핸들링</u>하기 위해 설계되었다.</p>
+
+<ul>
+  <li>Query All Your Data
+    <ul>
+      <li>MapReduce는 전체가 한 번의 query로 대규모의 Dataset을 처리한다. MapReduce는 batch query processor(일괄 질의 처리기)이며, 전체 Dataset을 대상으로 ad hoc query(비정형 쿼리)수행하여 합리적인 시간에 결과를 보여준다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>3. MapReduce</h3>
+<p>  <strong>MapReduce</strong>는 programming model이며 클러스터 환경에서 병렬 및 분산 알고리즘으로 large dataset을 처리하기 위해 설계 되었다. <strong>Map</strong>과 <strong>Reduce</strong>로 이루어져 있다.</p>
+<ul>
+  <li>Map: performs typically filtering and sorting</li>
+  <li>Reduce: performs typically a summary operation</li>
+</ul>
+
+<p>각 단계는 Input과 Output으로 Key-value pair를 가지며 Map 함수와 Reduce 함수를 작성해야 한다. 다음은 MapReduce를 프로그래밍 하는 예시이다.</p>
+
+<h4>Python</h4>
+<pre><code class="language-Python"># Mapper
+def getName(line):
+    return (line.split('\t')[1], 1)
+
+# Reducer
+def addCounts(hist, (name, c)):
+    hist[name] = hist.get(name, default=0) + c
+    return hist
+
+# Key-value iterators
+input = open('employees.txt', 'r')
+intermediate = map(getName, input)
+result = reduce(addCounts, intermediate, {})
+</code></pre>
+
+<h4>Java</h4>
+<pre><code class="language-Java">public class HistogramJob extends Configured implements Tool{
+    // class FieldMapper
+    public static class FieldMapper extends MapReduceBase implements Mapper&lt;LongWritable,Text,Text,LongWritable&gt;{
+        private static LongWritable ONE = new LongWritable(1);
+        private static Text firstname = new Text();
+
+        @Override
+        public void map(LongWritable Key, Text value,OutputCollector&lt;Text,LongWritable&gt; out, Reporter r){
+            firstname.set(value.toString().split("\t")[1]);
+            output.collect(firstname, ONE);
+        }
+    } 
+
+    // class LongSumReducer
+    public static class LongSumReducer extends MapReduceBase implements Mapper&lt;LongWritable,Text,Text,LongWritable&gt;{
+        private static LongWritable sum = new LongWritable();
+
+        @Override
+        public void reduce(Text key, Iterator&lt;LongWritable&gt; vals, OutputCollector&lt;Text,LongWritable&gt; out, Reporter r){
+            long s = 0;
+            while(vals.hasNext()){
+                s += vals.next().get();
+            }
+            sum.set(s);
+            output.collect(key, sum);
+        }
+    }
+} 
+</code></pre>
+
+<h3>4. Data flow in MapReduce</h3>
+<ul>
+  <li>Job: 클라이언트가 수행하는 작업의 기본 단위
+    <ul>
+      <li>Input Data, MapReduce program, 설정 정보</li>
+    </ul>
+  </li>
+  <li>Task: Job에서 나누어 실행하는 작업
+    <ul>
+      <li>Map Task, Reduce Task</li>
+    </ul>
+  </li>
+  <li>Split: Hadoop이 MapReduce Job의 Input을 split이라 부르는 고정 크기 조각으로 분리</li>
+  <li>Record: Split에서 아용자 정의 맵 함수로 처리하는 Data 단위</li>
+</ul>
+
+<p>  Hadoop은 partition된 Data가 저장된 클러스터의 각 머신에서 MapReduce 프로그램을 실행하며 이는 Hadoop의 <strong>YARN</strong>이라 불리는 Hadoop resource management system을 이용한다.</p>
+
+<p><img src="http://localhost:4000/assets/img/hadoop/1_2.png" alt="" width="80%" height="85%" class="center" /></p>
+
+<p><img src="http://localhost:4000/assets/img/hadoop/1_3.png" alt="" width="80%" height="85%" class="center" /></p>
+
+<p>MapReduce는 기본적으로 batch 단위의 processing system이며 다양한 처리 패턴도 존재한다.</p>
+<ul>
+  <li>Interactive SQL</li>
+  <li>Iterative processing: Machine learning과 같은 반복 연산</li>
+  <li>Stream processing: 실시간 프로세싱</li>
+</ul>
+
+
+  </div>
+  <div class="post-comments" itemprop="comment">
+    <hr />
+<h1>Comments</h1>
+<p>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pirunita.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</p>
+
+  </div>
+  
+  
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+    <p>
+      <!-- Refer to https://codepen.io/ruandre/pen/howFi -->
+<ul class="svg-icon">
+
+    
+  
+    
+  
+    
+    <li><a href="mailto:ksparchive39@gmail.com" class="icon-8 email" title="Email"><svg viewBox="0 0 512 512"><path d="M101.3 141.6v228.9h0.3 308.4 0.8V141.6H101.3zM375.7 167.8l-119.7 91.5 -119.6-91.5H375.7zM127.6 194.1l64.1 49.1 -64.1 64.1V194.1zM127.8 344.2l84.9-84.9 43.2 33.1 43-32.9 84.7 84.7L127.8 344.2 127.8 344.2zM384.4 307.8l-64.4-64.4 64.4-49.3V307.8z"/></svg><!--[if lt IE 9]><em>Email</em><![endif]--></a></li>
+    
+  
+    
+  
+    
+    
+    
+    <li><a href="https://github.com/pirunita" class="icon-13 github" title="GitHub"><svg viewBox="0 0 512 512"><path d="M256 70.7c-102.6 0-185.9 83.2-185.9 185.9 0 82.1 53.3 151.8 127.1 176.4 9.3 1.7 12.3-4 12.3-8.9V389.4c-51.7 11.3-62.5-21.9-62.5-21.9 -8.4-21.5-20.6-27.2-20.6-27.2 -16.9-11.5 1.3-11.3 1.3-11.3 18.7 1.3 28.5 19.2 28.5 19.2 16.6 28.4 43.5 20.2 54.1 15.4 1.7-12 6.5-20.2 11.8-24.9 -41.3-4.7-84.7-20.6-84.7-91.9 0-20.3 7.3-36.9 19.2-49.9 -1.9-4.7-8.3-23.6 1.8-49.2 0 0 15.6-5 51.1 19.1 14.8-4.1 30.7-6.2 46.5-6.3 15.8 0.1 31.7 2.1 46.6 6.3 35.5-24 51.1-19.1 51.1-19.1 10.1 25.6 3.8 44.5 1.8 49.2 11.9 13 19.1 29.6 19.1 49.9 0 71.4-43.5 87.1-84.9 91.7 6.7 5.8 12.8 17.1 12.8 34.4 0 24.9 0 44.9 0 51 0 4.9 3 10.7 12.4 8.9 73.8-24.6 127-94.3 127-176.4C441.9 153.9 358.6 70.7 256 70.7z"/></svg><!--[if lt IE 9]><em>GitHub</em><![endif]--></a></li>
+    
+  
+    
+  
+    
+    <li><a href="https://instagram.com/pirunita.dev" class="icon-15 instagram" title="Instagram"><svg viewBox="0 0 512 512"><g><path d="M256 109.3c47.8 0 53.4 0.2 72.3 1 17.4 0.8 26.9 3.7 33.2 6.2 8.4 3.2 14.3 7.1 20.6 13.4 6.3 6.3 10.1 12.2 13.4 20.6 2.5 6.3 5.4 15.8 6.2 33.2 0.9 18.9 1 24.5 1 72.3s-0.2 53.4-1 72.3c-0.8 17.4-3.7 26.9-6.2 33.2 -3.2 8.4-7.1 14.3-13.4 20.6 -6.3 6.3-12.2 10.1-20.6 13.4 -6.3 2.5-15.8 5.4-33.2 6.2 -18.9 0.9-24.5 1-72.3 1s-53.4-0.2-72.3-1c-17.4-0.8-26.9-3.7-33.2-6.2 -8.4-3.2-14.3-7.1-20.6-13.4 -6.3-6.3-10.1-12.2-13.4-20.6 -2.5-6.3-5.4-15.8-6.2-33.2 -0.9-18.9-1-24.5-1-72.3s0.2-53.4 1-72.3c0.8-17.4 3.7-26.9 6.2-33.2 3.2-8.4 7.1-14.3 13.4-20.6 6.3-6.3 12.2-10.1 20.6-13.4 6.3-2.5 15.8-5.4 33.2-6.2C202.6 109.5 208.2 109.3 256 109.3M256 77.1c-48.6 0-54.7 0.2-73.8 1.1 -19 0.9-32.1 3.9-43.4 8.3 -11.8 4.6-21.7 10.7-31.7 20.6 -9.9 9.9-16.1 19.9-20.6 31.7 -4.4 11.4-7.4 24.4-8.3 43.4 -0.9 19.1-1.1 25.2-1.1 73.8 0 48.6 0.2 54.7 1.1 73.8 0.9 19 3.9 32.1 8.3 43.4 4.6 11.8 10.7 21.7 20.6 31.7 9.9 9.9 19.9 16.1 31.7 20.6 11.4 4.4 24.4 7.4 43.4 8.3 19.1 0.9 25.2 1.1 73.8 1.1s54.7-0.2 73.8-1.1c19-0.9 32.1-3.9 43.4-8.3 11.8-4.6 21.7-10.7 31.7-20.6 9.9-9.9 16.1-19.9 20.6-31.7 4.4-11.4 7.4-24.4 8.3-43.4 0.9-19.1 1.1-25.2 1.1-73.8s-0.2-54.7-1.1-73.8c-0.9-19-3.9-32.1-8.3-43.4 -4.6-11.8-10.7-21.7-20.6-31.7 -9.9-9.9-19.9-16.1-31.7-20.6 -11.4-4.4-24.4-7.4-43.4-8.3C310.7 77.3 304.6 77.1 256 77.1L256 77.1z"/><path d="M256 164.1c-50.7 0-91.9 41.1-91.9 91.9s41.1 91.9 91.9 91.9 91.9-41.1 91.9-91.9S306.7 164.1 256 164.1zM256 315.6c-32.9 0-59.6-26.7-59.6-59.6s26.7-59.6 59.6-59.6 59.6 26.7 59.6 59.6S288.9 315.6 256 315.6z"/><circle cx="351.5" cy="160.5" r="21.5"/></g></svg><!--[if lt IE 9]><em>Instagram</em><![endif]--></a></li>
+    
+  
+    
+    <li><a href="https://www.linkedin.com/in/pirunita" class="icon-17 linkedin" title="LinkedIn"><svg viewBox="0 0 512 512"><path d="M186.4 142.4c0 19-15.3 34.5-34.2 34.5 -18.9 0-34.2-15.4-34.2-34.5 0-19 15.3-34.5 34.2-34.5C171.1 107.9 186.4 123.4 186.4 142.4zM181.4 201.3h-57.8V388.1h57.8V201.3zM273.8 201.3h-55.4V388.1h55.4c0 0 0-69.3 0-98 0-26.3 12.1-41.9 35.2-41.9 21.3 0 31.5 15 31.5 41.9 0 26.9 0 98 0 98h57.5c0 0 0-68.2 0-118.3 0-50-28.3-74.2-68-74.2 -39.6 0-56.3 30.9-56.3 30.9v-25.2H273.8z"/></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+  </ul>
+    </p>
+    
+    <p>
+      
+
+&copy; pirunita - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

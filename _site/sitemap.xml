@@ -77,6 +77,10 @@
 <lastmod>2019-12-31T15:12:00+00:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/2020/01/03/Hadoop-Hadoop1/</loc>
+<lastmod>2020-01-03T15:12:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/tag/Backend/</loc>
 </url>
 <url>
@@ -129,6 +133,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/tags/daily/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/tags/bigdata/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/posts/2/</loc>

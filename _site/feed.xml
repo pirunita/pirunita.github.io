@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-01-02T15:18:41+00:00</updated>
+  <updated>2020-01-04T07:14:26+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -28,6 +28,182 @@
   
     <entry xml:lang="ko">
       
+      <title type="html">[Hadoop] Introducing the Hadoop</title>
+      
+      
+      <link href="http://localhost:4000/2020/01/03/Hadoop-Hadoop1/" rel="alternate" type="text/html" title="[Hadoop] Introducing the Hadoop" />
+      
+      <published>2020-01-03T15:12:00+00:00</published>
+      <updated>2020-01-03T15:12:00+00:00</updated>
+      <id>http://localhost:4000/2020/01/03/%5BHadoop%5DHadoop1</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/03/Hadoop-Hadoop1/">&lt;hr /&gt;
+
+&lt;h2&gt;Hadoop&lt;/h2&gt;
+
+&lt;p&gt;  &lt;em&gt;지난 학기동안 빅데이터프로그래밍을 들었을 때 Hadoop을 처음 접하였다. 이 분야는 진입장벽이 높다고 볼 수 있으며 데이터베이스와 분산처리를 아는 것이 좋고 Java나 Python, Scalar도 익히는 것이 좋다. 일단 데이터베이스와 분산처리가 공부해야 할 양이 엄청나게 방대하고, 학교에서 Hadoop을 알려주는 곳은 많지 없으며(내가 알기로는..) 주로 회사나 독학으로 지식을 습득할 것이다. 나도 학교에서 처음 접하였고, &lt;u&gt;Hadoop definitive guide&lt;/u&gt; 책과 강의 슬라이드를 많이 참조하였다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3&gt;1. Big Data&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/hadoop/1_1.png&quot; alt=&quot;&quot; width=&quot;70%&quot; height=&quot;70%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;  Big Data란 무엇일까? 빅데이터는 우리 주변 어느 곳에나 산재한다. Hadoop definitive guide에는 다음과 같은 사례를 제시한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;뉴욕증권거래소에서는 하루에 4.5TB의 데이터가 발생&lt;/li&gt;
+  &lt;li&gt;Facebook은 2,400억 개의 사진을 보유하고 있으며, 매달 7 petabytes 증가&lt;/li&gt;
+  &lt;li&gt;인터넷 아카이브는 약 18.5 petabytes의 데이터를 저장&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이렇게 엄청난 데이터를 저장하고 분석하는 것이 매우 어렵다. 왜 일까?
+&lt;br /&gt;
+&lt;u&gt;그 동안 하드 디스크의 용량은 엄청나게 증가했지만 데이터를 읽는 속도는 따라가지 못했다.&lt;/u&gt; 단일 디스크의 데이터를 읽는 데 너무 많은 시간이 걸리기 때문에 여러 개의 디스크에서 동시에 병렬적으로 데이터를 읽는 것이다. 이는 두 가지 사안을 고려해야 한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Hardware fault tolerance
+    &lt;ul&gt;
+      &lt;li&gt;Hardware를 많이 사용할 수록 장애가 발생할 확률 증가&lt;/li&gt;
+      &lt;li&gt;데이터 손실을 막기 위해 데이터를 여러 곳에 복제하는 방법 존재&lt;/li&gt;
+      &lt;li&gt;RAID, HDFS …&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Merge with splited data
+    &lt;ul&gt;
+      &lt;li&gt;분산 시스템에서 다중 출청의 데이터를 병합하면서 정합성을 지켜야 한다.&lt;/li&gt;
+      &lt;li&gt;MapReduce는 디스크에서 데이터를 읽고 쓰는 문제를 key-value pair의 계산으로 변환된 추상화 프로그래밍 모델 제공&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이러한 문제들을 어느 정도 완화시켜 주는 &lt;u&gt;오픈 소스 빅데이터용 프레임워크&lt;/u&gt;인 &lt;strong&gt;Hadoop&lt;/strong&gt;은 안정적이고 확장성이 높은 저장 및 분석 플랫폼을 제공한다고 볼 수 있다.&lt;/p&gt;
+
+&lt;h3&gt;2. Why we need Hadoop for Big Data?&lt;/h3&gt;
+&lt;p&gt;  &lt;strong&gt;Apache Hadoop&lt;/strong&gt;은 위에서 언급한 MapReduce 프로그래밍 모델을 사용하여 Bigdata의 dataset을 분산저장하고 처리하는 데 사용되는 open-source 프레임워크이다.&lt;/p&gt;
+
+&lt;p&gt;따라서 병렬컴퓨팅을 위한 computer cluster로 이루어져 있으며 Hadoop의 모든 모듈들은 &lt;u&gt;hardware 장애 발생과 이를 자동으로 핸들링&lt;/u&gt;하기 위해 설계되었다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Query All Your Data
+    &lt;ul&gt;
+      &lt;li&gt;MapReduce는 전체가 한 번의 query로 대규모의 Dataset을 처리한다. MapReduce는 batch query processor(일괄 질의 처리기)이며, 전체 Dataset을 대상으로 ad hoc query(비정형 쿼리)수행하여 합리적인 시간에 결과를 보여준다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;3. MapReduce&lt;/h3&gt;
+&lt;p&gt;  &lt;strong&gt;MapReduce&lt;/strong&gt;는 programming model이며 클러스터 환경에서 병렬 및 분산 알고리즘으로 large dataset을 처리하기 위해 설계 되었다. &lt;strong&gt;Map&lt;/strong&gt;과 &lt;strong&gt;Reduce&lt;/strong&gt;로 이루어져 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Map: performs typically filtering and sorting&lt;/li&gt;
+  &lt;li&gt;Reduce: performs typically a summary operation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;각 단계는 Input과 Output으로 Key-value pair를 가지며 Map 함수와 Reduce 함수를 작성해야 한다. 다음은 MapReduce를 프로그래밍 하는 예시이다.&lt;/p&gt;
+
+&lt;h4&gt;Python&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;# Mapper
+def getName(line):
+    return (line.split('\t')[1], 1)
+
+# Reducer
+def addCounts(hist, (name, c)):
+    hist[name] = hist.get(name, default=0) + c
+    return hist
+
+# Key-value iterators
+input = open('employees.txt', 'r')
+intermediate = map(getName, input)
+result = reduce(addCounts, intermediate, {})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4&gt;Java&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt;public class HistogramJob extends Configured implements Tool{
+    // class FieldMapper
+    public static class FieldMapper extends MapReduceBase implements Mapper&amp;lt;LongWritable,Text,Text,LongWritable&amp;gt;{
+        private static LongWritable ONE = new LongWritable(1);
+        private static Text firstname = new Text();
+
+        @Override
+        public void map(LongWritable Key, Text value,OutputCollector&amp;lt;Text,LongWritable&amp;gt; out, Reporter r){
+            firstname.set(value.toString().split(&quot;\t&quot;)[1]);
+            output.collect(firstname, ONE);
+        }
+    } 
+
+    // class LongSumReducer
+    public static class LongSumReducer extends MapReduceBase implements Mapper&amp;lt;LongWritable,Text,Text,LongWritable&amp;gt;{
+        private static LongWritable sum = new LongWritable();
+
+        @Override
+        public void reduce(Text key, Iterator&amp;lt;LongWritable&amp;gt; vals, OutputCollector&amp;lt;Text,LongWritable&amp;gt; out, Reporter r){
+            long s = 0;
+            while(vals.hasNext()){
+                s += vals.next().get();
+            }
+            sum.set(s);
+            output.collect(key, sum);
+        }
+    }
+} 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;4. Data flow in MapReduce&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Job: 클라이언트가 수행하는 작업의 기본 단위
+    &lt;ul&gt;
+      &lt;li&gt;Input Data, MapReduce program, 설정 정보&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Task: Job에서 나누어 실행하는 작업
+    &lt;ul&gt;
+      &lt;li&gt;Map Task, Reduce Task&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Split: Hadoop이 MapReduce Job의 Input을 split이라 부르는 고정 크기 조각으로 분리&lt;/li&gt;
+  &lt;li&gt;Record: Split에서 아용자 정의 맵 함수로 처리하는 Data 단위&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;  Hadoop은 partition된 Data가 저장된 클러스터의 각 머신에서 MapReduce 프로그램을 실행하며 이는 Hadoop의 &lt;strong&gt;YARN&lt;/strong&gt;이라 불리는 Hadoop resource management system을 이용한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/hadoop/1_2.png&quot; alt=&quot;&quot; width=&quot;80%&quot; height=&quot;85%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/hadoop/1_3.png&quot; alt=&quot;&quot; width=&quot;80%&quot; height=&quot;85%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;MapReduce는 기본적으로 batch 단위의 processing system이며 다양한 처리 패턴도 존재한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Interactive SQL&lt;/li&gt;
+  &lt;li&gt;Iterative processing: Machine learning과 같은 반복 연산&lt;/li&gt;
+  &lt;li&gt;Stream processing: 실시간 프로세싱&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="BigData" />
+      
+
+      
+        <summary type="html">Hadoop   지난 학기동안 빅데이터프로그래밍을 들었을 때 Hadoop을 처음 접하였다. 이 분야는 진입장벽이 높다고 볼 수 있으며 데이터베이스와 분산처리를 아는 것이 좋고 Java나 Python, Scalar도 익히는 것이 좋다. 일단 데이터베이스와 분산처리가 공부해야 할 양이 엄청나게 방대하고, 학교에서 Hadoop을 알려주는 곳은 많지 없으며(내가 알기로는..) 주로 회사나 독학으로 지식을 습득할 것이다. 나도 학교에서 처음 접하였고, Hadoop definitive guide 책과 강의 슬라이드를 많이 참조하였다. 1. Big Data   Big Data란 무엇일까? 빅데이터는 우리 주변 어느 곳에나 산재한다. Hadoop definitive guide에는 다음과 같은 사례를 제시한다. 뉴욕증권거래소에서는 하루에 4.5TB의 데이터가 발생 Facebook은 2,400억 개의 사진을 보유하고 있으며, 매달 7 petabytes 증가 인터넷 아카이브는 약 18.5 petabytes의 데이터를 저장 이렇게 엄청난 데이터를 저장하고 분석하는 것이 매우 어렵다. 왜 일까? 그 동안 하드 디스크의 용량은 엄청나게 증가했지만 데이터를 읽는 속도는 따라가지 못했다. 단일 디스크의 데이터를 읽는 데 너무 많은 시간이 걸리기 때문에 여러 개의 디스크에서 동시에 병렬적으로 데이터를 읽는 것이다. 이는 두 가지 사안을 고려해야 한다. Hardware fault tolerance Hardware를 많이 사용할 수록 장애가 발생할 확률 증가 데이터 손실을 막기 위해 데이터를 여러 곳에 복제하는 방법 존재 RAID, HDFS … Merge with splited data 분산 시스템에서 다중 출청의 데이터를 병합하면서 정합성을 지켜야 한다. MapReduce는 디스크에서 데이터를 읽고 쓰는 문제를 key-value pair의 계산으로 변환된 추상화 프로그래밍 모델 제공 이러한 문제들을 어느 정도 완화시켜 주는 오픈 소스 빅데이터용 프레임워크인 Hadoop은 안정적이고 확장성이 높은 저장 및 분석 플랫폼을 제공한다고 볼 수 있다. 2. Why we need Hadoop for Big Data?   Apache Hadoop은 위에서 언급한 MapReduce 프로그래밍 모델을 사용하여 Bigdata의 dataset을 분산저장하고 처리하는 데 사용되는 open-source 프레임워크이다. 따라서 병렬컴퓨팅을 위한 computer cluster로 이루어져 있으며 Hadoop의 모든 모듈들은 hardware 장애 발생과 이를 자동으로 핸들링하기 위해 설계되었다. Query All Your Data MapReduce는 전체가 한 번의 query로 대규모의 Dataset을 처리한다. MapReduce는 batch query processor(일괄 질의 처리기)이며, 전체 Dataset을 대상으로 ad hoc query(비정형 쿼리)수행하여 합리적인 시간에 결과를 보여준다. 3. MapReduce   MapReduce는 programming model이며 클러스터 환경에서 병렬 및 분산 알고리즘으로 large dataset을 처리하기 위해 설계 되었다. Map과 Reduce로 이루어져 있다. Map: performs typically filtering and sorting Reduce: performs typically a summary operation 각 단계는 Input과 Output으로 Key-value pair를 가지며 Map 함수와 Reduce 함수를 작성해야 한다. 다음은 MapReduce를 프로그래밍 하는 예시이다. Python # Mapper def getName(line): return (line.split('\t')[1], 1) # Reducer def addCounts(hist, (name, c)): hist[name] = hist.get(name, default=0) + c return hist # Key-value iterators input = open('employees.txt', 'r') intermediate = map(getName, input) result = reduce(addCounts, intermediate, {}) Java public class HistogramJob extends Configured implements Tool{ // class FieldMapper public static class FieldMapper extends MapReduceBase implements Mapper&amp;lt;LongWritable,Text,Text,LongWritable&amp;gt;{ private static LongWritable ONE = new LongWritable(1); private static Text firstname = new Text(); @Override public void map(LongWritable Key, Text value,OutputCollector&amp;lt;Text,LongWritable&amp;gt; out, Reporter r){ firstname.set(value.toString().split(&quot;\t&quot;)[1]); output.collect(firstname, ONE); } } // class LongSumReducer public static class LongSumReducer extends MapReduceBase implements Mapper&amp;lt;LongWritable,Text,Text,LongWritable&amp;gt;{ private static LongWritable sum = new LongWritable(); @Override public void reduce(Text key, Iterator&amp;lt;LongWritable&amp;gt; vals, OutputCollector&amp;lt;Text,LongWritable&amp;gt; out, Reporter r){ long s = 0; while(vals.hasNext()){ s += vals.next().get(); } sum.set(s); output.collect(key, sum); } } } 4. Data flow in MapReduce Job: 클라이언트가 수행하는 작업의 기본 단위 Input Data, MapReduce program, 설정 정보 Task: Job에서 나누어 실행하는 작업 Map Task, Reduce Task Split: Hadoop이 MapReduce Job의 Input을 split이라 부르는 고정 크기 조각으로 분리 Record: Split에서 아용자 정의 맵 함수로 처리하는 Data 단위   Hadoop은 partition된 Data가 저장된 클러스터의 각 머신에서 MapReduce 프로그램을 실행하며 이는 Hadoop의 YARN이라 불리는 Hadoop resource management system을 이용한다. MapReduce는 기본적으로 batch 단위의 processing system이며 다양한 처리 패턴도 존재한다. Interactive SQL Iterative processing: Machine learning과 같은 반복 연산 Stream processing: 실시간 프로세싱</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry xml:lang="ko">
+      
       <title type="html">200101</title>
       
       
@@ -36,7 +212,9 @@
       <published>2019-12-31T15:12:00+00:00</published>
       <updated>2019-12-31T15:12:00+00:00</updated>
       <id>http://localhost:4000/2019/12/31/%5BDaily%5D200101</id>
-      <content type="html" xml:base="http://localhost:4000/2019/12/31/Daily-200101/">&lt;ol&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/12/31/Daily-200101/">&lt;hr /&gt;
+
+&lt;ol&gt;
   &lt;li&gt;
     &lt;p&gt;새해가 밝아버렸다.&lt;br.&gt;
 점심엔 떡국을 먹었고 저녁엔 떡국을 먹었다.
@@ -97,7 +275,9 @@
       <published>2019-12-28T15:12:00+00:00</published>
       <updated>2019-12-28T15:12:00+00:00</updated>
       <id>http://localhost:4000/2019/12/28/%5BDaily%5D191229</id>
-      <content type="html" xml:base="http://localhost:4000/2019/12/28/Daily-191229/">&lt;p&gt;1년 휴학의 종지부를 찍고 마지막 학기에 너무 많은 것을 이루려고 했다.&lt;br /&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/12/28/Daily-191229/">&lt;hr /&gt;
+
+&lt;p&gt;1년 휴학의 종지부를 찍고 마지막 학기에 너무 많은 것을 이루려고 했다.&lt;br /&gt;
 그래서 정말 단 하루도 쉴 수가 없었다. 일을 끝내면 다시 해야 할 일들이 2배로 불어났다.&lt;br /&gt;
 잠도 제대로 못 자고 눈병까지 났다.&lt;/p&gt;
 
@@ -965,7 +1145,9 @@ Note: This will have no impact if delete.topic.enable is not set to true.
       <published>2019-05-27T04:00:00+00:00</published>
       <updated>2019-05-27T04:00:00+00:00</updated>
       <id>http://localhost:4000/2019/05/27/Effective_Python8</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/27/Effective_Python8/">&lt;h2&gt;인터페이스가 간단하면 클래스 대신 함수를 받는다.&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/05/27/Effective_Python8/">&lt;hr /&gt;
+
+&lt;h2&gt;인터페이스가 간단하면 클래스 대신 함수를 받는다.&lt;/h2&gt;
 &lt;p&gt;  파이썬 내장 API의 상당수는 함술르 넘겨서 동작을 사용자화 하는 기능을 후크(hook)라고 하며 API는 후크를 이용해 코드 실행 중에 호출한다.&lt;/p&gt;
 
 &lt;p&gt;파이썬의 후크 중 상당수는 인수와 반환 값을 잘 정의해 놓은 상태가 없는 함수이며 추상 클래스로 정의되지 않았다. 함수가 후크로 동작하는 것은 파이썬이 &lt;strong&gt;first-class function&lt;/strong&gt;을 갖췄으며 &lt;u&gt;언어에서 함수와 메서드를 다른 값처럼 전달하고 참조할 수 있다.&lt;/u&gt;&lt;/p&gt;
@@ -1099,7 +1281,9 @@ Note: This will have no impact if delete.topic.enable is not set to true.
       <published>2019-05-27T02:00:00+00:00</published>
       <updated>2019-05-27T02:00:00+00:00</updated>
       <id>http://localhost:4000/2019/05/27/Effective_Python7</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/27/Effective_Python7/">&lt;h2&gt;딕셔너리와 튜플보다는 헬퍼 클래스로 관리&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/05/27/Effective_Python7/">&lt;hr /&gt;
+
+&lt;h2&gt;딕셔너리와 튜플보다는 헬퍼 클래스로 관리&lt;/h2&gt;
 &lt;p&gt;  파이썬의 딕셔너리 타입은 객체가 계속 지속될 때 동적인 내부 상태를 관리하는 용도로 좋다. 다음 예시처럼 학생별로 미리 정의된 속성을 사용하지 않고 딕셔너리에 이름을 저장하는 클래스를 정의할 수 있다.&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SimpleGradebook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
@@ -1315,7 +1499,9 @@ Note: This will have no impact if delete.topic.enable is not set to true.
       <published>2019-05-25T01:00:00+00:00</published>
       <updated>2019-05-25T01:00:00+00:00</updated>
       <id>http://localhost:4000/2019/05/25/Effective_Python6</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/25/Effective_Python6/">&lt;h2&gt;가변 위치 인수로 깔끔하게 보이게 한다.&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/05/25/Effective_Python6/">&lt;hr /&gt;
+
+&lt;h2&gt;가변 위치 인수로 깔끔하게 보이게 한다.&lt;/h2&gt;
 &lt;p&gt;  선택적인 위치 인수(*args)를 받게 만들면 함수 호출을 더 명확하게 할 수 있다. 다음과 같이 디버그 정보를 로그로 남기는 예시를 보자.&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
@@ -1504,7 +1690,9 @@ Note: This will have no impact if delete.topic.enable is not set to true.
       <published>2019-05-14T11:00:00+00:00</published>
       <updated>2019-05-14T11:00:00+00:00</updated>
       <id>http://localhost:4000/2019/05/14/Effective_Python5</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/14/Effective_Python5/">&lt;h2&gt;List를 반환하는 대신 generator를 고려한다.&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/05/14/Effective_Python5/">&lt;hr /&gt;
+
+&lt;h2&gt;List를 반환하는 대신 generator를 고려한다.&lt;/h2&gt;
 &lt;p&gt;  어떤 결과를 생성하는 함수에서 리스트를 반환하는 것이 가장 간단한 방법이다. 다음은 문자열에 있는 모든 단어의 인덱스를 출력하는 것이다.&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index_words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
@@ -1702,7 +1890,9 @@ Note: This will have no impact if delete.topic.enable is not set to true.
       <published>2019-05-12T05:00:00+00:00</published>
       <updated>2019-05-12T05:00:00+00:00</updated>
       <id>http://localhost:4000/2019/05/12/Effective_Python4</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/12/Effective_Python4/">&lt;h2&gt;return None보다는 예외로 처리&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/05/12/Effective_Python4/">&lt;hr /&gt;
+
+&lt;h2&gt;return None보다는 예외로 처리&lt;/h2&gt;
 &lt;p&gt;  어떤 숫자를 다른 숫자로 나누는 함수에서 0으로 나누는 경우 None을 반환하는 것이 자연스러워 보인다.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;divide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
@@ -2018,7 +2208,9 @@ Note: This will have no impact if delete.topic.enable is not set to true.
       <published>2019-05-09T00:00:00+00:00</published>
       <updated>2019-05-09T00:00:00+00:00</updated>
       <id>http://localhost:4000/2019/05/09/Effective_Python2</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/09/Effective_Python2/">&lt;h2&gt;시퀀스 슬라이싱&lt;/h2&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/05/09/Effective_Python2/">&lt;hr /&gt;
+
+&lt;h2&gt;시퀀스 슬라이싱&lt;/h2&gt;
 &lt;p&gt;  파이썬은 슬라이싱으로 특정 subset에 접근할 수 있다. 가장 간단한 슬라이싱 대상은 list, str, bytes이다.
 슬라이싱 문법은 somelist[start:end]이며, start 인덱스는 포함되고 end 인덱스는 제외된다.&lt;/p&gt;
 
@@ -2203,7 +2395,9 @@ Note: This will have no impact if delete.topic.enable is not set to true.
       <published>2019-05-09T00:00:00+00:00</published>
       <updated>2019-05-09T00:00:00+00:00</updated>
       <id>http://localhost:4000/2019/05/09/Effective_Python1</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/09/Effective_Python1/">&lt;p&gt;  &lt;em&gt;현재 내가 대부분 진행하는 프로젝트는 python으로 짜여 있다. 하지만 python을 제대로 공부한 적이 없으며 pythonic하게 코드를 짜는 방법에 대해서 잘 알지 못하기에 이번에 공부하고자 한다.&lt;/em&gt;&lt;/p&gt;
+      <content type="html" xml:base="http://localhost:4000/2019/05/09/Effective_Python1/">&lt;hr /&gt;
+
+&lt;p&gt;  &lt;em&gt;현재 내가 대부분 진행하는 프로젝트는 python으로 짜여 있다. 하지만 python을 제대로 공부한 적이 없으며 pythonic하게 코드를 짜는 방법에 대해서 잘 알지 못하기에 이번에 공부하고자 한다.&lt;/em&gt;&lt;/p&gt;
 
 &lt;h2&gt;PEP 8 스타일 가이드&lt;/h2&gt;
 &lt;p&gt;  파이썬 개선 제안서(Python Enhancement Proposal) #8 즉, PEP 8은 파이썬 코드를 어떻게 구성할 지 알려주는 스타일 가이드다. 이 때 반드시 따라야 하는 규칙이 있다.&lt;/p&gt;
