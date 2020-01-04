@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-01-04T07:14:26+00:00</updated>
+  <updated>2020-01-04T07:37:23+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -28,15 +28,99 @@
   
     <entry xml:lang="ko">
       
+      <title type="html">[PyTorch] Introducing the PyTorch Library</title>
+      
+      
+      <link href="http://localhost:4000/2020/01/04/Pytorch-Pytorch1/" rel="alternate" type="text/html" title="[PyTorch] Introducing the PyTorch Library" />
+      
+      <published>2020-01-04T03:00:00+00:00</published>
+      <updated>2020-01-04T03:00:00+00:00</updated>
+      <id>http://localhost:4000/2020/01/04/%5BPytorch%5DPytorch1</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/04/Pytorch-Pytorch1/">&lt;hr /&gt;
+
+&lt;h2&gt;PyTorch&lt;/h2&gt;
+
+&lt;h3&gt;1. What is PyTorch?&lt;/h3&gt;
+&lt;p&gt;  먼저 PyTorch는 Deep learning project를 빌드할 때 매우 유용한 python 기반의 library라고 할 수 있다. 접근성이 뛰어나고 다루기 쉬워 research community에선 일찍이 사용되어 왔으며 점점 넓은 분야로 활용되는 Deep Learning tool로 성장하고 있다.&lt;br /&gt;&lt;br /&gt;
+  PyTorch도 Tensorflow처럼 다차원행렬인 &lt;strong&gt;Tensor&lt;/strong&gt;를 핵심 자료구조로 사용하고 있다. PyTorch는 분산학습과 효율적인 data loading, 그리고 deep learning에 필요한 함수를 포함한 다양한 library를 포함한 패키지라고 볼 수 있다.&lt;/p&gt;
+
+&lt;h3&gt;2. Why PyTorch?&lt;/h3&gt;
+&lt;p&gt;  Deep Learning은 다양하고 복잡한 task(machine translation, reinforcement learning, identifying object)를 수행할 수 있다. 이러한 task들을 수행하기 위해선 어떤 특정 문제에서도 효율적으로 작동하는 tool이 필요하며, 제 시간에 수많은 양을 학습시킬 수 있어야 한다. 또한 Input data의 불확실성을 정확하게 수행하는 훈련된 네트워크도 필요하다.&lt;br /&gt;&lt;br /&gt;
+  PyTorch는 위에서 제시한 조건들을 충족시킬 수 있으며 간편하다. 학습, 사용, 확장, 디버깅도 간편하며 Pythonic하게 코드를 작성할 수 있다. 실제로 research에서 development, production까지 광범위하게 사용될 수 있는 데, 특히 model을 deploy할 때 python runtime의 오버헤드 없이 PyTorch만의 유연성을 유지하며 Python에 의존하지 않고도 high-performance C++ runtime를 갖추고 있다.(&lt;em&gt;실제로도 꽤 빠른 편이라고 들었는 데 어떻게 병렬처리 하는 지는??&lt;/em&gt;)&lt;br /&gt;&lt;br /&gt;
+  Deep Learning framework 중 유명한 것은 &lt;strong&gt;Tensorflow&lt;/strong&gt;가 있는 데 &lt;u&gt;지연 수행(deferred execution)&lt;/u&gt;과 유사한 &lt;strong&gt;graph mode&lt;/strong&gt;를 사용하여 graph를 먼저 다 만들어 놓고 연산을 수행한다. 하지만 PyTorch는 코드가 평가될 때 노드 별로 컴퓨팅 연산 그래프가 작성되는 &lt;strong&gt;define-by-run dynamic graph engine&lt;/strong&gt;을 사용하여 필요에 따라 node를 바꿔 연산을 쉽고 직관적으로 변경할 수 있으며 즉시 수행(immediate execution, &lt;strong&gt;eager mode&lt;/strong&gt;)&lt;br /&gt;&lt;br /&gt;
+  Tensorflow는 production에 robust한 pipeline을 가져 광범위한 산업분야에 사용된다. PyTorch는 사용하기 쉬워 research나 교육에 많이 사용한다.&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3&gt;3. PyTorch has the batteries included&lt;/h3&gt;
+&lt;p&gt;  PyTorch를 구성하는 주 요소를 알아 본다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;PyTorch의 어원이 Python에서 나온 것처럼 보이지만 대부분 C++과 CUDA로 작성되어 있으며 NVIDA GPUs에서 병렬 처리를 수행할 때는 C로 컴파일된다. 이는 model deploy가 쉽기 때문이다. 하지만 PyTorch는 Python과 상호작용하여 모델을 짜고 학습시키고 문제를 해결하기 때문에 Python으로 충분히 할 수 있다.&lt;/li&gt;
+  &lt;li&gt;PyTorch는 tensors라 불리는 다차원 행렬을 제공하는 library이며, &lt;strong&gt;torch&lt;/strong&gt; module이 제공하는 다양한 연산 라이브러리가 존재한다. 이 때 tensor와 연산들은 CPU나 GPU에서 실행할 수 있다. GPU로 연산을 수행할 시 속도가 굉장히 빠르고 이를 위해 PyTorch에서는 별도로 추가적인 함수를 수행하지 않는다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;  PyTorch는 Neural networks를 학습하고 빌드하는 데 필요한 building blocks를 제공한다. Neural networks를 빌드하기 위한 PyTorch modules는 &lt;strong&gt;torch.nn&lt;/strong&gt;을 사용하며 공통적으로 사용하는 neural network layer와 여러 구조적인 component를 제공한다.(Fully connected layers, Convolutional layers, Activation functions, loss functions ..)&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;  Data loading과 hadnling을 위한 유틸리티는 &lt;strong&gt;torch.util.data.&lt;/strong&gt; 에서 찾을 수 있다. 사용할 수 있는 두 개의 main class가 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Dataset: custom data와 Tensor 사이의 bridge 역할&lt;/li&gt;
+  &lt;li&gt;DataLoader: Dataset으로부터 data를 load하는 child process를 만들어 training loop를 바로 수행할 수 있도록 준비해 두는 역할&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;  model을 학습시키기 위해 필요한 것은 다음과 같다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;a source of training data&lt;/li&gt;
+  &lt;li&gt;an optimizer to adapt the model to the training data&lt;/li&gt;
+  &lt;li&gt;hardware&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;  간단한 연산이 요구될 때 model은 local CPU나 single GPU에서 수행되어 training loop가 data를 얻을 때 연산이 즉시 시작할 수 있다. 하지만 multi GPU로 학습하고자 할 때 모델을 학습하기 위한 리소스들을 분산해야 한다. 이럴 때는 &lt;strong&gt;torch.nn.DataParallel, torch.distributed&lt;/strong&gt;를 수행하여 추가적인 hardware를 가용할 수 있다.&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;  Training data로부터 model을 학습하고 나온 결과를 얻을 때, &lt;strong&gt;torch.optim&lt;/strong&gt;는 modle update의 standard way를 제공하여 output이 training data가 요구한 답과 비슷하게 만든다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Eli Stevens, Luca Antiga. Deep Learning with PyTorch&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="DeepLearning" />
+      
+
+      
+        <summary type="html">PyTorch 1. What is PyTorch?   먼저 PyTorch는 Deep learning project를 빌드할 때 매우 유용한 python 기반의 library라고 할 수 있다. 접근성이 뛰어나고 다루기 쉬워 research community에선 일찍이 사용되어 왔으며 점점 넓은 분야로 활용되는 Deep Learning tool로 성장하고 있다.   PyTorch도 Tensorflow처럼 다차원행렬인 Tensor를 핵심 자료구조로 사용하고 있다. PyTorch는 분산학습과 효율적인 data loading, 그리고 deep learning에 필요한 함수를 포함한 다양한 library를 포함한 패키지라고 볼 수 있다. 2. Why PyTorch?   Deep Learning은 다양하고 복잡한 task(machine translation, reinforcement learning, identifying object)를 수행할 수 있다. 이러한 task들을 수행하기 위해선 어떤 특정 문제에서도 효율적으로 작동하는 tool이 필요하며, 제 시간에 수많은 양을 학습시킬 수 있어야 한다. 또한 Input data의 불확실성을 정확하게 수행하는 훈련된 네트워크도 필요하다.   PyTorch는 위에서 제시한 조건들을 충족시킬 수 있으며 간편하다. 학습, 사용, 확장, 디버깅도 간편하며 Pythonic하게 코드를 작성할 수 있다. 실제로 research에서 development, production까지 광범위하게 사용될 수 있는 데, 특히 model을 deploy할 때 python runtime의 오버헤드 없이 PyTorch만의 유연성을 유지하며 Python에 의존하지 않고도 high-performance C++ runtime를 갖추고 있다.(실제로도 꽤 빠른 편이라고 들었는 데 어떻게 병렬처리 하는 지는??)   Deep Learning framework 중 유명한 것은 Tensorflow가 있는 데 지연 수행(deferred execution)과 유사한 graph mode를 사용하여 graph를 먼저 다 만들어 놓고 연산을 수행한다. 하지만 PyTorch는 코드가 평가될 때 노드 별로 컴퓨팅 연산 그래프가 작성되는 define-by-run dynamic graph engine을 사용하여 필요에 따라 node를 바꿔 연산을 쉽고 직관적으로 변경할 수 있으며 즉시 수행(immediate execution, eager mode)   Tensorflow는 production에 robust한 pipeline을 가져 광범위한 산업분야에 사용된다. PyTorch는 사용하기 쉬워 research나 교육에 많이 사용한다. 3. PyTorch has the batteries included   PyTorch를 구성하는 주 요소를 알아 본다. PyTorch의 어원이 Python에서 나온 것처럼 보이지만 대부분 C++과 CUDA로 작성되어 있으며 NVIDA GPUs에서 병렬 처리를 수행할 때는 C로 컴파일된다. 이는 model deploy가 쉽기 때문이다. 하지만 PyTorch는 Python과 상호작용하여 모델을 짜고 학습시키고 문제를 해결하기 때문에 Python으로 충분히 할 수 있다. PyTorch는 tensors라 불리는 다차원 행렬을 제공하는 library이며, torch module이 제공하는 다양한 연산 라이브러리가 존재한다. 이 때 tensor와 연산들은 CPU나 GPU에서 실행할 수 있다. GPU로 연산을 수행할 시 속도가 굉장히 빠르고 이를 위해 PyTorch에서는 별도로 추가적인 함수를 수행하지 않는다.   PyTorch는 Neural networks를 학습하고 빌드하는 데 필요한 building blocks를 제공한다. Neural networks를 빌드하기 위한 PyTorch modules는 torch.nn을 사용하며 공통적으로 사용하는 neural network layer와 여러 구조적인 component를 제공한다.(Fully connected layers, Convolutional layers, Activation functions, loss functions ..)   Data loading과 hadnling을 위한 유틸리티는 torch.util.data. 에서 찾을 수 있다. 사용할 수 있는 두 개의 main class가 있다. Dataset: custom data와 Tensor 사이의 bridge 역할 DataLoader: Dataset으로부터 data를 load하는 child process를 만들어 training loop를 바로 수행할 수 있도록 준비해 두는 역할   model을 학습시키기 위해 필요한 것은 다음과 같다. a source of training data an optimizer to adapt the model to the training data hardware   간단한 연산이 요구될 때 model은 local CPU나 single GPU에서 수행되어 training loop가 data를 얻을 때 연산이 즉시 시작할 수 있다. 하지만 multi GPU로 학습하고자 할 때 모델을 학습하기 위한 리소스들을 분산해야 한다. 이럴 때는 torch.nn.DataParallel, torch.distributed를 수행하여 추가적인 hardware를 가용할 수 있다.   Training data로부터 model을 학습하고 나온 결과를 얻을 때, torch.optim는 modle update의 standard way를 제공하여 output이 training data가 요구한 답과 비슷하게 만든다. Eli Stevens, Luca Antiga. Deep Learning with PyTorch</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry xml:lang="ko">
+      
       <title type="html">[Hadoop] Introducing the Hadoop</title>
       
       
-      <link href="http://localhost:4000/2020/01/03/Hadoop-Hadoop1/" rel="alternate" type="text/html" title="[Hadoop] Introducing the Hadoop" />
+      <link href="http://localhost:4000/2020/01/04/Hadoop-Hadoop1/" rel="alternate" type="text/html" title="[Hadoop] Introducing the Hadoop" />
       
-      <published>2020-01-03T15:12:00+00:00</published>
-      <updated>2020-01-03T15:12:00+00:00</updated>
-      <id>http://localhost:4000/2020/01/03/%5BHadoop%5DHadoop1</id>
-      <content type="html" xml:base="http://localhost:4000/2020/01/03/Hadoop-Hadoop1/">&lt;hr /&gt;
+      <published>2020-01-04T03:00:00+00:00</published>
+      <updated>2020-01-04T03:00:00+00:00</updated>
+      <id>http://localhost:4000/2020/01/04/%5BHadoop%5DHadoop1</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/04/Hadoop-Hadoop1/">&lt;hr /&gt;
 
 &lt;h2&gt;Hadoop&lt;/h2&gt;
 
@@ -161,9 +245,9 @@ result = reduce(addCounts, intermediate, {})
 
 &lt;p&gt;  Hadoop은 partition된 Data가 저장된 클러스터의 각 머신에서 MapReduce 프로그램을 실행하며 이는 Hadoop의 &lt;strong&gt;YARN&lt;/strong&gt;이라 불리는 Hadoop resource management system을 이용한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/hadoop/1_2.png&quot; alt=&quot;&quot; width=&quot;80%&quot; height=&quot;85%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/hadoop/1_2.png&quot; alt=&quot;&quot; width=&quot;85%&quot; height=&quot;85%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/hadoop/1_3.png&quot; alt=&quot;&quot; width=&quot;80%&quot; height=&quot;85%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/hadoop/1_3.png&quot; alt=&quot;&quot; width=&quot;85%&quot; height=&quot;85%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;MapReduce는 기본적으로 batch 단위의 processing system이며 다양한 처리 패턴도 존재한다.&lt;/p&gt;
 &lt;ul&gt;
@@ -207,12 +291,12 @@ result = reduce(addCounts, intermediate, {})
       <title type="html">200101</title>
       
       
-      <link href="http://localhost:4000/2019/12/31/Daily-200101/" rel="alternate" type="text/html" title="200101" />
+      <link href="http://localhost:4000/2020/01/01/Daily-200101/" rel="alternate" type="text/html" title="200101" />
       
-      <published>2019-12-31T15:12:00+00:00</published>
-      <updated>2019-12-31T15:12:00+00:00</updated>
-      <id>http://localhost:4000/2019/12/31/%5BDaily%5D200101</id>
-      <content type="html" xml:base="http://localhost:4000/2019/12/31/Daily-200101/">&lt;hr /&gt;
+      <published>2020-01-01T03:00:00+00:00</published>
+      <updated>2020-01-01T03:00:00+00:00</updated>
+      <id>http://localhost:4000/2020/01/01/%5BDaily%5D200101</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/01/Daily-200101/">&lt;hr /&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -270,12 +354,12 @@ result = reduce(addCounts, intermediate, {})
       <title type="html">191229</title>
       
       
-      <link href="http://localhost:4000/2019/12/28/Daily-191229/" rel="alternate" type="text/html" title="191229" />
+      <link href="http://localhost:4000/2019/12/29/Daily-191229/" rel="alternate" type="text/html" title="191229" />
       
-      <published>2019-12-28T15:12:00+00:00</published>
-      <updated>2019-12-28T15:12:00+00:00</updated>
-      <id>http://localhost:4000/2019/12/28/%5BDaily%5D191229</id>
-      <content type="html" xml:base="http://localhost:4000/2019/12/28/Daily-191229/">&lt;hr /&gt;
+      <published>2019-12-29T03:00:00+00:00</published>
+      <updated>2019-12-29T03:00:00+00:00</updated>
+      <id>http://localhost:4000/2019/12/29/%5BDaily%5D191229</id>
+      <content type="html" xml:base="http://localhost:4000/2019/12/29/Daily-191229/">&lt;hr /&gt;
 
 &lt;p&gt;1년 휴학의 종지부를 찍고 마지막 학기에 너무 많은 것을 이루려고 했다.&lt;br /&gt;
 그래서 정말 단 하루도 쉴 수가 없었다. 일을 끝내면 다시 해야 할 일들이 2배로 불어났다.&lt;br /&gt;
@@ -3163,53 +3247,6 @@ baf3c3803a19        ubuntu              &quot;/bin/bash&quot;         5 minutes 
 
       
         <summary type="html">Docker basic &amp;amp; Command 왜 Docker를 사용하는가?   Containers는 하나의 서로 다른 프로그램이나 프로세스를 고립시키는 방법이며, 프로그램이 오류없이 빠르게 deploy를 시킬 수 있게한다. 또한 application을 호스트 컴퓨터에 직접 설치할 때보다 높은 유연성을 제공하며 가상머신과 비교했을 때 CPU, 메모리, 디스크 공간과 같은 시스템 리소스를 적게 소비한다. Docker 이미지와 컨테이너 Containerization: Application을 하나의 컨테이너 단위로 구동하는 데 필요한 모든 구성 요소(라이브러리, 설정 파일, 실행 파일 등..)를 하나로 묶는다. 이러한 단위를 image라고 한다. Image: 도커가 설치되고 구동할 준비를 하고 있는 로컬 파일 시스템, 또는 repository에 저장된 하나의 정적인 단위. Image를 파일시스템에 저장하면 tarb4all(tar.gz) 파일 형태로 저장된다. Container: Docker Image를 구동한 instance를 의미한다. Docker command Docker 구성 요소에 대한 정보 조회 docker version: Docker의 버전 정보 docker info: Docker를 구동하는 시스템에 대한 정보 docker comand: Docker command에서 사용할 수 있는 subcommand와 option을 보여준다. docker history: Image에 대한 히스토리 정보를 보여준다. 실행 중인 Container 다루기 docker ps: 현재 실행 중인 container list를 보여준다. -a: 모든 container의 상태를 보여준다. docker attach: 실행 중인 cantainer에 다른 command를 붙인다. docker exec: 현재 실행 중인 컨테이너에서 command를 실행한다. docker inspect: container의 metadata를 본다. docker cp: container에 있는 파일을 호스트 시스템으로 복사 docker diff: container를 구동한 후에 컨테이너의 파일시스템에서 변경된 사항을 확인 Image 다루기 docker images: 시스템에 있는 image 리스트를 보여준다. docker run: image를 실행한다. -rm: 프로세스가 종료되면 컨테이너 자동 삭제 -it: container 내부에 들어가기 위해 bash 키보드 입력 설정 추가 /bin/bash: bash쉘 실행 docker run --rm -it &amp;lt;image_name&amp;gt; /bin/bash docker pull: 레지스트리에서 image를 가져온다. docker pull ubuntu:latest docker push: 레지스트리에 image를 올린다. docker load: 로컬 시스템에 tarball 형태로 존재하는 image를 불러온다. docker export: container의 파일시스템을 로컬 시스템에 tarball 형태로 내보낸다. Docker 레지스트리 다루기 docker search: 레지스트리에서 이미지를 검색한다.(자신의 계정에 image를 올리거나 가져올 때) docker login: 도커 허브 레지스트리 로그인 docker logout: 도커 허브 레지스트리 로그아웃 기존 이미지 수정하기 docker tag: image에 이름을 붙인다. docker rename: image의 이름을 변경한다. container 상태 변경하기 docker pause: 실행 중인 container 일시 정지 docker unpause: 일시 정지한 이미지를 다시 시작 docker kill: container에게 kill 신호를 보냄 docker restart: container를 멈췄다가 다시 시작 docker 상태 관찰하기 docker events: 도커 서버에서 발생한 이벤트 확인 docker top: container의 프로세스 현황 확인 docker logs: container에서 생성한 로그 메시지 확인 docker stats: container에 대한 CPU 및 메모리 사용량 확인 docker wait: container가 멈출 때까지 관찰하며 container의 종료 코드를 화면에 표시 Image나 container 생성하기 docker build: Image를 새로 생성 -t: image name을 붙임 dockerfile이 같은 폴더 내에 위치할 경우 docker build -t &amp;lt;image_name&amp;gt; ./ docker rmi: Image를 제거 docker rmi &amp;lt;image_name&amp;gt; none으로 지정된 이름을 제거하기 위해 docker rmi $(docker images -a|grep &quot;&amp;lt;none&amp;gt;&quot;|awk '{print $3}') 자주 사용하는 옵션 d: detached mode, 백그라운드 모드 p: 호스트와 container의 포트를 연결(포워딩) v: 호스트와 container의 디렉토리를 연결(마운트) e: container 내에서 사용 할 환경변수 설정 name: container 이름 설정 rm: 프로세스 종료 시 container 자동 삭제 it: 터미널 입력을 위한 옵션 link: container 연결</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry xml:lang="ko">
-      
-      <title type="html">딥러닝 공부 기초</title>
-      
-      
-      <link href="http://localhost:4000/2018/12/23/DeepLearningBasic/" rel="alternate" type="text/html" title="딥러닝 공부 기초" />
-      
-      <published>2018-12-23T14:00:00+00:00</published>
-      <updated>2018-12-23T14:00:00+00:00</updated>
-      <id>http://localhost:4000/2018/12/23/DeepLearningBasic</id>
-      <content type="html" xml:base="http://localhost:4000/2018/12/23/DeepLearningBasic/">&lt;h4&gt;Deep Learning from Scratch(밑바닥부터 시작하는 딥러닝), Saito koki, 한빛미디어&lt;/h4&gt;
-&lt;hr /&gt;
-
-&lt;p&gt;Chapter 1, 2 : 생략&lt;br /&gt;
-Chapter 3 : &lt;a href=&quot;https://github.com/pirunita/DeepLearningBasic/blob/master/Chapter%203.%20Neural%20Network.ipynb&quot;&gt;[click]&lt;/a&gt;&lt;br /&gt;
-Chapter 4 : &lt;a href=&quot;https://github.com/pirunita/DeepLearningBasic/blob/master/Chapter%204.%20Neural%20Network%20Training.ipynb&quot;&gt;[click]&lt;/a&gt;&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>pirunita</name>
-          
-          
-        </author>
-      
-
-      
-
-      
-        <category term="DeepLearning" />
-      
-
-      
-        <summary type="html">Deep Learning from Scratch(밑바닥부터 시작하는 딥러닝), Saito koki, 한빛미디어 Chapter 1, 2 : 생략 Chapter 3 : [click] Chapter 4 : [click]</summary>
       
 
       

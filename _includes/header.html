@@ -1,9 +1,11 @@
 <header class="site-header">
 
   <div class="wrapper">
-
-    <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
-
+    
+    <a class="site-title" href="{{ "/" | relative_url }}">
+      <img src="/assets/main.jpeg", height="15%", width="15%">
+      {{ site.title | escape }}
+    </a>
     <nav class="site-nav">
       {% for link in site.data.navigation.main %}
         {% if link.url contains "http" %}

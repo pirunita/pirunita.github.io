@@ -109,9 +109,9 @@ public class HistogramJob extends Configured implements Tool{
 
 &nbsp;&nbsp;Hadoop은 partition된 Data가 저장된 클러스터의 각 머신에서 MapReduce 프로그램을 실행하며 이는 Hadoop의 **YARN**이라 불리는 Hadoop resource management system을 이용한다.
 
-![]({{ site.url }}/assets/img/hadoop/1_2.png){: width="80%" height="85%" .center}
+![]({{ site.url }}/assets/img/hadoop/1_2.png){: width="85%" height="85%" .center}
 
-![]({{ site.url }}/assets/img/hadoop/1_3.png){: width="80%" height="85%" .center}
+![]({{ site.url }}/assets/img/hadoop/1_3.png){: width="85%" height="85%" .center}
 
 MapReduce는 기본적으로 batch 단위의 processing system이며 다양한 처리 패턴도 존재한다.
 * Interactive SQL
