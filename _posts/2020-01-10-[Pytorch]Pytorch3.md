@@ -120,7 +120,6 @@ some_tensor_t.stride()
 >>>
 torch.Size([3, 4, 5])
 torch.Size([5, 4, 3])
-~~~
 (2, 1)
 (1, 2)
 (20, 5, 1)
