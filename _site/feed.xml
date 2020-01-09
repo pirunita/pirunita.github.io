@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-01-06T15:28:53+00:00</updated>
+  <updated>2020-01-09T15:27:34+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -28,10 +28,10 @@
   
     <entry xml:lang="ko">
       
-      <title type="html">[PyTorch] 2. It starts with a tensor</title>
+      <title type="html">[PyTorch] 2. It starts with a tensor(1)</title>
       
       
-      <link href="http://localhost:4000/2020/01/05/Pytorch-Pytorch2/" rel="alternate" type="text/html" title="[PyTorch] 2. It starts with a tensor" />
+      <link href="http://localhost:4000/2020/01/05/Pytorch-Pytorch2/" rel="alternate" type="text/html" title="[PyTorch] 2. It starts with a tensor(1)" />
       
       <published>2020-01-05T03:00:00+00:00</published>
       <updated>2020-01-05T03:00:00+00:00</updated>
@@ -265,15 +265,15 @@ tensor([1., 4.])
   
     <entry xml:lang="ko">
       
-      <title type="html">[Hadoop] 1. Introducing the Hadoop</title>
+      <title type="html">[Hadoop] 1. Introducing the Hadoop(1)</title>
       
       
-      <link href="http://localhost:4000/2020/01/04/Hadoop-Hadoop1/" rel="alternate" type="text/html" title="[Hadoop] 1. Introducing the Hadoop" />
+      <link href="http://localhost:4000/2020/01/04/Hadoop-Hadoop1-copy/" rel="alternate" type="text/html" title="[Hadoop] 1. Introducing the Hadoop(1)" />
       
       <published>2020-01-04T03:00:00+00:00</published>
       <updated>2020-01-04T03:00:00+00:00</updated>
-      <id>http://localhost:4000/2020/01/04/%5BHadoop%5DHadoop1</id>
-      <content type="html" xml:base="http://localhost:4000/2020/01/04/Hadoop-Hadoop1/">&lt;hr /&gt;
+      <id>http://localhost:4000/2020/01/04/%5BHadoop%5DHadoop1%20copy</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/04/Hadoop-Hadoop1-copy/">&lt;hr /&gt;
 
 &lt;h2&gt;Hadoop&lt;/h2&gt;
 

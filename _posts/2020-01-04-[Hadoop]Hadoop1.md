@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Hadoop] 1. Introducing the Hadoop"
+title:  "[Hadoop] 1. Introducing the Hadoop(1)"
 date:   2020-01-04 12:00:00 +0900
 lang: ko
 tags: BigData

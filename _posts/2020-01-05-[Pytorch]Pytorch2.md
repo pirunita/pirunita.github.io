@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[PyTorch] 2. It starts with a tensor"
+title:  "[PyTorch] 2. It starts with a tensor(1)"
 date:   2020-01-05 12:00:00 +0900
 lang: ko
 tags: DeepLearning
