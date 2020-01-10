@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-01-09T15:27:34+00:00</updated>
+  <updated>2020-01-10T16:54:41+00:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -28,10 +28,409 @@
   
     <entry xml:lang="ko">
       
-      <title type="html">[PyTorch] 2. It starts with a tensor(1)</title>
+      <title type="html">[PyTorch] 4. It starts with a tensor(3)</title>
       
       
-      <link href="http://localhost:4000/2020/01/05/Pytorch-Pytorch2/" rel="alternate" type="text/html" title="[PyTorch] 2. It starts with a tensor(1)" />
+      <link href="http://localhost:4000/2020/01/10/Pytorch-Pytorch4/" rel="alternate" type="text/html" title="[PyTorch] 4. It starts with a tensor(3)" />
+      
+      <published>2020-01-10T03:00:00+00:00</published>
+      <updated>2020-01-10T03:00:00+00:00</updated>
+      <id>http://localhost:4000/2020/01/10/%5BPytorch%5DPytorch4</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/10/Pytorch-Pytorch4/">&lt;hr /&gt;
+
+&lt;h2&gt;PyTorch&lt;/h2&gt;
+
+&lt;h3&gt;4. Numeric types&lt;/h3&gt;
+&lt;p&gt;  Tensor도 numpy array의 dtype argument처럼 numerical data type을 가지게 된다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;torch dtype&lt;/th&gt;
+      &lt;th&gt;numerical data type&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;torch.float32 or torch.float&lt;/td&gt;
+      &lt;td&gt;32-bit, floating-point&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;torch.float64 or torch.double&lt;/td&gt;
+      &lt;td&gt;64-bit, double_precision floating-point&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;torch.float16 or torch.half&lt;/td&gt;
+      &lt;td&gt;16-bit, half-preicision floating-point&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;torch.int8&lt;/td&gt;
+      &lt;td&gt;Signed 8-bit integers&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;torch.int16 or torch.short&lt;/td&gt;
+      &lt;td&gt;Signed 16-bit integers&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;torch.int32 or torch.int&lt;/td&gt;
+      &lt;td&gt;Signed 32-bit integers&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;torch.int64 or torch.long&lt;/td&gt;
+      &lt;td&gt;Signed 64-bit integers&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;tensor에 적절한 numeric type을 부여하기 위해 argument로 &lt;strong&gt;dtype&lt;/strong&gt;을 넣어 정한다. 또한 dtype에 대해 찾으려면 예시는 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;double_points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;double&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;short_points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;short&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;short_points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+torch.int16
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;또한 &lt;strong&gt;casting method&lt;/strong&gt;를 이용하여 적절한 type으로 casting하는 다양한 &lt;strong&gt;tensor-creation function&lt;/strong&gt;을 쓸 수 있다. method로는 &lt;strong&gt;to&lt;/strong&gt;, &lt;strong&gt;type&lt;/strong&gt;을 사용할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;double_points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;double&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;short_points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;short&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;double_points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;double&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;short_points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;short&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;short_points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;short&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3&gt;5. Indexing tensors&lt;/h3&gt;
+&lt;p&gt;  Tensor는 python의 기본 list처럼 index들을 &lt;strong&gt;slicing&lt;/strong&gt; 할 수 있다. range를 사용함으로써 PyTorch도 강력한 indexing을 가지며 이를 &lt;strong&gt;advanced indexing&lt;/strong&gt;이라고 한다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# list
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;some_list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;some_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:]&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;# All elements in the list
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;some_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;          &lt;span class=&quot;c1&quot;&gt;# From element 1 inclusive to element 4 exclusive
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;some_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;# From element 1 inclusive to the end of the list
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;some_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;# From the start of the list to element 4 exclusive
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;some_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;          &lt;span class=&quot;c1&quot;&gt;# From the start of the list to one before the last element
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;some_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# From element 1 inclusive to element 4 exclusive in steps of 2
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Tensor
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;              &lt;span class=&quot;c1&quot;&gt;# All rows after first, implicitly all columns
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;# All rows after first, all columns
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;# All rows after first, first column
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3&gt;6. Numpy interoperability&lt;/h3&gt;
+&lt;p&gt;  PyTorch의 tensor는 Numpy array로 변환될 수 있어서 Numpy 배열을 중심으로 구축된 더 넓은 Python ecosystem의 방대한 기능들을 효율적으로 사용할 수 있다. 그리고 Numpy array는 Python buffer protocol이 작동하는 storage system덕분에 &lt;strong&gt;zero-copy interoperability&lt;/strong&gt;가 가능하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_np&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numpy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_np&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+array([[1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.]], dtype=float32)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;다음과 같이 같은 size, shape, numerical type의 Numpy 다차원 배열을 반환하며, &lt;em&gt;이 때 반환되는 array는 tensor storage와 기본 buffer를 공유한다.&lt;/em&gt; 즉, &lt;strong&gt;numpy method&lt;/strong&gt;는 CPU RAM에서 cost가 꼭 소모되지 않고도 Numpy array에서 originating tensor로 바꿀 수 있다. 또한 GPU에 할당된 tensor가 있다면, PyTorch는 CPU에 할당되는 Numpy array로 복사하게 된다.&lt;/p&gt;
+
+&lt;p&gt;PyTorch tensor에서 Numpy array로 바꾸는 것은 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_numpy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points_np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3&gt;7. Seriallizing tensors&lt;/h3&gt;
+&lt;p&gt;  PyTorch는 tensor object를 직렬화 하기 위해 &lt;strong&gt;pickle&lt;/strong&gt;을 사용하고, storage에 serialization 코드를 사용한다. tensor를 저장 해 보자!&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot; Saving points &quot;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'../data/ourpoints.t'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# or
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'./data/ourpoints.t'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'wb'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot; Loading points back &quot;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'./data/ourpoints.t'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# or
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'./data/ourpoitns.t'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'rb'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이러한 테크닉은 tensor를 저장하고 원할 때 PyTorch에서 불러올 수 있게 되지만 프로젝트에선 자주 사용되지는 않는다. 하지만 PyTorch를 이미 다른 library에 의존하는 시스템에 도입하려 할 때 사용될 수 있다. 직렬화된 다차원 행렬을 지원하는 HDF5 format과 library를 사용하는 예를 들어보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;h5py&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h5py&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'./data/ourpoints.hdf5'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'w'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create_dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'coords'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numpy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;여기서 &lt;strong&gt;‘coords’&lt;/strong&gt;는 HDF5 file의 &lt;strong&gt;key&lt;/strong&gt; 이다. 여기서 우리는 dataset을 index할 수 있으며 우리가 원하는 element에 &lt;strong&gt;only-access&lt;/strong&gt;가 가능하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h5py&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'./data/ourpoints.hdf5'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'coords'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;last_points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;여기서는 파일을 열거나 Dataset이 필요할 때 Data가 로드되지 않고, dataset[1:]을 요청할 때까지 데이터는 디스크에 남아 있었다. 이 때 h5py는 이 두 column에 access해서 Numpy array처럼 동작하고 동일한 API를 갖는 해당 dataset의 영역을 encapsulation하는 &lt;strong&gt;Numpy 배열의 유사 객체를 반환&lt;/strong&gt;한다.&lt;br /&gt;
+반환된 객체는 &lt;strong&gt;torch.from_numpy&lt;/strong&gt; 함수에 전달하여 tensor를 얻을 수 있고 Data는 tensor storage로 복사된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;last_points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_numpy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Eli Stevens, Luca Antiga. Deep Learning with PyTorch&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="DeepLearning" />
+      
+
+      
+        <summary type="html">PyTorch 4. Numeric types   Tensor도 numpy array의 dtype argument처럼 numerical data type을 가지게 된다. torch dtype numerical data type torch.float32 or torch.float 32-bit, floating-point torch.float64 or torch.double 64-bit, double_precision floating-point torch.float16 or torch.half 16-bit, half-preicision floating-point torch.int8 Signed 8-bit integers torch.int16 or torch.short Signed 16-bit integers torch.int32 or torch.int Signed 32-bit integers torch.int64 or torch.long Signed 64-bit integers tensor에 적절한 numeric type을 부여하기 위해 argument로 dtype을 넣어 정한다. 또한 dtype에 대해 찾으려면 예시는 다음과 같다. double_points = torch.ones(10, 2, type=torch.double) short_points = torch.tensor([[1, 2], [3, 4]], dtype=torch.short) short_points.dtype &amp;gt;&amp;gt;&amp;gt; torch.int16 또한 casting method를 이용하여 적절한 type으로 casting하는 다양한 tensor-creation function을 쓸 수 있다. method로는 to, type을 사용할 수 있다. double_points = torch.zeros(10, 2).double() short_points = torch.ones(10, 2).short() double_points = torch.zeros(10, 2).to(torch.double) short_points = torch.ones(10, 2).to(dtype=torch.short) points = torch.randn(10, 2) short_points = points.type(torch.short) 5. Indexing tensors   Tensor는 python의 기본 list처럼 index들을 slicing 할 수 있다. range를 사용함으로써 PyTorch도 강력한 indexing을 가지며 이를 advanced indexing이라고 한다. # list some_list = list(range(6)) some_list[:] # All elements in the list some_list[1:4] # From element 1 inclusive to element 4 exclusive some_list[1:] # From element 1 inclusive to the end of the list some_list[:4] # From the start of the list to element 4 exclusive some_list[:-1] # From the start of the list to one before the last element some_list[1:4:2] # From element 1 inclusive to element 4 exclusive in steps of 2 # Tensor points[1:] # All rows after first, implicitly all columns points[1:, :] # All rows after first, all columns points[1:, 0] # All rows after first, first column 6. Numpy interoperability   PyTorch의 tensor는 Numpy array로 변환될 수 있어서 Numpy 배열을 중심으로 구축된 더 넓은 Python ecosystem의 방대한 기능들을 효율적으로 사용할 수 있다. 그리고 Numpy array는 Python buffer protocol이 작동하는 storage system덕분에 zero-copy interoperability가 가능하다. points = torch.ones(3, 4) points_np = points.numpy() points_np &amp;gt;&amp;gt;&amp;gt; array([[1., 1., 1., 1.], [1., 1., 1., 1.], [1., 1., 1., 1.]], dtype=float32) 다음과 같이 같은 size, shape, numerical type의 Numpy 다차원 배열을 반환하며, 이 때 반환되는 array는 tensor storage와 기본 buffer를 공유한다. 즉, numpy method는 CPU RAM에서 cost가 꼭 소모되지 않고도 Numpy array에서 originating tensor로 바꿀 수 있다. 또한 GPU에 할당된 tensor가 있다면, PyTorch는 CPU에 할당되는 Numpy array로 복사하게 된다. PyTorch tensor에서 Numpy array로 바꾸는 것은 다음과 같다. points = torch.from_numpy(points_np) 7. Seriallizing tensors   PyTorch는 tensor object를 직렬화 하기 위해 pickle을 사용하고, storage에 serialization 코드를 사용한다. tensor를 저장 해 보자! &quot;&quot;&quot; Saving points &quot;&quot;&quot; torch.save(points, '../data/ourpoints.t') # or with open('./data/ourpoints.t', 'wb') as f: torch.save(points. f) &quot;&quot;&quot; Loading points back &quot;&quot;&quot; points = torch.load('./data/ourpoints.t') # or with open('./data/ourpoitns.t', 'rb') as f: points = torch.load(f) 이러한 테크닉은 tensor를 저장하고 원할 때 PyTorch에서 불러올 수 있게 되지만 프로젝트에선 자주 사용되지는 않는다. 하지만 PyTorch를 이미 다른 library에 의존하는 시스템에 도입하려 할 때 사용될 수 있다. 직렬화된 다차원 행렬을 지원하는 HDF5 format과 library를 사용하는 예를 들어보자. import h5py f = h5py.File('./data/ourpoints.hdf5', 'w') dataset = f.create_dataset('coords', data=points.numpy()) f.close() 여기서 ‘coords’는 HDF5 file의 key 이다. 여기서 우리는 dataset을 index할 수 있으며 우리가 원하는 element에 only-access가 가능하다. f = h5py.File('./data/ourpoints.hdf5', 'r') dataset = f['coords'] last_points = dataset[1:] 여기서는 파일을 열거나 Dataset이 필요할 때 Data가 로드되지 않고, dataset[1:]을 요청할 때까지 데이터는 디스크에 남아 있었다. 이 때 h5py는 이 두 column에 access해서 Numpy array처럼 동작하고 동일한 API를 갖는 해당 dataset의 영역을 encapsulation하는 Numpy 배열의 유사 객체를 반환한다. 반환된 객체는 torch.from_numpy 함수에 전달하여 tensor를 얻을 수 있고 Data는 tensor storage로 복사된다. last_points = torch.from_numpy(dataset[1:]) f.close() Eli Stevens, Luca Antiga. Deep Learning with PyTorch</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry xml:lang="ko">
+      
+      <title type="html">[PyTorch] 3. It starts with a tensor(2) - size, offset, stride</title>
+      
+      
+      <link href="http://localhost:4000/2020/01/10/Pytorch-Pytorch3-copy/" rel="alternate" type="text/html" title="[PyTorch] 3. It starts with a tensor(2) - size, offset, stride" />
+      
+      <published>2020-01-10T03:00:00+00:00</published>
+      <updated>2020-01-10T03:00:00+00:00</updated>
+      <id>http://localhost:4000/2020/01/10/%5BPytorch%5DPytorch3%20copy</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/10/Pytorch-Pytorch3-copy/">&lt;hr /&gt;
+
+&lt;h2&gt;PyTorch&lt;/h2&gt;
+
+&lt;h3&gt;3. Size, storage offset, strides&lt;/h3&gt;
+&lt;p&gt;  Storage에 index를 붙여주기 위해서 tensor는 storage에서 몇 가지 정보를 포함하고 결정한다. 이는 size, storage offset, stride이며 다음과 같이 도식화할 수 있다.
+&lt;img src=&quot;http://localhost:4000/assets/img/pytorch/3_1.png&quot; alt=&quot;&quot; width=&quot;85%&quot; height=&quot;85%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Size: Tensor가 나타내는 각 차원마다 얼만큼 요소가 있는 지 나타내는 tuple이다.&lt;/li&gt;
+  &lt;li&gt;Storage offset: tensor에서 첫 번째 element와 일치하는 storage에 저장된 index이다.&lt;/li&gt;
+  &lt;li&gt;Stride: 각 차원에 따라 다음 element를 얻을 때 skip하기 위해 필요한 storage에서의 element 수 이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;second_point&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;second_point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storage_offset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;second_point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;second_point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+2
+torch.Size([2])
+torch.Size([2])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;여기서 size()나 shape의 결과는 storage에서 offset 2를 갖는다. 이는 second_point에 points[1] 즉 두 번째 인덱스를 가리키기 때문이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;second_point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(2, 1)
+(1,)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Tensor를 전치(transpose)시키거나 subtensor를 추출할 때 메모리를 재할당하는 것은 그 연산비용이 많이 들기 때문에 &lt;strong&gt;size, storage offset, stride&lt;/strong&gt;를 이용하여 새로운 tensor object를 구성하게 된다. 따라서 subtensor를 바꿀경우 원래의 tensor도 바뀌는 &lt;strong&gt;side effect&lt;/strong&gt;를 갖는다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;second_point&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;second_point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;10.0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+tensor([[1., 4.],
+        [10., 1.],
+        [3., 5.]])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;하지만 이는 원래의 tensor 값을 보장하지 못하기 때문에 subtensor는 &lt;strong&gt;clone&lt;/strong&gt;을 통해 무결성을 보장한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;second_point&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clone&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# clone 추가
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second_points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;10.0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+tensor([[1., 4.],
+        [2., 1.],
+        [3., 5.]])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이번에는 tensor를 transpose 시키고 원래의 tensor와 storage를 공유하는 지 비교 해 본다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+tensor([[1., 4.],
+        [2., 1.],
+        [3., 5.]])
+tensor([[1., 2., 3.],
+        [4., 1., 5.]])
+True
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;True가 나오는 것으로 보아 두 tensor는 storage를 공유한다고 볼 수 있다. 이번에는 shape와 stride를 비교 해 본다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(2, 1)
+(1, 2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이 때 transpose 연산은 다음과 같이 이루어지며 새로운 메모리는 할당되지 않고 오직 stride를 바꿔 새로운 tensor를 만드는 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/img/pytorch/3_2.png&quot; alt=&quot;&quot; width=&quot;85%&quot; height=&quot;85%&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 PyTorch에서 transpose는 matrix뿐만 아니라 multidimensional aray에서도 적용된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;some_tensor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;some_tensor_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;some_tensor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transpose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;some_tensor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;some_tensor_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;some_tensor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;some_tensor_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+torch.Size([3, 4, 5])
+torch.Size([5, 4, 3])
+(2, 1)
+(1, 2)
+(20, 5, 1)
+(1, 5, 20)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;또한 Contiguous tensor는 storage에서 건너 뛰지않고 원래의 tensor에서 순차적으로 방문할 수 있다. 이 때 tensor가 contiguous한 지 아닌 지 method를 사용해서 알 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_contiguous&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_contiguous&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;True
+False
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;또한 noncontiguous tensor로부터 새로운 &lt;strong&gt;contiguous tensor&lt;/strong&gt;를 얻기 위해 &lt;strong&gt;contiguous method&lt;/strong&gt;를 사용한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+tensor([[1., 2., 3.], 
+        [4., 1., 5.]])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+1.0
+4.0
+2.0
+1.0
+3.0
+5.0
+[torch.FloatStorage of size 6]
+(1, 2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;transpose한 tensor에서 contiguous 결과는 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;points_t_cont&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;points_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contiguous&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t_cont&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t_stride&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;points_t_cont&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;storage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;
+tensor([[1., 2., 3.],
+        [4., 1., 5.]])
+(3, 1)
+1.0
+2.0
+3.0
+4.0
+1.0
+5.0
+[torch.FloatStorage of size 6]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;여기서 중요한 점은 새로운 storage에서 row by row로 놓여진 기존의 storage의 element가 reshuffle 된다는 것을 기억하자&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Eli Stevens, Luca Antiga. Deep Learning with PyTorch&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>pirunita</name>
+          
+          
+        </author>
+      
+
+      
+
+      
+        <category term="DeepLearning" />
+      
+
+      
+        <summary type="html">PyTorch 3. Size, storage offset, strides   Storage에 index를 붙여주기 위해서 tensor는 storage에서 몇 가지 정보를 포함하고 결정한다. 이는 size, storage offset, stride이며 다음과 같이 도식화할 수 있다. Size: Tensor가 나타내는 각 차원마다 얼만큼 요소가 있는 지 나타내는 tuple이다. Storage offset: tensor에서 첫 번째 element와 일치하는 storage에 저장된 index이다. Stride: 각 차원에 따라 다음 element를 얻을 때 skip하기 위해 필요한 storage에서의 element 수 이다. points = torch.tensor([1.0, 4.0], [2.0, 1.0], [3.0, 5.0]) second_point = points[1] second_point.storage_offset() second_point.size() second_point.shape &amp;gt;&amp;gt;&amp;gt; 2 torch.Size([2]) torch.Size([2]) 여기서 size()나 shape의 결과는 storage에서 offset 2를 갖는다. 이는 second_point에 points[1] 즉 두 번째 인덱스를 가리키기 때문이다. points.stride() second_point.stride() (2, 1) (1,) Tensor를 전치(transpose)시키거나 subtensor를 추출할 때 메모리를 재할당하는 것은 그 연산비용이 많이 들기 때문에 size, storage offset, stride를 이용하여 새로운 tensor object를 구성하게 된다. 따라서 subtensor를 바꿀경우 원래의 tensor도 바뀌는 side effect를 갖는다. points = torch.tensor([1.0, 4.0], [2.0, 1.0], [3.0, 5.0]) second_point = points[1] second_point[0] = 10.0 points &amp;gt;&amp;gt;&amp;gt; tensor([[1., 4.], [10., 1.], [3., 5.]]) 하지만 이는 원래의 tensor 값을 보장하지 못하기 때문에 subtensor는 clone을 통해 무결성을 보장한다. points = torch.tensor([1.0, 4.0], [2.0, 1.0], [3.0, 5.0]) second_point = points[1].clone # clone 추가 second_points[0] = 10.0 points &amp;gt;&amp;gt;&amp;gt; tensor([[1., 4.], [2., 1.], [3., 5.]]) 이번에는 tensor를 transpose 시키고 원래의 tensor와 storage를 공유하는 지 비교 해 본다. points = torch.tensor([1.0, 4.0], [2.0, 1.0], [3.0, 5.0]) points_t = points.t() points points_t id(points.storage()) == id(points_t.storage()) &amp;gt;&amp;gt;&amp;gt; tensor([[1., 4.], [2., 1.], [3., 5.]]) tensor([[1., 2., 3.], [4., 1., 5.]]) True True가 나오는 것으로 보아 두 tensor는 storage를 공유한다고 볼 수 있다. 이번에는 shape와 stride를 비교 해 본다. points.stride() points_t.stride() (2, 1) (1, 2) 이 때 transpose 연산은 다음과 같이 이루어지며 새로운 메모리는 할당되지 않고 오직 stride를 바꿔 새로운 tensor를 만드는 것이다. 또한 PyTorch에서 transpose는 matrix뿐만 아니라 multidimensional aray에서도 적용된다. some_tensor = torch.ones(3, 4, 5) some_tensor_t = some_tensor.transpose(0, 2) some_tensor.shape some_tensor_t.shape some_tensor.stride() some_tensor_t.stride() &amp;gt;&amp;gt;&amp;gt; torch.Size([3, 4, 5]) torch.Size([5, 4, 3]) (2, 1) (1, 2) (20, 5, 1) (1, 5, 20) 또한 Contiguous tensor는 storage에서 건너 뛰지않고 원래의 tensor에서 순차적으로 방문할 수 있다. 이 때 tensor가 contiguous한 지 아닌 지 method를 사용해서 알 수 있다. points.is_contiguous() points_t.is_contiguous() True False 또한 noncontiguous tensor로부터 새로운 contiguous tensor를 얻기 위해 contiguous method를 사용한다. points = torch.tensor([1.0, 4.0], [2.0, 1.0], [3.0, 5.0]) points_t = points.t() points_t &amp;gt;&amp;gt;&amp;gt; tensor([[1., 2., 3.], [4., 1., 5.]]) points_t.storage() points_t.stride() &amp;gt;&amp;gt;&amp;gt; 1.0 4.0 2.0 1.0 3.0 5.0 [torch.FloatStorage of size 6] (1, 2) transpose한 tensor에서 contiguous 결과는 다음과 같다. points_t_cont = points_t.contiguous() points_t_cont points_t_stride() points_t_cont.storage() &amp;gt;&amp;gt;&amp;gt; tensor([[1., 2., 3.], [4., 1., 5.]]) (3, 1) 1.0 2.0 3.0 4.0 1.0 5.0 [torch.FloatStorage of size 6] 여기서 중요한 점은 새로운 storage에서 row by row로 놓여진 기존의 storage의 element가 reshuffle 된다는 것을 기억하자 Eli Stevens, Luca Antiga. Deep Learning with PyTorch</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry xml:lang="ko">
+      
+      <title type="html">[PyTorch] 2. It starts with a tensor(1) - basic</title>
+      
+      
+      <link href="http://localhost:4000/2020/01/05/Pytorch-Pytorch2/" rel="alternate" type="text/html" title="[PyTorch] 2. It starts with a tensor(1) - basic" />
       
       <published>2020-01-05T03:00:00+00:00</published>
       <updated>2020-01-05T03:00:00+00:00</updated>
@@ -268,12 +667,12 @@ tensor([1., 4.])
       <title type="html">[Hadoop] 1. Introducing the Hadoop(1)</title>
       
       
-      <link href="http://localhost:4000/2020/01/04/Hadoop-Hadoop1-copy/" rel="alternate" type="text/html" title="[Hadoop] 1. Introducing the Hadoop(1)" />
+      <link href="http://localhost:4000/2020/01/04/Hadoop-Hadoop1/" rel="alternate" type="text/html" title="[Hadoop] 1. Introducing the Hadoop(1)" />
       
       <published>2020-01-04T03:00:00+00:00</published>
       <updated>2020-01-04T03:00:00+00:00</updated>
-      <id>http://localhost:4000/2020/01/04/%5BHadoop%5DHadoop1%20copy</id>
-      <content type="html" xml:base="http://localhost:4000/2020/01/04/Hadoop-Hadoop1-copy/">&lt;hr /&gt;
+      <id>http://localhost:4000/2020/01/04/%5BHadoop%5DHadoop1</id>
+      <content type="html" xml:base="http://localhost:4000/2020/01/04/Hadoop-Hadoop1/">&lt;hr /&gt;
 
 &lt;h2&gt;Hadoop&lt;/h2&gt;
 
@@ -2769,438 +3168,6 @@ Note: This will have no impact if delete.topic.enable is not set to true.
 
       
         <summary type="html">시퀀스 슬라이싱   파이썬은 슬라이싱으로 특정 subset에 접근할 수 있다. 가장 간단한 슬라이싱 대상은 list, str, bytes이다. 슬라이싱 문법은 somelist[start:end]이며, start 인덱스는 포함되고 end 인덱스는 제외된다. a = [1, 2, 3, 4, 5, 6, 7] print(a[:4]) print(a[-4:]) print(a[3:-3]) &amp;gt;&amp;gt;&amp;gt; 1, 2, 3, 4 4, 5, 6, 7 4, 5 한 슬라이스에 start, end, stride를 함께 쓰지 않는다.    somelist[start:end:stride]처럼 슬라이스의 간격을 설정하는 특별한 문법도 있다. 이를 통해 시퀀스를 슬라이싱할 때 매 n번째 아이템을 가져올 수 있다. a = ['a', 'b', 'c', 'd', 'e', 'f'] odds = a[::2] evens = a[1::2] print(odds) print(evens) &amp;gt;&amp;gt;&amp;gt; ['a', 'c', 'e'] ['b', 'd', 'f'] 하지만 stride는 예상치 못한 동작을 하는데 파이썬에서 바이트 문자열을 역순으로 만드는 방법은 stride -1로 문자열을 슬라이싱 한다. x = b'mongoose' y = x[::-1] print(y) &amp;gt;&amp;gt;&amp;gt; b'esoognom' 위의 코드는 바이트 문자열이나 아스키 문자에는 잘 동작하지만 UTF-8 바이트 문자열로 인코드 된 유니코드 문자에서는 잘 동작하지 않는다. stride의 다양한 문법을 보자. a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] a[::2] # ['a', 'c', 'e', 'g'] a[::-2] # ['h', 'f', 'd', 'b'] 끝부터 시작해서 반대방향으로 두번 째 아이템 선택 a[2::2] # ['c', 'e', 'g'] a[-2::-2] # ['g', 'e', 'c', 'a'] a[-2:2:-2] # ['g', 'e'] a[2:2:-2] # [] 슬라이싱에서 stride는 매우 혼란스러울 수 있다. 따라서 stride를 start, end 인덱스와 함께 사용하지 않는 것이 좋으며 만약 사용한다면 양수 값을 사용하고 start와 end는 생략한다. 만약 stride를 start, end와 같이 사용해야 한다면 stride 적용 결과를 변수에 할당하고 슬라이싱 결과를 다른 변수에 할당한다. stride -&amp;gt; slicing b = a[::2] c = b[1:-1] 만약 slicing -&amp;gt; stride를 하면 데이터의 얕은 복사본이 추가로 생긴다. map과 filter 대신 list comprehension을 사용   파이썬에서는 한 리스트에서 다른 리스트를 만들 수 있는 list comprehension이 있다. a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] squares = [x**2 for x in a] print(squares) &amp;gt;&amp;gt;&amp;gt; [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] 인수가 하나뿐인 함수를 적용하는 것이 아니면 간단한 연산은 list comprehension이 내장 함수 amp보다 명확하다. map은 계산에 필요한 lambda를 생성해야 한다. squares = map(lambda x: x**2, a) 또한 list comprehension을 사용하면 입력 리스트의 아이템을 잘라내서 그에 대응하는 출력을 삭제할 수 있다. even_squres = [x**2 for x in a if x % 2 == 0] &amp;gt;&amp;gt;&amp;gt; [4, 16, 36, 64, 100] 내장 함수 filter를 map과 같이 사용하면 읽기가 어려워진다. alt = map(lambda x: x**2, filter(lambda x: x % 2 == 0, a)) 또한 dictionary, set에도 list comprehension에 해당하는 문법이 존재한다. color_channels = {'red': 1, 'green': 2, 'blue': 3} rank_dict = {rank: color for color, rank in color_channels.items()} color_len_set = {len(color) for color in color_channels.values()} print(rank_dict) print(color_len_set) &amp;gt;&amp;gt;&amp;gt; {1: 'red', 2: 'green', 3: 'blue'} {3, 5, 4} list comprehension에서 표현식을 두 개 넘게 쓰지 않는다.   list comprehension에서는 다중 루프도 가능하다. matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] flat = [x for row in matrix for x in row] print(flat) &amp;gt;&amp;gt;&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9] squared = [[x**2 for x in row] for row in matrix] print(squared) &amp;gt;&amp;gt;&amp;gt; [[1, 4, 9], [16, 25, 36], [49, 64, 81]] 하지만 여러 줄의 list comprehension은 그다지 짧지 않기 때문에 for문을 사용한다. 또한 list comprehension은 다중 if도 가능하다. 같은 for문에 여러 조건이 있으면 and표현식이 된다. a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] b = [x for x in a if x &amp;gt; 4 if x % 2 == 0] c = [x for x in a if x &amp;gt; 4 and x % 2 == 0] # b와 c는 동일 list comprehension 시 제너레이터 표현식을 고려   list comprehension은 각각의 값을 담은 새 리스트를 새로 생성하기 때문에 크면 메모리를 많이 소모한다. 파이썬은 이를 해결하기 위해 list comprehension과 제너레이터를 일반화한 generator expression을 제공한다. 제너레이터 표현식은 실행될 때 모두 메모리에로딩하지 않으며 표현식에서 하나에 한 아이템을 내주는 iterator로 평가된다. value = [len(x) for x in open('/tmp/my_file.txt')] it = (len(x) for x in open('/tmp/my_file.txt')) print(value) print(next(it)) 필요할 때 제너레이터 표현식에서 내장 함수 next로 반환받은 iterator를 한 번에 전진시키면 메모리 사용량을 걱정하지 않고 제너레이터 표현식을 사용하면 된다. 또한 제너레이터 표현식은 다른 제너레이터 표현식과 함께 사용할 수 있다. roots = ((x, x**0.5) for x in it) print(next(roots)) 위의 iterator를 전진시키면 내부의 iterator도 전진한다. 제너레이터를 연결하면 파이썬에서 매우 빨라진다. 브렛 슬라킨, ⌜파이썬 코딩의 기술⌟, 김형철, 길벗(2017)</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry xml:lang="ko">
-      
-      <title type="html">[Python] Effective Python(1) - Style Guide</title>
-      
-      
-      <link href="http://localhost:4000/2019/05/09/Effective_Python1/" rel="alternate" type="text/html" title="[Python] Effective Python(1) - Style Guide" />
-      
-      <published>2019-05-09T00:00:00+00:00</published>
-      <updated>2019-05-09T00:00:00+00:00</updated>
-      <id>http://localhost:4000/2019/05/09/Effective_Python1</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/09/Effective_Python1/">&lt;hr /&gt;
-
-&lt;p&gt;  &lt;em&gt;현재 내가 대부분 진행하는 프로젝트는 python으로 짜여 있다. 하지만 python을 제대로 공부한 적이 없으며 pythonic하게 코드를 짜는 방법에 대해서 잘 알지 못하기에 이번에 공부하고자 한다.&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2&gt;PEP 8 스타일 가이드&lt;/h2&gt;
-&lt;p&gt;  파이썬 개선 제안서(Python Enhancement Proposal) #8 즉, PEP 8은 파이썬 코드를 어떻게 구성할 지 알려주는 스타일 가이드다. 이 때 반드시 따라야 하는 규칙이 있다.&lt;/p&gt;
-
-&lt;h3&gt;화이트 스페이스&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;탭이 아닌 스페이스로 들여쓴다.&lt;/li&gt;
-  &lt;li&gt;문법적으로 의미가 있는 들여쓰기는 스페이스 4개를 사용한다.&lt;/li&gt;
-  &lt;li&gt;한 줄의 문자 길이가 79자 이하여야 하며 표현식이 길어서 다른 줄로 이어지면 일반적인 들여쓰기에서 스페이스 네 개를 추가로 쓴다.&lt;/li&gt;
-  &lt;li&gt;파일에서 함수와 클래스는 빈 줄 두개로 구분해야 한다.&lt;/li&gt;
-  &lt;li&gt;클래스에서 메서드는 빈 줄 하나로 구분한다.&lt;/li&gt;
-  &lt;li&gt;리스트 인덱스, 함수 호출, 키워드 인수 할당에는 스페이스를 사용하지 않는다.&lt;/li&gt;
-  &lt;li&gt;변수 할당 앞 뒤에 스페이스를 하나만 사용한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;명명 표기&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;함수, 변수, 속성은 lowercase_underscore 형식을 따른다.&lt;/li&gt;
-  &lt;li&gt;protected 인스턴스 속성은 _leading_underscore 형식을 따른다.&lt;/li&gt;
-  &lt;li&gt;private 인스턴스 속성은 __double_leading_underscore 형식을 따른다.&lt;/li&gt;
-  &lt;li&gt;클래스와 예외는 CapitalizedWord 형식을 따른다.&lt;/li&gt;
-  &lt;li&gt;모듈 수준 상수는 ALL_CAPS 형식을 따른다.&lt;/li&gt;
-  &lt;li&gt;클래스의 인스턴스 메서드에서 첫 번째 파라미터(해당 객체를 참조)의 이름을 self로 지정한다.&lt;/li&gt;
-  &lt;li&gt;클래스 메서드에서 첫 번째 파라미터(해당 클래스를 참조)의 이름을 cls로 지정한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;표현식과 문장&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;길이를 확인하는 (if len(somelist) == 0)이 아닌 if not some list를 사용하고, 빈 값은 암시적으로 False가 된다고 가정한다.&lt;/li&gt;
-  &lt;li&gt;비어있지 않은 값에도 위와 같다. 값이 비어있지 않으면 if omselist 문이 암시적으로 True가 된다.&lt;/li&gt;
-  &lt;li&gt;한줄로 된 if, for, while, except을 쓰지 않는다.&lt;/li&gt;
-  &lt;li&gt;파일 맨 위에 import문을 놓는다.&lt;/li&gt;
-  &lt;li&gt;module을 import 할 때 항상 모듈의 절대 이름을 사용한다.&lt;/li&gt;
-  &lt;li&gt;Import는 ‘표준 라이브러리 모듈, 서드파티 모듈, 자신이 만든 모듈’ 섹션 순으로 구분한다. 각각의 하위 섹션에서는 알파벳 순서로 import 한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2&gt;복잡한 표현식 대신 헬퍼 함수를 작성한다.&lt;/h2&gt;
-&lt;p&gt;  파이썬의 간결한 문법을 이용하면 짧은 로직을 표현식 한 술로 작성할 수 있지만 읽기 어려워지는 경우가 있다.
-다음은 URL에서 쿼리 문자열을 디코딩하는 코드이다.&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib.parse&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse_qs&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parse_qs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'red=5&amp;amp;blue=0&amp;amp;green='&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keep_blank_values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;repr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'red'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'5'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'green'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'blue'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'0'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Dictionary의 get 메서드를 사용하여 각 상황에 따라 다른 값을 반환한다.&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'red: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'red'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'green: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'green'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'purple: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'purple'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'5'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;purple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;이 때 파라미터가 없거나 비어 있으면 0을 할당하게 한다.&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'red'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;green&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'green'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;purple&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'purple'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'red: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'green: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'purple: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;purple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'5'&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;purple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;if/else 조건식(삼항 표현식)을 이용하여 명확하게 표현한다.&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'red'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;이 로직을 반복해서 사용한다면 헬퍼 함수를 만든다.&lt;/p&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_first_int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;found&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;green&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_first_int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'green'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;hr /&gt;
-
-&lt;p&gt;브렛 슬라킨, ⌜파이썬 코딩의 기술⌟, 김형철, 길벗(2017)&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>pirunita</name>
-          
-          
-        </author>
-      
-
-      
-
-      
-        <category term="Python" />
-      
-
-      
-        <summary type="html">  현재 내가 대부분 진행하는 프로젝트는 python으로 짜여 있다. 하지만 python을 제대로 공부한 적이 없으며 pythonic하게 코드를 짜는 방법에 대해서 잘 알지 못하기에 이번에 공부하고자 한다. PEP 8 스타일 가이드   파이썬 개선 제안서(Python Enhancement Proposal) #8 즉, PEP 8은 파이썬 코드를 어떻게 구성할 지 알려주는 스타일 가이드다. 이 때 반드시 따라야 하는 규칙이 있다. 화이트 스페이스 탭이 아닌 스페이스로 들여쓴다. 문법적으로 의미가 있는 들여쓰기는 스페이스 4개를 사용한다. 한 줄의 문자 길이가 79자 이하여야 하며 표현식이 길어서 다른 줄로 이어지면 일반적인 들여쓰기에서 스페이스 네 개를 추가로 쓴다. 파일에서 함수와 클래스는 빈 줄 두개로 구분해야 한다. 클래스에서 메서드는 빈 줄 하나로 구분한다. 리스트 인덱스, 함수 호출, 키워드 인수 할당에는 스페이스를 사용하지 않는다. 변수 할당 앞 뒤에 스페이스를 하나만 사용한다. 명명 표기 함수, 변수, 속성은 lowercase_underscore 형식을 따른다. protected 인스턴스 속성은 _leading_underscore 형식을 따른다. private 인스턴스 속성은 __double_leading_underscore 형식을 따른다. 클래스와 예외는 CapitalizedWord 형식을 따른다. 모듈 수준 상수는 ALL_CAPS 형식을 따른다. 클래스의 인스턴스 메서드에서 첫 번째 파라미터(해당 객체를 참조)의 이름을 self로 지정한다. 클래스 메서드에서 첫 번째 파라미터(해당 클래스를 참조)의 이름을 cls로 지정한다. 표현식과 문장 길이를 확인하는 (if len(somelist) == 0)이 아닌 if not some list를 사용하고, 빈 값은 암시적으로 False가 된다고 가정한다. 비어있지 않은 값에도 위와 같다. 값이 비어있지 않으면 if omselist 문이 암시적으로 True가 된다. 한줄로 된 if, for, while, except을 쓰지 않는다. 파일 맨 위에 import문을 놓는다. module을 import 할 때 항상 모듈의 절대 이름을 사용한다. Import는 ‘표준 라이브러리 모듈, 서드파티 모듈, 자신이 만든 모듈’ 섹션 순으로 구분한다. 각각의 하위 섹션에서는 알파벳 순서로 import 한다. 복잡한 표현식 대신 헬퍼 함수를 작성한다.   파이썬의 간결한 문법을 이용하면 짧은 로직을 표현식 한 술로 작성할 수 있지만 읽기 어려워지는 경우가 있다. 다음은 URL에서 쿼리 문자열을 디코딩하는 코드이다. from urllib.parse import parse_qs my_values = parse_qs('red=5&amp;amp;blue=0&amp;amp;green=', keep_blank_values=True) print(repr(my_values)) &amp;gt;&amp;gt;&amp;gt; {'red': ['5'], 'green': [''], 'blue': ['0']} Dictionary의 get 메서드를 사용하여 각 상황에 따라 다른 값을 반환한다. print('red: ', my_values.get('red')) print('green: ', my_values.get('green')) print('purple: ', my_values.get('purple')) &amp;gt;&amp;gt;&amp;gt; red: ['5'] green: [''] purple: None 이 때 파라미터가 없거나 비어 있으면 0을 할당하게 한다. red = my_values.get('red', [''])[0] or 0 green = my_values.get('green', [''])[0] or 0 purple = my_values.get('purple', [''])[0] or 0 print('red: %r', %red) print('green: %r', %green) print('purple: %r', %purple) &amp;gt;&amp;gt;&amp;gt; red: '5' green: 0 purple: 0 if/else 조건식(삼항 표현식)을 이용하여 명확하게 표현한다. red = my_values.get('red', ['']) red = int(red[0]) if red[0] else 0 이 로직을 반복해서 사용한다면 헬퍼 함수를 만든다. def get_first_int(values, key, default=0): found = values.get(key, ['']) if found[0]: found = int(found[0]) else found = default return found green = get_first_int(my_values, 'green') 브렛 슬라킨, ⌜파이썬 코딩의 기술⌟, 김형철, 길벗(2017)</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry xml:lang="ko">
-      
-      <title type="html">[Python] profiling</title>
-      
-      
-      <link href="http://localhost:4000/2019/05/03/Python-Profiling/" rel="alternate" type="text/html" title="[Python] profiling" />
-      
-      <published>2019-05-03T04:00:00+00:00</published>
-      <updated>2019-05-03T04:00:00+00:00</updated>
-      <id>http://localhost:4000/2019/05/03/%5BPython%5DProfiling</id>
-      <content type="html" xml:base="http://localhost:4000/2019/05/03/Python-Profiling/">&lt;hr /&gt;
-
-&lt;h2&gt;profiling으로 병목 지점 찾기&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;코드의 속도상 병목과 RAM 사용 병목을 파악하는 방법&lt;/li&gt;
-  &lt;li&gt;CPU와 메모리 사용량을 프로파일링하는 방법&lt;/li&gt;
-  &lt;li&gt;얼마나 자세하게 프로파일링을 해야 하는가&lt;/li&gt;
-  &lt;li&gt;장시간 실행되는 어플리케이션을 프로파일링 하는 방법&lt;/li&gt;
-  &lt;li&gt;CPython의 내부 동작&lt;/li&gt;
-  &lt;li&gt;성능을 튜닝하는 동안 코드의 올바름을 유지하는 방법&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr /&gt;
-
-&lt;p&gt;  프로파일링을 하게 되면 RAM이 사용될 때 몰리는 병목 지점을 찾을 수 있기 때문에, 프로파일링을 하면 속도를 크게 향상 시키고 자원을 적게 사용할 수 있다는 장점이 있다.&lt;/p&gt;
-
-&lt;p&gt;또한 CPU뿐만 아니라 GPU, RAM, 네트워크 대역폭, 디스크 I/O 등 측정 가능한 자원은 모두 프로파일링을 해 볼 수 있다.&lt;/p&gt;
-
-&lt;h3&gt;2.1 효과적으로 프로파일링 하기&lt;/h3&gt;
-
-&lt;p&gt;프로파일링의 첫 번째 목표 : 시스템의 어느 부분이 느린 지, 병목 현상이 어디서 일어나는 지 알 수 있다.&lt;/p&gt;
-
-&lt;p&gt;(&lt;em&gt;주의: 프로파일링 시 평소보다 실행 속도가 느려지므로 검사할 부분만 따로 떼어내서 검사한다.&lt;/em&gt;)&lt;/p&gt;
-
-&lt;p&gt;프로파일링 방법은 다음과 같다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;IPython의 %timeit 매직 명령어, time.time(), timing decorator&lt;/li&gt;
-  &lt;li&gt;cProfile: 어떤 함수가 가장 오래 걸리는 지 확인할 수 있는 내장 도구&lt;/li&gt;
-  &lt;li&gt;line_profiler: 선택한 함수를 한 줄씩 프로파일링
-    &lt;ul&gt;
-      &lt;li&gt;line_profiler을 통해 컴파일러를 사용할 부분을 결정할 수 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;perf stat: CPU에서 실행된 명령의 수, CPU 캐시가 얼마나 효율적으로 활용 되었는 지 알 수 있다.(chap 6)&lt;/li&gt;
-  &lt;li&gt;heapy: 파이썬 메모리에 상주하는 모든 객체를 확인
-    &lt;ul&gt;
-      &lt;li&gt;메모리 누수를 찾을 때 유용&lt;/li&gt;
-      &lt;li&gt;장시간 실행되는 시스템이라면 dowser를 사용한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;memory_profiler: 시간에 따른 RAM 사용 추이를 차트로 확인
-    &lt;ul&gt;
-      &lt;li&gt;RAM 사용량이 왜 높은 지 찾을 수 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;CPython 내부에서 쓰이는 파이썬 바이트코드&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;2.2 시간을 측정하는 간단한 방법 - print와 데코레이터&lt;/h3&gt;
-&lt;p&gt;  print문을 사용하는 경우는 코드를 더럽히지만 시간을 잠깐 조사하는 경우에 매우 유용하다.
-(&lt;em&gt;작업이 끝나고 print문을 정리하지 않으면 표준 출력을 모두 잡아먹는다.&lt;/em&gt;)&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;start_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;end_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time90&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;secs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start_time&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;조금 더 깨끗한 방법으로 &lt;strong&gt;데코레이터&lt;/strong&gt;가 있다. 여기선 시간을 측정하고 싶은 함수 위에 코드 한 줄을 추가할 것이다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;functools&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wraps&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;timefn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wraps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;measure_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@timefn: {} took {} seconds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;measure_time&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timefn&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calculate_z_serial_purepython&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxiter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;추가적인 프로파일링 정보는 코드를 느려지게 만들 수 있다.&lt;/p&gt;
-
-&lt;p&gt;이번에는 CPU를 많이 사용하는 함수의 실행 속도를 측정하는 다른 방법으로 timeit 모듈을 사용할 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ python -m timeit -n 5 -r 5 -s &quot;import julia1&quot; &quot;julia1.calc_pure_python(desired_width=1000, max_iterations=300)&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;여기서 &lt;strong&gt;calc_pure_python&lt;/strong&gt;이 모듈 안에 정의되어 있으므로 -s를 사용하여 module을 임포트해야한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;-r 5: 반복횟수를 나타냄&lt;/li&gt;
-  &lt;li&gt;-n 5: 각 검사에서 평균을 구하여 전체 반복 중 가장 나은 값을 출력&lt;/li&gt;
-  &lt;li&gt;만약 -n, -r 옵션을 주지 않고 timeit을 수행했다면 기본값으로 5번씩 10회 반복 수행&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;2.3 cProfile module 사용&lt;/h3&gt;
-&lt;p&gt;  cProfile은 표준 라이브러리가 제공하는 3가지 프로파일러 중 하나이다.(hotshot, profile)&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;tip: 프로파일링을하기 전에 프로파일링하려는 코드의 기대 속도에 대한 가설을 세우는 습관을 들이는 것이 좋다. 의심스러운 코드를 출력해서 메모하는 방식이 좋다.
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python -m cProfile -s cumulative julia1_nopil.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;-s cumulative: 각 함수에서 소비한 누적 시간순으로 정렬되어 어떤 함수가 더 느린지 쉽게 확인 가능
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python -m cProfile -o profile.stats julia1.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;cProfile의 결과를 더 세밀하게 살펴보려면 통계 파일을 생성한 뒤 파이썬으로 분석할 수 있다. 이제 다음과 같이 파이썬에서 통계 파일을 불러들이면 앞서 살펴본 출력과 같은 결과를 확인할 수 있다.
-    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pstats&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pstats&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile.stats&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort_stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;cumulative&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;프로파일링 중인 함수를 추적하기 위해 해당 함수를 호출한 측(caller)의 정보를 출력한다.
-    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_callers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;이를 통해 어떤 함수가 몇 번 호출했고 수행시간을 측정할 수 있다. 또한 다음 방법으로 해당 함수에서 호출하는 함수 목록도 확인할 수 있다.
-    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_callees&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;2.4 line_profiler로 한 줄씩 측정하기&lt;/h3&gt;
-&lt;p&gt;  line_profiler은 파이썬 코드에서 CPU 병목 원인을 찾아주는 가장 강력한 도구일 것이다. &lt;em&gt;line_profiler는 개별 함수를 한 줄씩 프로파일링할 수 있으므로&lt;/em&gt; cProfile로 어떤 함수를 line_profiler로 자세히 살펴볼 지에 대한 전체적인 방향을 정한다.&lt;/p&gt;
-
-&lt;p&gt;먼저 line_profiler를 설치한다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install line_profiler
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;@profiler: decorator, 선택한 함수를 표시하기 위해 사용&lt;/li&gt;
-  &lt;li&gt;kernprof.py: 코드를 실행하고 선택한 함수의 각 줄에 대한 CPU 시간 등의 통계를 기록&lt;/li&gt;
-  &lt;li&gt;-l: l옵션은 함수 단위가 아닌 &lt;strong&gt;한 줄씩 프로파일링&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;-v: v옵션은 출력 결과를 다양하게 보여준다. -v를 주지 않으면 line_profiler 모듈을 이용한 분석에 사용할 수 있는 .lprof 결과를 받는다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kernprof.py -l -v julia1_lineprofiler.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;이 내용에서 print만으로 걸린 측정 시간은 13초, cProfile은 19초, 하지만 line_profiler은 100초가 소요되지만 각 줄이 실행되는 데 걸린 시간을 확인할 수 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;tip: while문에서 조건이 2개 이상이라면 이를 분리해서 if조건문으로 처리 해 준 후에 측정한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;또한 파이썬은 다른 부분을 계산하지 않고 전체 결과를 확정할 수 있으면 전체를 확정지어 버리기 때문에 while문의 연산 순서를 바꿈으로써 유의미한 속도 개선을 기대할 수 있다.&lt;/p&gt;
-
-&lt;h3&gt;2.5 memory_profiler로 메모리 사용량 진단하기&lt;/h3&gt;
-&lt;p&gt;  메모리 사용량을 줄단위로 측정해주는 memory_profiler이다. 이를 통해서 다음을 알 수 있다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;이 함수를 더 효과적으로 작동하게 고쳐서 RAM을 덜 사용할 수 있는가&lt;/li&gt;
-  &lt;li&gt;캐시를 두어 RAM을 조금 더 쓰는 대신 CPU 사이클을 아길 수 있을까?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;memory_profiler는 line_profiler와 흡사하게 작동하지만 훨씬 느리다. psutil 패키지를 설치하면 memory_profiler를 더 빠르게 실행할 수 있다.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install memory_profiler
-pip install psutil
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;memory_profiler은 느리기 때문에 최소한의 시간에 프로파일링을 마칠 수 있도록 코드의 일부만 떼어내 검사하는 편이 좋다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python -m momry_profiler julia1_memoryprofiler.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;메모리 사용량의 변화를 시각화하는 방법은 시간에 따라 샘플링하고 그 결과를 그래프로 그려보는 것이다. memory_profiler에 포함된 mprof는 메모리 사용량을 샘플링한 후 시각화하며, 시간에 따라 샘플링하기 때문에 코드 실행시간에 큰 영향을 주지 않는다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mprof run julia1_memoryprofiler.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;통계 파일을 먼저 생성하고 mprof plot 명령으로 시각화한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;range vs xrange?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;2.6 최적화 중에 단위 테스트 하기&lt;/h3&gt;
-&lt;p&gt;  단위 테스트를 하지 않으면 장기적으로 생산성을 떨어트린다. 단위 테스트와 더불어 coverage.py도 함께 고려한다. coverage.py는 코드의 어떤 부분이 검사되었고 검사되지 않은 부분은 어디인지 알 수 있다.&lt;/p&gt;
-
-&lt;h4&gt;no-op @profiler 데코레이터&lt;/h4&gt;
-&lt;p&gt;  line_profiler나 memory_profiler에서 @profile을 사용하면 단위테스트에서 NameError 예외가 발생한다. 단위 테스트 프레임워크는 @profile 데코레이터를 로컬 네임스페이스에 추가하지 않았기 때문에 &lt;strong&gt;no-op decorator&lt;/strong&gt;를 이용하면 이 문제를 피할 수 있다. 검사하려는 코드 블록에 추가하고 검사가 끝나면 제거한다.&lt;/p&gt;
-
-&lt;p&gt;no-op를 이용하면 검사하려는 코드를 변경하지 않고 테스트를 실행할 수 있고, 프로파일링을 통한 최적화 작업 중에도 테스트를 돌려볼 수 있기 때문에 잘못된 최적화에 빠지는 일을 방지할 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# ex.py
-&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;unittest&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;profile&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;some_fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nbr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nbr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TestCase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unittest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TestCase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;some_fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;assertEquals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ nosetests ex.py
-E
-================================================
-ERROR: Failure: NameError (name 'profile' is not defined)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;따라서 해결책은 ex.py의 첫 부분에 no-op 데코레이터를 추가하는 것이다.(프로파일링이 끝나고 제거하면 된다.)&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;단위 테스트를 위해 네임스페이스에 no-op @profiler 데코레이터 추가하기(line_profiler)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# line_profiler용
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__builtin__'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hasattr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__builtin__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'profile'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;inner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inner&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;‘__builtin __’ 테스트는 nosetest 유무를 위한 것이고 hasattr 테스트는 네임스페이스에 @profile이 추가되었는 지 검사한다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kernprof.py -v -l ex.py
-Line #     Hits        Time Per %%HTMLit    % Time Line Contests
-=====================================================================
-  11                                              @profile
-  12                                              def some_fn(nbr):
-  13          1           3     3.0       100.0       return nbr * 2
-
-
-
-$ nosetests ex.py
-.
-Ran 1 test in 0.000s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;단위 테스트를 위해 네임스페이스에 no-op @profiler 데코레이터 추가하기(memory_profiler)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# memory_profiler용
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'profile'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;inner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inner&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python -m memory_profiler ex.py
-...
-Line #      Mem usage     Increment     Line Contents
-=====================================================================
-    11      10.809 MiB    0.000 MiB     @profile
-    12                                  def some_fn(nbr):
-    13      10.809 MiB    0.000 MiB         return nbr * 2
-
-$ nosestests ex.py
-.
-Ran 1 test in 0.000s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-        <author>
-            <name>pirunita</name>
-          
-          
-        </author>
-      
-
-      
-
-      
-        <category term="Python" />
-      
-
-      
-        <summary type="html">profiling으로 병목 지점 찾기 코드의 속도상 병목과 RAM 사용 병목을 파악하는 방법 CPU와 메모리 사용량을 프로파일링하는 방법 얼마나 자세하게 프로파일링을 해야 하는가 장시간 실행되는 어플리케이션을 프로파일링 하는 방법 CPython의 내부 동작 성능을 튜닝하는 동안 코드의 올바름을 유지하는 방법   프로파일링을 하게 되면 RAM이 사용될 때 몰리는 병목 지점을 찾을 수 있기 때문에, 프로파일링을 하면 속도를 크게 향상 시키고 자원을 적게 사용할 수 있다는 장점이 있다. 또한 CPU뿐만 아니라 GPU, RAM, 네트워크 대역폭, 디스크 I/O 등 측정 가능한 자원은 모두 프로파일링을 해 볼 수 있다. 2.1 효과적으로 프로파일링 하기 프로파일링의 첫 번째 목표 : 시스템의 어느 부분이 느린 지, 병목 현상이 어디서 일어나는 지 알 수 있다. (주의: 프로파일링 시 평소보다 실행 속도가 느려지므로 검사할 부분만 따로 떼어내서 검사한다.) 프로파일링 방법은 다음과 같다. IPython의 %timeit 매직 명령어, time.time(), timing decorator cProfile: 어떤 함수가 가장 오래 걸리는 지 확인할 수 있는 내장 도구 line_profiler: 선택한 함수를 한 줄씩 프로파일링 line_profiler을 통해 컴파일러를 사용할 부분을 결정할 수 있다. perf stat: CPU에서 실행된 명령의 수, CPU 캐시가 얼마나 효율적으로 활용 되었는 지 알 수 있다.(chap 6) heapy: 파이썬 메모리에 상주하는 모든 객체를 확인 메모리 누수를 찾을 때 유용 장시간 실행되는 시스템이라면 dowser를 사용한다. memory_profiler: 시간에 따른 RAM 사용 추이를 차트로 확인 RAM 사용량이 왜 높은 지 찾을 수 있다. CPython 내부에서 쓰이는 파이썬 바이트코드 2.2 시간을 측정하는 간단한 방법 - print와 데코레이터   print문을 사용하는 경우는 코드를 더럽히지만 시간을 잠깐 조사하는 경우에 매우 유용하다. (작업이 끝나고 print문을 정리하지 않으면 표준 출력을 모두 잡아먹는다.) import time def print_time(): start_time = time.time() output = func() end_time = time.time90 secs = end_time - start_time 조금 더 깨끗한 방법으로 데코레이터가 있다. 여기선 시간을 측정하고 싶은 함수 위에 코드 한 줄을 추가할 것이다. from functools import wraps def timefn(fn): @wraps(fn) def measure_time(*args, **kwargs): t1 = time.time() result = fn(*args, **kwargs) t2 = time.time() print(&quot;@timefn: {} took {} seconds&quot;.format(fn.__name__, t2- t1)) return measure_time @timefn def calculate_z_serial_purepython(maxiter, zs, cs): ... 추가적인 프로파일링 정보는 코드를 느려지게 만들 수 있다. 이번에는 CPU를 많이 사용하는 함수의 실행 속도를 측정하는 다른 방법으로 timeit 모듈을 사용할 수 있다. $ python -m timeit -n 5 -r 5 -s &quot;import julia1&quot; &quot;julia1.calc_pure_python(desired_width=1000, max_iterations=300)&quot; 여기서 calc_pure_python이 모듈 안에 정의되어 있으므로 -s를 사용하여 module을 임포트해야한다. -r 5: 반복횟수를 나타냄 -n 5: 각 검사에서 평균을 구하여 전체 반복 중 가장 나은 값을 출력 만약 -n, -r 옵션을 주지 않고 timeit을 수행했다면 기본값으로 5번씩 10회 반복 수행 2.3 cProfile module 사용   cProfile은 표준 라이브러리가 제공하는 3가지 프로파일러 중 하나이다.(hotshot, profile) tip: 프로파일링을하기 전에 프로파일링하려는 코드의 기대 속도에 대한 가설을 세우는 습관을 들이는 것이 좋다. 의심스러운 코드를 출력해서 메모하는 방식이 좋다. python -m cProfile -s cumulative julia1_nopil.py -s cumulative: 각 함수에서 소비한 누적 시간순으로 정렬되어 어떤 함수가 더 느린지 쉽게 확인 가능 python -m cProfile -o profile.stats julia1.py cProfile의 결과를 더 세밀하게 살펴보려면 통계 파일을 생성한 뒤 파이썬으로 분석할 수 있다. 이제 다음과 같이 파이썬에서 통계 파일을 불러들이면 앞서 살펴본 출력과 같은 결과를 확인할 수 있다. import pstats p = pstats.Stats(&quot;profile.stats&quot;) p.sort_stats(&quot;cumulative&quot;) p.print_stats() 프로파일링 중인 함수를 추적하기 위해 해당 함수를 호출한 측(caller)의 정보를 출력한다. p.print_callers() 이를 통해 어떤 함수가 몇 번 호출했고 수행시간을 측정할 수 있다. 또한 다음 방법으로 해당 함수에서 호출하는 함수 목록도 확인할 수 있다. p.print_callees() 2.4 line_profiler로 한 줄씩 측정하기   line_profiler은 파이썬 코드에서 CPU 병목 원인을 찾아주는 가장 강력한 도구일 것이다. line_profiler는 개별 함수를 한 줄씩 프로파일링할 수 있으므로 cProfile로 어떤 함수를 line_profiler로 자세히 살펴볼 지에 대한 전체적인 방향을 정한다. 먼저 line_profiler를 설치한다. pip install line_profiler @profiler: decorator, 선택한 함수를 표시하기 위해 사용 kernprof.py: 코드를 실행하고 선택한 함수의 각 줄에 대한 CPU 시간 등의 통계를 기록 -l: l옵션은 함수 단위가 아닌 한 줄씩 프로파일링 -v: v옵션은 출력 결과를 다양하게 보여준다. -v를 주지 않으면 line_profiler 모듈을 이용한 분석에 사용할 수 있는 .lprof 결과를 받는다. kernprof.py -l -v julia1_lineprofiler.py 이 내용에서 print만으로 걸린 측정 시간은 13초, cProfile은 19초, 하지만 line_profiler은 100초가 소요되지만 각 줄이 실행되는 데 걸린 시간을 확인할 수 있다. tip: while문에서 조건이 2개 이상이라면 이를 분리해서 if조건문으로 처리 해 준 후에 측정한다. 또한 파이썬은 다른 부분을 계산하지 않고 전체 결과를 확정할 수 있으면 전체를 확정지어 버리기 때문에 while문의 연산 순서를 바꿈으로써 유의미한 속도 개선을 기대할 수 있다. 2.5 memory_profiler로 메모리 사용량 진단하기   메모리 사용량을 줄단위로 측정해주는 memory_profiler이다. 이를 통해서 다음을 알 수 있다. 이 함수를 더 효과적으로 작동하게 고쳐서 RAM을 덜 사용할 수 있는가 캐시를 두어 RAM을 조금 더 쓰는 대신 CPU 사이클을 아길 수 있을까? memory_profiler는 line_profiler와 흡사하게 작동하지만 훨씬 느리다. psutil 패키지를 설치하면 memory_profiler를 더 빠르게 실행할 수 있다. pip install memory_profiler pip install psutil memory_profiler은 느리기 때문에 최소한의 시간에 프로파일링을 마칠 수 있도록 코드의 일부만 떼어내 검사하는 편이 좋다. python -m momry_profiler julia1_memoryprofiler.py 메모리 사용량의 변화를 시각화하는 방법은 시간에 따라 샘플링하고 그 결과를 그래프로 그려보는 것이다. memory_profiler에 포함된 mprof는 메모리 사용량을 샘플링한 후 시각화하며, 시간에 따라 샘플링하기 때문에 코드 실행시간에 큰 영향을 주지 않는다. mprof run julia1_memoryprofiler.py 통계 파일을 먼저 생성하고 mprof plot 명령으로 시각화한다. range vs xrange? 2.6 최적화 중에 단위 테스트 하기   단위 테스트를 하지 않으면 장기적으로 생산성을 떨어트린다. 단위 테스트와 더불어 coverage.py도 함께 고려한다. coverage.py는 코드의 어떤 부분이 검사되었고 검사되지 않은 부분은 어디인지 알 수 있다. no-op @profiler 데코레이터   line_profiler나 memory_profiler에서 @profile을 사용하면 단위테스트에서 NameError 예외가 발생한다. 단위 테스트 프레임워크는 @profile 데코레이터를 로컬 네임스페이스에 추가하지 않았기 때문에 no-op decorator를 이용하면 이 문제를 피할 수 있다. 검사하려는 코드 블록에 추가하고 검사가 끝나면 제거한다. no-op를 이용하면 검사하려는 코드를 변경하지 않고 테스트를 실행할 수 있고, 프로파일링을 통한 최적화 작업 중에도 테스트를 돌려볼 수 있기 때문에 잘못된 최적화에 빠지는 일을 방지할 수 있다. # ex.py import unittest @profile def some_fn(nbr): return nbr * 2 class TestCase(unittest.TestCase): def test(self): result = some_fn(2) self.assertEquals(result, 4) $ nosetests ex.py E ================================================ ERROR: Failure: NameError (name 'profile' is not defined) 따라서 해결책은 ex.py의 첫 부분에 no-op 데코레이터를 추가하는 것이다.(프로파일링이 끝나고 제거하면 된다.) 단위 테스트를 위해 네임스페이스에 no-op @profiler 데코레이터 추가하기(line_profiler) # line_profiler용 if '__builtin__' not in dir() or not hasattr(__builtin__, 'profile'): def profile(func): def inner(*args, **kwargs): return func(*args, **kwargs) return inner ‘__builtin __’ 테스트는 nosetest 유무를 위한 것이고 hasattr 테스트는 네임스페이스에 @profile이 추가되었는 지 검사한다. $ kernprof.py -v -l ex.py Line # Hits Time Per %%HTMLit % Time Line Contests ===================================================================== 11 @profile 12 def some_fn(nbr): 13 1 3 3.0 100.0 return nbr * 2 $ nosetests ex.py . Ran 1 test in 0.000s 단위 테스트를 위해 네임스페이스에 no-op @profiler 데코레이터 추가하기(memory_profiler) # memory_profiler용 if 'profile' not in dir(): def profile(func): def inner(*args, **kwargs): return func(*args, **kwargs) return inner python -m memory_profiler ex.py ... Line # Mem usage Increment Line Contents ===================================================================== 11 10.809 MiB 0.000 MiB @profile 12 def some_fn(nbr): 13 10.809 MiB 0.000 MiB return nbr * 2 $ nosestests ex.py . Ran 1 test in 0.000s</summary>
       
 
       

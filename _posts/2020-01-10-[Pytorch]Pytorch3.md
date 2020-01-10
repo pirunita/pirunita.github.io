@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[PyTorch] 3. It starts with a tensor(2)"
+title:  "[PyTorch] 3. It starts with a tensor(2) - size, offset, stride"
 date:   2020-01-10 12:00:00 +0900
 lang: ko
 tags: DeepLearning
