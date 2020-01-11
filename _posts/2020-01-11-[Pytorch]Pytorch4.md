@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[PyTorch] 4. It starts with a tensor(3)"
-date:   2020-01-10 12:00:00 +0900
+date:   2020-01-11 12:00:00 +0900
 lang: ko
 tags: DeepLearning
 ---
