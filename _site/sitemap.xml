@@ -93,12 +93,16 @@
 <lastmod>2020-01-05T03:00:00+00:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/2020/01/10/Pytorch-Pytorch3-copy/</loc>
+<loc>http://localhost:4000/2020/01/10/Pytorch-Pytorch3/</loc>
 <lastmod>2020-01-10T03:00:00+00:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/2020/01/10/Pytorch-Pytorch4/</loc>
 <lastmod>2020-01-10T03:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/2020/01/11/Hadoop-Hadoop2/</loc>
+<lastmod>2020-01-11T03:00:00+00:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/tag/Backend/</loc>
@@ -168,5 +172,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/posts/5/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/posts/6/</loc>
 </url>
 </urlset>
